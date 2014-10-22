@@ -1,15 +1,21 @@
 
 package polymorphicsetbags;
 
-import static polymorphicsetbags.PolymorphicSetBags.empty;
+import static polymorphicsetbags.SetBag_NonEmpty.empty;
 
 
-public class PolymorphicSetBags_Empty implements Bag {
+
+public class SetBag_Empty<D> implements Bag, Sequenced {
     
     // These method shouldn't change b/c empty doesn't change -> non-empty 
     // changes with the new rules of a set bag. Just have to make it generic
     
-    public void PolymorphicSetBags_Empty() {
+    public void SetBag_Empty() {
+        
+    }
+    
+    public Sequence<D> seq() {
+        
     }
     
     public int cardinality() {
@@ -20,16 +26,16 @@ public class PolymorphicSetBags_Empty implements Bag {
         return true; 
     }
     
-    public boolean member(Object elt) {
+    public boolean member(D elt) {
 	return false;
     }
 
-    public Bag remove (Object elt) {
+    public Bag remove (D elt) {
 	return this;
     }
 
-    public Bag add(Object elt) {
-        return new PolymorphicSetBags(elt);
+    public Bag add(D elt) {
+        return new SetBag_NonEmpty(elt);
     }
     
     public Bag union(Bag u) {
@@ -38,7 +44,7 @@ public class PolymorphicSetBags_Empty implements Bag {
     
     public Bag inter(Bag u) {
         return empty();  
-        }
+    }
     
     public Boolean equal (Bag u) {
         return u.cardinality() == this.cardinality();
@@ -49,7 +55,7 @@ public class PolymorphicSetBags_Empty implements Bag {
     }
     
     public Boolean subset (Bag u) {
-        return true;
+        return true; 
     }
     
 }

@@ -2,6 +2,9 @@
 package polymorphicsetbags;
   
 // REQUIREMENTS: 
+
+import java.lang.reflect.Array;
+
    
    // A finite bag is also called a mulitset and is like a set, 
    // but each element may occur many times. 
@@ -28,19 +31,19 @@ package polymorphicsetbags;
     // Right rotation
     // Left rotation
 
-public class PolymorphicSetBags<D> extends BagIterator<D> implements Bag {
+public class SetBag_NonEmpty<D> implements Bag, Sequenced {
      
     D root;
     Bag left;
     Bag right;
    
-   public PolymorphicSetBags(D root, Bag left, Bag right) {
+   public SetBag_NonEmpty(D root, Bag left, Bag right) {
         this.root = root;
         this.left = left;
         this.right = right;
     }
 
-   public PolymorphicSetBags(D root) {
+   public SetBag_NonEmpty(D root) {
         // Setting Properties
         this.root = root;
         this.left = empty();
@@ -52,13 +55,19 @@ public class PolymorphicSetBags<D> extends BagIterator<D> implements Bag {
    // IMPLEMENTATION: 
    
     public static Bag empty() {
-        return new PolymorphicSetBags_Empty();
+        return new SetBag_Empty();
     }
     
     // These will be implemented using AVI Trees and an iterator:
+    // We need something that puts this in a sequence. 
+    
+    public Sequence<D> seq() { 
+        
+    }
     
     public int cardinality() {
         // NEED TO IMPLEMENT
+       
     }
     
     public  boolean isEmptyHuh() {
@@ -74,11 +83,17 @@ public class PolymorphicSetBags<D> extends BagIterator<D> implements Bag {
         // NEED TO IMPLEMENT
     }
     
-    public Bag remove (Object elt) {
+    public Bag remove (D elt) {
         // NEED TO IMPLEMENT
     }
     
-    public Bag add(Object elt) {
+    // Remove everything or just one if there are duplicates
+    
+    public Bag removeAll (D elt) {
+        
+    }
+    
+    public Bag add(D elt) {
         // NEED TO IMPLEMENT
     }
     
@@ -87,14 +102,14 @@ public class PolymorphicSetBags<D> extends BagIterator<D> implements Bag {
     // top main functions
     
     public Bag union(Bag u) {
-         Bag bag = new PolymorphicSetBags(this.root, this.left,
+         Bag bag = new SetBag_NonEmpty(this.root, this.left,
                 this.right);
         return u.union(left.union(right)).add(root);
     }
     
     public Bag inter(Bag u) {
       if (u.member(this.root)) {
-            return new PolymorphicSetBags(this.root, this.left.inter(u),
+            return new SetBag_NonEmpty(this.root, this.left.inter(u),
                     this.right.inter(u));
         } else {
             return this.left.inter(u).union(this.right.inter(u));
@@ -120,7 +135,7 @@ public class PolymorphicSetBags<D> extends BagIterator<D> implements Bag {
     
     
     public static void main(String[] args) {
-        // TODO code application logic here
+        // HERE we run the tests....
     }
 }
 

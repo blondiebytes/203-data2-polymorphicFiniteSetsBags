@@ -1,12 +1,12 @@
 
 package polymorphicsetbags;
 
-public interface Bag<Comparable> {
+public interface Bag<D> extends Sequenced {
     public int cardinality();
     public  boolean isEmptyHuh();
-    public  boolean member(Comparable elt); 
-    public Bag remove (Comparable elt);
-    public Bag add(Comparable elt);
+    public  boolean member(D elt); 
+    public Bag remove (D elt);
+    public Bag add(D elt);
     public Bag union(Bag u);
     public Bag inter(Bag u);
     public Bag diff(Bag u);
