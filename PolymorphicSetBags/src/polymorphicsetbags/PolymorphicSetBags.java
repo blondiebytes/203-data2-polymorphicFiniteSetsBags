@@ -1,14 +1,7 @@
 
 package polymorphicsetbags;
-
-
-public class PolymorphicSetBags<D> implements Bag {
-     
-    D root;
-    Bag left;
-    Bag right;
-    
-    // REQUIREMENTS: 
+  
+// REQUIREMENTS: 
    
    // A finite bag is also called a mulitset and is like a set, 
    // but each element may occur many times. 
@@ -30,14 +23,16 @@ public class PolymorphicSetBags<D> implements Bag {
     // The main methods we are changing are cardinality, member, add, remove
     // IMPLEMENT USING ITERATOR! How to create iterators?
     
-    // For the iterator, we will need:
-    // HasNext?
-    // next()
-    // previous() --> if we are fancy
     
     // Need "Tree Rotation"
     // Right rotation
     // Left rotation
+
+public class PolymorphicSetBags<D> extends BagIterator<D> implements Bag {
+     
+    D root;
+    Bag left;
+    Bag right;
    
    public PolymorphicSetBags(D root, Bag left, Bag right) {
         this.root = root;
