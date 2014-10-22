@@ -4,7 +4,7 @@ package polymorphicsetbags;
 import java.util.Iterator;
 
 
-public class Sequence<D> implements Iterator {
+public class Sequence<D> {
     
     D here;
     Sequence<D> next;

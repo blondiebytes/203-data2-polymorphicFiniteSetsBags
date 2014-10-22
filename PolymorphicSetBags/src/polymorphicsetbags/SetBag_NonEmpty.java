@@ -34,13 +34,13 @@ import java.lang.reflect.Array;
 public class SetBag_NonEmpty<D> implements Bag, Sequenced {
     
     int count; 
-    D here;
+    D root;
     Bag left;
     Bag right;
    
    public SetBag_NonEmpty(D root, Bag left, Bag right) {
         this.count = 1;
-        this.here = root;
+        this.root = root;
         this.left = left;
         this.right = right;
     }
@@ -48,7 +48,7 @@ public class SetBag_NonEmpty<D> implements Bag, Sequenced {
    public SetBag_NonEmpty(D root) {
         // Setting Properties
         this.count = 1; 
-        this.here = root;
+        this.root = root;
         this.left = empty();
         this.right = empty();
     }
@@ -91,7 +91,7 @@ public class SetBag_NonEmpty<D> implements Bag, Sequenced {
     // Remove everything or just one if there are duplicates
     
     public Bag removeAll (D elt) {
-        // Check if equal, set count to 0
+        // Check if equal, return a Bag where the count is 0
     }
     
     public Bag add(D elt) {
