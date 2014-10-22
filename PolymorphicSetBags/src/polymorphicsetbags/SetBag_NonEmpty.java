@@ -32,20 +32,23 @@ import java.lang.reflect.Array;
     // Left rotation
 
 public class SetBag_NonEmpty<D> implements Bag, Sequenced {
-     
-    D root;
+    
+    int count; 
+    D here;
     Bag left;
     Bag right;
    
    public SetBag_NonEmpty(D root, Bag left, Bag right) {
-        this.root = root;
+        this.count = 1;
+        this.here = root;
         this.left = left;
         this.right = right;
     }
 
    public SetBag_NonEmpty(D root) {
         // Setting Properties
-        this.root = root;
+        this.count = 1; 
+        this.here = root;
         this.left = empty();
         this.right = empty();
     }
@@ -75,26 +78,24 @@ public class SetBag_NonEmpty<D> implements Bag, Sequenced {
     }
     
     
-    // It errors when I do (Comparable elt) --> anyway to fix this?
-    // Plus they need to be iterable and comparable.... You have to be
-    // able to go through them AND compare them to each other so they 
-    // can be in the right order. 
-    public  boolean member(Object elt) {
-        // NEED TO IMPLEMENT
+    public  boolean member(D elt) {
+        // Check if count is 0 for that element
+        // else
+        // do what we did before
     }
     
     public Bag remove (D elt) {
-        // NEED TO IMPLEMENT
+        // Check if element is equal, remove -> subtract from count
     }
     
     // Remove everything or just one if there are duplicates
     
     public Bag removeAll (D elt) {
-        
+        // Check if equal, set count to 0
     }
     
     public Bag add(D elt) {
-        // NEED TO IMPLEMENT
+        // NEED TO ELEMENT
     }
     
     

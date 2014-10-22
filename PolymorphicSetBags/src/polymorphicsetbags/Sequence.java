@@ -1,20 +1,25 @@
 
 package polymorphicsetbags;
 
+import java.util.Iterator;
 
-public class Sequence<D> {
+
+public class Sequence<D> implements Iterator {
+    
+    D here;
+    Sequence<D> next;
 
     public D here() {
         
     }
     
-    public boolean notEmpty() {
+    public boolean hasNext() {
         
     }
     
-    public Sequence next() {
-        
+    public Sequence<D> next() {
         
     }
+   
     
 }

@@ -1,7 +1,7 @@
 
 package polymorphicsetbags;
 
-public interface Bag<D> extends Sequenced {
+public interface Bag<D> {
     public int cardinality();
     public  boolean isEmptyHuh();
     public  boolean member(D elt); 
