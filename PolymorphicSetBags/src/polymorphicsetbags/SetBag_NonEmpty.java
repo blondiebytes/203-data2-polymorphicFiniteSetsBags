@@ -237,13 +237,13 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         
     
    
-        System.out.println("Inter & equal = true  = " + bag.inter(empty()).equal(empty()));
-        System.out.println("Inter & equal = true = " + empty().inter(empty()).equal(empty()));
+        System.out.println("Inter & equal: Bag inter empty() = empty() = true  = " + bag.inter(empty()).equal(empty()));
+        System.out.println("Inter & equal:  empty() inter empty() = empty() true = " + empty().inter(empty()).equal(empty()));
         
         //Not working
-        System.out.println("Union & equal = true = " + (bag.union(empty())).equal(bag));
-        System.out.println("Union & equal = false = " + bag.union(bag).equal(bag));
-        System.out.println("Inter & equal = true = " + bag.inter(bag).equal(bag));
-        System.out.println("Inter & equal = true = " + bag.remove(5).inter(bag).equal(bag.remove(5)));
+        System.out.println("Union & equal: bag U empty() = bag | true = " + (bag.union(empty())).equal(bag));
+        System.out.println("Union & equal: bag U bag = bag | false = " + bag.union(bag).equal(bag));
+        System.out.println("Inter & equal: bag inter bag = bag | true = " + bag.inter(bag).equal(bag));
+        System.out.println("Inter & equal: bag(without 5) inter bag = bag(without 5) | true = " + bag.remove(5).inter(bag).equal(bag.remove(5)));
     }
 }
