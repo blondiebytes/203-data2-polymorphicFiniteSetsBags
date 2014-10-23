@@ -62,7 +62,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         if (elt.equals(this.root)) {
             return count;
         } else {
-            if (elt.compareTo(root) == -1) {
+            if (elt.compareTo(root) < 0) {
                 return this.left.getCount(elt);
             } else {
                 return this.right.getCount(elt);
@@ -95,7 +95,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
     public boolean member(D elt) {
         if (elt.equals(this.root)) {
             return this.count != 0;
-        } else if (elt.compareTo(this.root) > 0) {
+        } else if (elt.compareTo(this.root) < 0) {
             return this.left.member(elt);
         } else {
             return this.right.member(elt);
@@ -108,7 +108,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         if (elt.equals(this.root)) {
             return new SetBag_NonEmpty(this.root, this.count - 1,
                     this.left, this.right);
-        } else if (elt.compareTo(this.root) > 0) {
+        } else if (elt.compareTo(this.root) < 0) {
             return new SetBag_NonEmpty(this.root, this.left.remove(elt), this.right);
         } else {
             return new SetBag_NonEmpty(this.root, this.left,
@@ -118,12 +118,12 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
 
     public Bag removeN(D elt, int n) {
         if (elt.equals(this.root)) {
-            if (n != 0) {
+            if (n > 0) {
                return new SetBag_NonEmpty(this.root, this.count - n, this.left, this.right);
             } else 
                 return new SetBag_NonEmpty(this.root, 0, this.left, this.right);
         } else {
-            if (elt.compareTo(this.root) > 0) {
+            if (elt.compareTo(this.root) < 0) {
                 return new SetBag_NonEmpty(this.root, this.count, this.left.removeN(elt, n), this.right);
             } else {
                 return new SetBag_NonEmpty(this.root, this.count, this.left, this.right.removeN(elt, n));
@@ -135,7 +135,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         if (elt.equals(this.root)) {
             return new SetBag_NonEmpty(this.root, 0,
                     this.left, this.right);
-        } else if (elt.compareTo(this.root) > 0) {
+        } else if (elt.compareTo(this.root) < 0) {
             return new SetBag_NonEmpty(this.root, this.left.remove(elt), this.right);
         } else {
             return new SetBag_NonEmpty(this.root, this.left,
@@ -148,7 +148,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         if (elt.equals(this.root)) {
             return new SetBag_NonEmpty(this.root, this.count + 1, this.left, this.right);
         } else {
-            if (elt.compareTo(this.root) > 0) {
+            if (elt.compareTo(this.root) < 0) {
                 return new SetBag_NonEmpty(this.root, this.count, this.left.add(elt), this.right);
             } // If the root is less than the element, then add it to the 
             // right tree
@@ -160,14 +160,14 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
 
     public Bag addN (D elt, int n) {
         if (elt.equals(this.root)) {
-            if (n != 0) {
+            if (n > 0) {
                 return new SetBag_NonEmpty(this.root, this.count + n, this.left, this.right);
             } else {
                 return new SetBag_NonEmpty(this.root, 0, this.left, this.right);
             }
             
         } else {
-            if (elt.compareTo(this.root) > 0) {
+            if (elt.compareTo(this.root) < 0) {
                 return new SetBag_NonEmpty(this.root, this.count, this.left.addN(elt, n), this.right);
             } else {
                 return new SetBag_NonEmpty(this.root, this.count, this.left, this.right.addN(elt, n));
