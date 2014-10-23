@@ -118,12 +118,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
 
     public Bag removeN(D elt, int n) {
         if (elt.equals(this.root)) {
-            if (n == 0) {
-                 return new SetBag_NonEmpty(this.root, this.count, this.left, this.right);
-            } else {
-                return new SetBag_NonEmpty(this.root, this.count - 1, this.left, 
-                        this.right).removeN(elt, n - 1);
-            }
+               return new SetBag_NonEmpty(this.root, this.count - n, this.left, this.right);
         } else {
             if (elt.compareTo(this.root) > 0) {
                 return new SetBag_NonEmpty(this.root, this.count, this.left.removeN(elt, n), this.right);
@@ -162,12 +157,8 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
 
     public Bag addN (D elt, int n) {
         if (elt.equals(this.root)) {
-            if (n == 0) {
-                 return new SetBag_NonEmpty(this.root, this.count, this.left, this.right);
-            } else {
-                return new SetBag_NonEmpty(this.root, this.count + 1, this.left, 
-                        this.right).addN(elt, n - 1);
-            }
+                 return new SetBag_NonEmpty(this.root, this.count + n, this.left, this.right);
+            
         } else {
             if (elt.compareTo(this.root) > 0) {
                 return new SetBag_NonEmpty(this.root, this.count, this.left.addN(elt, n), this.right);
@@ -234,7 +225,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         System.out.println("Equal = false = " + bag.equal(bag.remove(5)));
         System.out.println("Subset = true = " + bag.remove(5).subset(bag));
         System.out.println("Subset = false = " + bag.subset(bag.remove(5)));
-        
+  
     
    
         System.out.println("Inter & equal: Bag inter empty() = empty() = true  = " + bag.inter(empty()).equal(empty()));
@@ -245,5 +236,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         System.out.println("Union & equal: bag U bag = bag | false = " + bag.union(bag).equal(bag));
         System.out.println("Inter & equal: bag inter bag = bag | true = " + bag.inter(bag).equal(bag));
         System.out.println("Inter & equal: bag(without 5) inter bag = bag(without 5) | true = " + bag.remove(5).inter(bag).equal(bag.remove(5)));
+        System.out.println("Difference: Bag - bag = empty() | true = " + bag.diff(bag).equal(empty()));
+        System.out.println("Difference: Bag - bag = bag | false = " + bag.diff(bag).equal(bag));
     }
 }
