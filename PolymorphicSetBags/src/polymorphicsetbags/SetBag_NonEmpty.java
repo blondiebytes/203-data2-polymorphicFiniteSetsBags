@@ -118,7 +118,10 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
 
     public Bag removeN(D elt, int n) {
         if (elt.equals(this.root)) {
+            if (n != 0) {
                return new SetBag_NonEmpty(this.root, this.count - n, this.left, this.right);
+            } else 
+                return new SetBag_NonEmpty(this.root, 0, this.left, this.right);
         } else {
             if (elt.compareTo(this.root) > 0) {
                 return new SetBag_NonEmpty(this.root, this.count, this.left.removeN(elt, n), this.right);
@@ -157,7 +160,11 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
 
     public Bag addN (D elt, int n) {
         if (elt.equals(this.root)) {
-                 return new SetBag_NonEmpty(this.root, this.count + n, this.left, this.right);
+            if (n != 0) {
+                return new SetBag_NonEmpty(this.root, this.count + n, this.left, this.right);
+            } else {
+                return new SetBag_NonEmpty(this.root, 0, this.left, this.right);
+            }
             
         } else {
             if (elt.compareTo(this.root) > 0) {
@@ -226,17 +233,18 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         System.out.println("Subset = true = " + bag.remove(5).subset(bag));
         System.out.println("Subset = false = " + bag.subset(bag.remove(5)));
   
-    
-   
         System.out.println("Inter & equal: Bag inter empty() = empty() = true  = " + bag.inter(empty()).equal(empty()));
         System.out.println("Inter & equal:  empty() inter empty() = empty() true = " + empty().inter(empty()).equal(empty()));
-        
+        System.out.println("Difference: Bag - bag = bag | false = " + bag.diff(bag).equal(bag));
+           
         //Not working
         System.out.println("Union & equal: bag U empty() = bag | true = " + (bag.union(empty())).equal(bag));
+        System.out.println("Union & equal: bag U empty() -> bag.cardinality " + bag.cardinality() +" = union.cardinality " + bag.union(empty()).cardinality());
+        
         System.out.println("Union & equal: bag U bag = bag | false = " + bag.union(bag).equal(bag));
         System.out.println("Inter & equal: bag inter bag = bag | true = " + bag.inter(bag).equal(bag));
         System.out.println("Inter & equal: bag(without 5) inter bag = bag(without 5) | true = " + bag.remove(5).inter(bag).equal(bag.remove(5)));
         System.out.println("Difference: Bag - bag = empty() | true = " + bag.diff(bag).equal(empty()));
-        System.out.println("Difference: Bag - bag = bag | false = " + bag.diff(bag).equal(bag));
+     
     }
 }
