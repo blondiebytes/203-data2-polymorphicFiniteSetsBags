@@ -18,6 +18,10 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
         return new Sequence_Empty();
     }
     
+    public int getCount(D elt) {
+        return 0;
+    }
+    
     public int cardinality() {
 	return 0;
     }
@@ -40,6 +44,10 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
 
     public Bag add(D elt) {
         return new SetBag_NonEmpty(elt);
+    }
+    
+    public Bag addN(D elt, int n) {
+        return new SetBag_NonEmpty(elt, n);
     }
     
     public Bag union(Bag u) {
