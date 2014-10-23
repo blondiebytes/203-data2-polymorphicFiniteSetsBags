@@ -38,6 +38,10 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
 	return this;
     }
     
+    public Bag removeN(D elt, int n) {
+        return this.remove(elt);
+    }
+    
     public Bag removeAll (D elt) {
         return this.remove(elt);
     }

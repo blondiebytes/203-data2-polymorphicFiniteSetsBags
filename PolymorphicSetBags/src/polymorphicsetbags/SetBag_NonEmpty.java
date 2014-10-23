@@ -116,7 +116,23 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         }
     }
 
-
+    public Bag removeN(D elt, int n) {
+        if (elt.equals(this.root)) {
+            if (n == 0) {
+                 return new SetBag_NonEmpty(this.root, this.count, this.left, this.right);
+            } else {
+                return new SetBag_NonEmpty(this.root, this.count - 1, this.left, 
+                        this.right).removeN(elt, n - 1);
+            }
+        } else {
+            if (elt.compareTo(this.root) > 0) {
+                return new SetBag_NonEmpty(this.root, this.count, this.left.removeN(elt, n), this.right);
+            } else {
+                return new SetBag_NonEmpty(this.root, this.count, this.left, this.right.removeN(elt, n));
+            }
+        }
+    }
+    
     public Bag removeAll(D elt) {
         if (elt.equals(this.root)) {
             return new SetBag_NonEmpty(this.root, 0,
@@ -146,7 +162,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
 
     public Bag addN (D elt, int n) {
         if (elt.equals(this.root)) {
-            if (count == 0) {
+            if (n == 0) {
                  return new SetBag_NonEmpty(this.root, this.count, this.left, this.right);
             } else {
                 return new SetBag_NonEmpty(this.root, this.count + 1, this.left, 
@@ -154,19 +170,23 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
             }
         } else {
             if (elt.compareTo(this.root) > 0) {
-                return this.left.addN(elt, n);
+                return new SetBag_NonEmpty(this.root, this.count, this.left.addN(elt, n), this.right);
             } else {
-                return this.right.addN(elt, n);
+                return new SetBag_NonEmpty(this.root, this.count, this.left, this.right.addN(elt, n));
             }
         }
     }
     
-    // None of these will change too much because they are all based on the
-    // top main functions
+    // Not Working
     public Bag union(Bag u) {
-        return u.union(left.union(right)).add(root);
+        Bag bag = empty();
+        for (int i = 0; i >= this.getCount(root); i++) {
+            bag = u.union(left.union(right)).add(root);
+         }
+        return bag;
     }
 
+    // Not Working
     public Bag inter(Bag u) {
         if (u.member(this.root)) {
             if (u.getCount(root) > this.getCount(root)) {
@@ -181,8 +201,11 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         }
     }
 
+    // Not Working
     public Bag diff(Bag u) {
-        Bag removed = u.removeAll(root);
+        // U - this
+        // 6 - 5 --> subtract how many in this
+        Bag removed = u.removeN(root, this.getCount(root));
         return (left.union(right)).diff(removed);
     }
 
@@ -219,7 +242,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         
         //Not working
         System.out.println("Union & equal = true = " + (bag.union(empty())).equal(bag));
-        System.out.println("Union & equal = true = " + bag.union(bag).equal(bag));
+        System.out.println("Union & equal = false = " + bag.union(bag).equal(bag));
         System.out.println("Inter & equal = true = " + bag.inter(bag).equal(bag));
         System.out.println("Inter & equal = true = " + bag.remove(5).inter(bag).equal(bag.remove(5)));
     }
