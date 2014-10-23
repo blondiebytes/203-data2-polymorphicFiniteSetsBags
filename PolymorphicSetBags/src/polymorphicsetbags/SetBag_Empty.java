@@ -5,7 +5,7 @@ import static polymorphicsetbags.SetBag_NonEmpty.empty;
 
 
 
-public class SetBag_Empty<D> implements Bag, Sequenced {
+public class SetBag_Empty<D extends Comparable> implements Bag<D> {
     
     // These method shouldn't change b/c empty doesn't change -> non-empty 
     // changes with the new rules of a set bag. Just have to make it generic
@@ -15,7 +15,7 @@ public class SetBag_Empty<D> implements Bag, Sequenced {
     }
     
     public Sequence<D> seq() {
-        
+        return new Sequence_Empty();
     }
     
     public int cardinality() {
@@ -32,6 +32,10 @@ public class SetBag_Empty<D> implements Bag, Sequenced {
 
     public Bag remove (D elt) {
 	return this;
+    }
+    
+    public Bag removeAll (D elt) {
+        return this.remove(elt);
     }
 
     public Bag add(D elt) {

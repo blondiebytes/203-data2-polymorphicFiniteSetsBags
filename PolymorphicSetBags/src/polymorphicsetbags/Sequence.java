@@ -4,22 +4,13 @@ package polymorphicsetbags;
 import java.util.Iterator;
 
 
-public class Sequence<D> {
+public interface Sequence<D> {
+ 
+    public D here();
     
-    D here;
-    Sequence<D> next;
-
-    public D here() {
-        
-    }
+    public boolean hasNext();
     
-    public boolean hasNext() {
-        
-    }
-    
-    public Sequence<D> next() {
-        
-    }
+    public Sequence<D> next();
    
     
 }
