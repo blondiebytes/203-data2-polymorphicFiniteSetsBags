@@ -142,7 +142,7 @@ public class TesterClass {
         checkTree_union_subset++;
     }
 
-    // 
+    // NOT WORKING: 
     public static void checkTree_subset_diff(Bag t, Bag r) throws Exception {
         // If we take R - T = D; then T is either the empty set or it is not
         // a subset of it's difference
@@ -154,6 +154,7 @@ public class TesterClass {
 //            Success! A tree is not a subset of the "
 //                    + "difference"
         } else {
+            System.out.println("T cardinality: " + t.cardinality() + " R cardinality: " + r.cardinality());
             throw new Exception("Failure! Problem with subset or diff!");
         }
         checkTree_subset_diff++;
@@ -173,14 +174,13 @@ public class TesterClass {
         checkTree_diff_inter_empty_equal++;
     }
 
+    //Changed from original in finiteSet b/c union now equals 2 * inter;
     public static void checkTree_equal_union_inter(Bag t, Bag r) throws Exception {
         // Two sets are equal iff their union and intersection is the same
-        if ((t.union(r).equal(t.inter(r))) && t.equal(r)) {
-//            "Success! The two trees are equal and have "
-//                    + "the same intersection and union"
-        } else if ((t.union(r) != t.inter(r)) && !t.equal(r)) {
-//            "Success! They are not equal and their"
-//                    + " intersection and union are different"
+        if ((t.union(r).cardinality() == (t.inter(r)).cardinality() * 2) && t.equal(r)) {
+//            "Success! The two trees are equal and 2* inter = union"
+        } else if ((t.union(r).cardinality() != t.inter(r).cardinality() * 2) && !t.equal(r)) {
+//            "Success! They are not equal and 2 * inter != union"
         } else {
             System.out.println("t.union(r).cardinality" + t.union(r).cardinality()
                     + " inter cardinality" + t.inter(r).cardinality() + "equal?: " + t.equal(r));
