@@ -115,11 +115,12 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
                     this.right.remove(elt));
         }
     }
-
+    
+    // Not working!
     public Bag removeN(D elt, int n) {
         if (elt.equals(this.root)) {
           int max = Math.max(0, this.count - n);
-          return new SetBag_NonEmpty(this.root, this.count - max, this.left, this.right);
+          return new SetBag_NonEmpty(this.root, max, this.left, this.right);
         } else {
             if (elt.compareTo(this.root) < 0) {
                 return new SetBag_NonEmpty(this.root, this.count, this.left.removeN(elt, n), this.right);
@@ -156,10 +157,11 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
       }
     }
 
+    // Not Working
     public Bag addN (D elt, int n) {
         if (elt.equals(this.root)) {
-            int max = Math.max(0, this.count - n);
-            return new SetBag_NonEmpty(this.root, this.count + max, this.left, this.right);
+            int max = Math.max(0, this.count + n);
+            return new SetBag_NonEmpty(this.root, max, this.left, this.right);
         } else {
             if (elt.compareTo(this.root) < 0) {
                 return new SetBag_NonEmpty(this.root, this.count, this.left.addN(elt, n), this.right);
@@ -231,15 +233,31 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         System.out.println("Union & equal: bag U empty() -> bag.cardinality " + bag.cardinality() +" = union.cardinality " + bag.union(empty()).cardinality());
         System.out.println("Inter & equal: bag inter bag = bag | true = " + bag.inter(bag).equal(bag));
         System.out.println("Inter & equal: bag(without 5) inter bag = bag(without 5) | true = " + bag.remove(5).inter(bag).equal(bag.remove(5)));
-        
+        System.out.println("AddN & Cardinality 6 + 3 = " + bag.addN(10, 3).cardinality());
+        System.out.println("RemoveN & Cardinality 6 - 3 = " + bag.removeN(5, 3).cardinality());
+        System.out.println("RemoveN & Cardinality 6 - 2 = " + bag.removeN(5, 2).cardinality());
+        System.out.println("RemoveN & Cardinality 6 - 1 = " + bag.removeN(5, 1).cardinality());
+        System.out.println("RemoveN & Cardinality 6 - 1 = " + bag.removeN(3, 2).cardinality());
+        System.out.println("RemoveN & Cardinality 6 - 1 = " + bag.removeN(3, 1).cardinality());
+        // Because 8 isn't in the tree
+        System.out.println("RemoveN & Cardinality 6 - 0 = " + bag.removeN(8, 2).cardinality());
+        System.out.println("AddN & Cardinality 6 + 3 = " + bag.addN(5, 3).cardinality());
+        System.out.println("AddN & Cardinality 6 + 2 = " + bag.addN(5, 2).cardinality());
+        System.out.println("AddN & Cardinality 6 + 1 = " + bag.addN(5, 1).cardinality());
+        System.out.println("AddN & Cardinality 6 + 2 = " + bag.addN(8, 2).cardinality());
+        System.out.println("AddN & Cardinality 6 + 1 = " + bag.addN(3, 1).cardinality());
+        System.out.println("Difference: Bag - bag = bag | false = " + bag.diff(bag).equal(bag));
+        System.out.println("Difference: Bag - bag = empty() | true = " + bag.diff(bag).equal(empty()));
         
         System.out.println();
+        
         // Not working
         System.out.println("Union & equal: bag U bag = bag | false = " + bag.union(bag).equal(bag));
                System.out.println("Union & equal: bag U bag = bag | cardinality should be doubled = 2x " + "U:" + 
                        bag.union(bag).cardinality() + "bag " + bag.cardinality());
-        System.out.println("Difference: Bag - bag = bag | false = " + bag.diff(bag).equal(bag));
-        System.out.println("Difference: Bag - bag = empty() | true = " + bag.diff(bag).equal(empty()));
+        
      
+        
+        
     }
 }
