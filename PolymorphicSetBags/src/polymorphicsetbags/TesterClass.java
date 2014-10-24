@@ -11,6 +11,7 @@ public class TesterClass {
     // When you remove something that is duplicated in the list, the cardinality
     // should be one less (it should only remove one of the duplicated things)
     
+    // Count should always be positive
     
     
     

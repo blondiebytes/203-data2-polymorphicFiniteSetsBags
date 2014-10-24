@@ -171,9 +171,9 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
     
     // Not Working
     public Bag union(Bag u) {
-        Bag bag = empty();
+        Bag bag = u.union(left.union(right));
         for (int i = 0; i >= this.getCount(root); i++) {
-            bag = u.union(left.union(right)).add(root);
+            bag = bag.add(root);
          }
         return bag;
     }
@@ -230,6 +230,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         System.out.println("Inter & equal: Bag inter empty() = empty() = true  = " + bag.inter(empty()).equal(empty()));
         System.out.println("Inter & equal:  empty() inter empty() = empty() true = " + empty().inter(empty()).equal(empty()));
         
+        System.out.println("Union & equal: empty() U bag = bag | true = " + empty().union(bag).equal(bag));
         System.out.println("Union & equal: bag U bag = bag | false = " + bag.union(bag).equal(bag));
         System.out.println("Inter & equal: bag inter bag = bag | true = " + bag.inter(bag).equal(bag));
         System.out.println("Inter & equal: bag(without 5) inter bag = bag(without 5) | true = " + bag.remove(5).inter(bag).equal(bag.remove(5)));
@@ -237,8 +238,12 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         
         System.out.println();
         //Not working
+        // opposite works tho
         System.out.println("Union & equal: bag U empty() = bag | true = " + (bag.union(empty())).equal(bag));
         System.out.println("Union & equal: bag U empty() -> bag.cardinality " + bag.cardinality() +" = union.cardinality " + bag.union(empty()).cardinality());
+        
+        System.out.println();
+          
         System.out.println("Difference: Bag - bag = bag | false = " + bag.diff(bag).equal(bag));
      
         System.out.println("Difference: Bag - bag = empty() | true = " + bag.diff(bag).equal(empty()));
