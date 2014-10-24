@@ -135,10 +135,10 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
             return new SetBag_NonEmpty(this.root, 0,
                     this.left, this.right);
         } else if (elt.compareTo(this.root) < 0) {
-            return new SetBag_NonEmpty(this.root, this.left.remove(elt), this.right);
+            return new SetBag_NonEmpty(this.root, this.left.removeAll(elt), this.right);
         } else {
             return new SetBag_NonEmpty(this.root, this.left,
-                    this.right.remove(elt));
+                    this.right.removeAll(elt));
         }
     }
 
