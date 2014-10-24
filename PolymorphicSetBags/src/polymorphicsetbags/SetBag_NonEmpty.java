@@ -171,11 +171,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
     
     // Not Working
     public Bag union(Bag u) {
-        Bag bag = u.union(left.union(right));
-        for (int i = 0; i >= this.getCount(root); i++) {
-            bag = bag.add(root);
-         }
-        return bag;
+        return u.union(left.union(right)).addN(root, this.getCount(root));
     }
 
     // Not Working
@@ -245,7 +241,6 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         System.out.println();
           
         System.out.println("Difference: Bag - bag = bag | false = " + bag.diff(bag).equal(bag));
-     
         System.out.println("Difference: Bag - bag = empty() | true = " + bag.diff(bag).equal(empty()));
      
     }
