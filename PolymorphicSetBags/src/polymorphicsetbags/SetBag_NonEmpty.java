@@ -234,11 +234,10 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         
         
         System.out.println();
-        //Not working
-      
-        
-        System.out.println();
+        // Not working
         System.out.println("Union & equal: bag U bag = bag | false = " + bag.union(bag).equal(bag));
+               System.out.println("Union & equal: bag U bag = bag | cardinality should be doubled = 2x " + "U:" + 
+                       bag.union(bag).cardinality() + "bag " + bag.cardinality());
         System.out.println("Difference: Bag - bag = bag | false = " + bag.diff(bag).equal(bag));
         System.out.println("Difference: Bag - bag = empty() | true = " + bag.diff(bag).equal(empty()));
      
