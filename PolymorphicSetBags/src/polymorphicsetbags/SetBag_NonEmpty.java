@@ -173,7 +173,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
     
     // Not Working
     public Bag union(Bag u) {
-        return u.union(left.union(right)).addN(root, this.getCount(root) + u.getCount(root));
+        return u.union(left.union(right)).addN(root, this.getCount(root));
     }
 
     // Not Working
@@ -231,6 +231,13 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         System.out.println("Union & equal: empty() U bag = bag | true = " + empty().union(bag).equal(bag));
        System.out.println("Union & equal: bag U empty() = bag | true = " + (bag.union(empty())).equal(bag));
         System.out.println("Union & equal: bag U empty() -> bag.cardinality " + bag.cardinality() +" = union.cardinality " + bag.union(empty()).cardinality());
+        System.out.println("Union & equal: bag U bag = bag | false = " + bag.union(bag).equal(bag));
+        System.out.println("Union & equal: bag U bag = bag | cardinality should be doubled = 2x " + "U:" + 
+                       bag.union(bag).cardinality() + "bag " + bag.cardinality());
+        System.out.println("Union & equal: bag U bag = bag | Should have 6 fives = " + bag.union(bag).getCount(5));
+        System.out.println("Union & equal: bag U bag = bag | Should have 2 threes = " + bag.union(bag).getCount(3));
+        System.out.println("Union & equal: bag U bag = bag | Should have 4 sevens = " + bag.union(bag).getCount(7));
+        
         System.out.println("Inter & equal: bag inter bag = bag | true = " + bag.inter(bag).equal(bag));
         System.out.println("Inter & equal: bag(without 5) inter bag = bag(without 5) | true = " + bag.remove(5).inter(bag).equal(bag.remove(5)));
         System.out.println("AddN & Cardinality 6 + 3 = " + bag.addN(10, 3).cardinality());
@@ -248,17 +255,13 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         System.out.println("AddN & Cardinality 6 + 1 = " + bag.addN(3, 1).cardinality());
         System.out.println("Difference: Bag - bag = bag | false = " + bag.diff(bag).equal(bag));
         System.out.println("Difference: Bag - bag = empty() | true = " + bag.diff(bag).equal(empty()));
-        
+        System.out.println("Difference: Bag (w/o 5) - bag = empty() | true = " + bag.diff(bag.removeN(5,3)).equal(empty()));
+        System.out.println("Difference: Bag - bag(w/o 5) = bag | true = " + bag.removeN(5, 3).diff(bag).equal(empty().addN(5, 3)));
+
         System.out.println();
-        
-        // Not working
-        System.out.println("Union & equal: bag U bag = bag | false = " + bag.union(bag).equal(bag));
-        System.out.println("Union & equal: bag U bag = bag | cardinality should be doubled = 2x " + "U:" + 
-                       bag.union(bag).cardinality() + "bag " + bag.cardinality());
-       System.out.println("Union & equal: bag U bag = bag | Should have 6 fives = " + bag.union(bag).getCount(5));
-         System.out.println("Union & equal: bag U bag = bag | Should have 2 threes = " + bag.union(bag).getCount(3));
-                    System.out.println("Union & equal: bag U bag = bag | Should have 4 sevens = " + bag.union(bag).getCount(7));
-        
+  
+               
+
         
     }
 }
