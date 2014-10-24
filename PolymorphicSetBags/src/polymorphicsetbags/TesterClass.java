@@ -15,8 +15,12 @@ public class TesterClass {
     // should be one less (it should only remove one of the duplicated things)
     
     // Count should always be positive
-    
+     
     //TESTING MULTI-BAG:
+    static int checkTree_empty_isEmptyHuh = 0;
+    static int checkTree_isEmptyHuh_cardinality = 0;
+    static int checkTree_cardinality_remove = 0;
+    
     
      public static int rndInt(int min, int max) {
         Random rnd = new Random();
@@ -33,6 +37,7 @@ public class TesterClass {
     
     public static void checkTree_empty_isEmptyHuh (int count) throws Exception {
         // Creating a empty tree or a random tree
+       
         if (count == 0) {
             Bag t = empty();
             if (!t.isEmptyHuh()) {
@@ -43,8 +48,10 @@ public class TesterClass {
             Bag l = rndBag(len);
             if (l.isEmptyHuh()) {
                 throw new Exception("Failure: A nonempty set is empty!");
-            }
-    }
+                }
+            
+        }
+        checkTree_empty_isEmptyHuh++;
     }
     
     public static void checkTree_isEmptyHuh_cardinality(Bag t) throws Exception{
@@ -55,16 +62,21 @@ public class TesterClass {
         if (t.isEmptyHuh() && (t.cardinality() != 0)) {
                 System.out.println("Failure: Empty with not cardinality = 0");
         }
+        checkTree_isEmptyHuh_cardinality++;
     }
     
+    // SOMETHING WRONG WITH REMOVE
     public static void checkTree_cardinality_remove(Bag t, int x ) throws Exception {
         int nT = t.remove(x).cardinality();
         // Either something was removed -> and it decreased the tree by one
         // Or the thing wasn't there to begin with, and nothing was removed
-        if (nT == (t.cardinality() - 1) || nT != t.cardinality())  {
-            throw new Exception("Failure - the remove and/or cardinality"
+        if (nT == (t.cardinality() - 1) || nT == t.cardinality())  {
+  
+        } else {
+        throw new Exception("Failure - the remove and/or cardinality"
                     + " function failed :( ");
         }
+        checkTree_cardinality_remove++;
     }
          
          public static void checkTree_remove_equal_add(Bag t) throws Exception{
@@ -242,15 +254,39 @@ public class TesterClass {
         
         // Random Tests
         System.out.println();
-        System.out.println("Testing for Empty() & IsEmptyHuh?");
+        // "Testing for Empty() & IsEmptyHuh?: "
         System.out.println();
         for (int i = 0; i < 50; i++) {
             int randomInt = rndInt(0, 1);
             checkTree_empty_isEmptyHuh(randomInt);
         }
-
+        System.out.println("Testing for Empty() & IsEmptyHuh?: "+ checkTree_empty_isEmptyHuh + " times.");
 
         
+        
+        System.out.println();
+        // Testing for Cardinality & IsEmptyHuh
+        for (int i = 0; i < 50; i++) {
+            int len = rndInt(0, 10);
+            Bag l = rndBag(len);
+            checkTree_isEmptyHuh_cardinality(l);
+        }
+        System.out.println("Testing: IsEmptyHuh? & Cardinality: " + checkTree_isEmptyHuh_cardinality + " times");
+        
+        
+        
+        //Testing: Cardinality & Remove"
+        System.out.println();
+
+        // Testing Cardinality & Remove
+        for (int i = 0; i < 50; i++) {
+            int elt = rndInt(0, 10);
+            int len = rndInt(0, 10);
+            Bag l = rndBag(len);
+            checkTree_cardinality_remove(l, elt);
+        }
+        System.out.println("Testing: Cardinality & Remove: " + checkTree_cardinality_remove + " times");
+//
     }
     
 }

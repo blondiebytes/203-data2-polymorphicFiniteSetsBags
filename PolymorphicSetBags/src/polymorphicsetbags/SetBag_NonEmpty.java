@@ -118,9 +118,9 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
             return new SetBag_NonEmpty(this.root, this.count - 1,
                     this.left, this.right);
         } else if (elt.compareTo(this.root) < 0) {
-            return new SetBag_NonEmpty(this.root, this.left.remove(elt), this.right);
+            return new SetBag_NonEmpty(this.root, this.count, this.left.remove(elt), this.right);
         } else {
-            return new SetBag_NonEmpty(this.root, this.left,
+            return new SetBag_NonEmpty(this.root, this.count, this.left,
                     this.right.remove(elt));
         }
     }
