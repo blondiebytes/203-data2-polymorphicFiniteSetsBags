@@ -27,7 +27,7 @@ public class TesterClass {
         if (count == 0) {
             return empty();
         } else {
-            return rndBag(count-1).addN(rndInt(0,50), rndInt(0,10));
+            return rndBag(count-1).addN(rndInt(0,50), rndInt(1,10));
         }
     }
     
@@ -187,8 +187,8 @@ public class TesterClass {
     // TESTING IF BALANCED
     
     //TESITNG SEQUENCE
-    public static void main(String[] args) {
-        // HERE we run the tests....
+    public static void main(String[] args) throws Exception{
+        // Hard-coded tests
         Bag bag = new SetBag_NonEmpty(5, 3, new SetBag_NonEmpty(3, 1, empty(), empty()), new SetBag_NonEmpty(7, 2, empty(), empty()));
         System.out.println("Cardinality: We should have 6 things = " + bag.cardinality());
         System.out.println("Cardinality & Remove: We should have 5 things = " + bag.remove(5).cardinality());
@@ -239,7 +239,16 @@ public class TesterClass {
 
         System.out.println();
   
-               
+        
+        // Random Tests
+        System.out.println();
+        System.out.println("Testing for Empty() & IsEmptyHuh?");
+        System.out.println();
+        for (int i = 0; i < 50; i++) {
+            int randomInt = rndInt(0, 1);
+            checkTree_empty_isEmptyHuh(randomInt);
+        }
+
 
         
     }
