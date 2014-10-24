@@ -253,10 +253,11 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         
         // Not working
         System.out.println("Union & equal: bag U bag = bag | false = " + bag.union(bag).equal(bag));
-               System.out.println("Union & equal: bag U bag = bag | cardinality should be doubled = 2x " + "U:" + 
+        System.out.println("Union & equal: bag U bag = bag | cardinality should be doubled = 2x " + "U:" + 
                        bag.union(bag).cardinality() + "bag " + bag.cardinality());
-        
-     
+       System.out.println("Union & equal: bag U bag = bag | Should have 6 fives = " + bag.union(bag).getCount(5));
+         System.out.println("Union & equal: bag U bag = bag | Should have 2 threes = " + bag.union(bag).getCount(3));
+                    System.out.println("Union & equal: bag U bag = bag | Should have 4 sevens = " + bag.union(bag).getCount(7));
         
         
     }
