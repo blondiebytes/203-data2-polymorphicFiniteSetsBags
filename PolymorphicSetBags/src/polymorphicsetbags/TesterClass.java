@@ -218,7 +218,7 @@ public class TesterClass {
     //TESITNG SEQUENCE
     public static void main(String[] args) throws Exception {
         // Hard-coded tests
-        Bag bag = new SetBag_NonEmpty(5, 3, new SetBag_NonEmpty(3, 1, empty(), empty()), new SetBag_NonEmpty(7, 2, empty(), empty()));
+        Bag<Integer> bag = new SetBag_NonEmpty(5, 3, new SetBag_NonEmpty(3, 1, empty(), empty()), new SetBag_NonEmpty(7, 2, empty(), empty()));
         System.out.println("Cardinality: We should have 6 things = " + bag.cardinality());
         System.out.println("Cardinality & Remove: We should have 5 things = " + bag.remove(5).cardinality());
         System.out.println("Cardinality & Add: We should have 7 things = " + bag.add(5).cardinality());
@@ -268,12 +268,25 @@ public class TesterClass {
 
         System.out.println();
         
-        // Don't work
-//        Bag<String> s1 = new SetBag_NonEmpty(empty(), "aa", 1, empty());
-//        Bag<String> s2 = new SetBag_NonEmpty(empty(), "a", 1, s1);
-//        Bag<String> s3 = new SetBag_NonEmpty(empty(), "aaaa", 1, empty());
-//        Bag<String> s4 = new SetBag_NonEmpty(s3, "aaaaa", 1, empty());
-//        Bag<String> s5 = new SetBag_NonEmpty(s2, "aaa", 1, s4);
+        // With data other than ints
+        Bag<String> s1 = new SetBag_NonEmpty("aa", 1, empty(), empty());
+        Bag<String> s2 = new SetBag_NonEmpty("a", 1, empty(), s1);
+        Bag<String> s3 = new SetBag_NonEmpty("aaaaa", 1);
+        Bag<String> s4 = new SetBag_NonEmpty("aaaa", 1, s1, s3);
+        Bag<String> s5 = new SetBag_NonEmpty("aaa", 1, s2, s4);
+        System.out.println("=== Member (String) tests ===");
+        System.out.println(s1.member("aa") + " should be " + true);
+        System.out.println(s1.member("a") + " should be " + false);
+        System.out.println(s2.member("aaa") + " should be " + false);
+        System.out.println(s2.member("a") + " should be " + true);
+        System.out.println(s3.member("aaaaa") + " should be " + true);
+        System.out.println(s4.member("aaaa") + " should be " + true);
+        System.out.println(s5.member("aaaa") + " should be " + true);
+        System.out.println(s5.member("aaaa") + " should be " + true);
+        System.out.println(s5.member("aaaaa") + " should be " + true);
+        System.out.println(s5.member("aaa") + " should be " + true);
+        System.out.println(s5.member("aa") + " should be " + true);
+        System.out.println(s5.member("a") + " should be " + true);
 
         System.out.println();
 
