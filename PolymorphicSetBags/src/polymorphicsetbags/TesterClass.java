@@ -13,6 +13,9 @@ public class TesterClass {
     // should be one less (it should only remove one of the duplicated things)
     // Count should always be positive
     //TESTING MULTI-BAG:
+    
+    // HOW CAN WE TEST WITH OTHER DATA TYPES?!??!?!?!? -> aka not int
+    
     static int checkTree_empty_isEmptyHuh = 0;
     static int checkTree_isEmptyHuh_cardinality = 0;
     static int checkTree_cardinality_remove = 0;
@@ -68,6 +71,7 @@ public class TesterClass {
         checkTree_isEmptyHuh_cardinality++;
     }
 
+    // ITEM USED:
     public static void checkTree_cardinality_remove(Bag t, int x) throws Exception {
         int nT = t.remove(x).cardinality();
         // Either something was removed -> and it decreased the tree by one
@@ -94,6 +98,7 @@ public class TesterClass {
         checkTree_remove_equal_add++;
     }
 
+    // ITEM USED:
     public static void checkTree_add_member(Bag t, int x, int y) throws Exception {
         Boolean bool = t.add(x).member(y);
         if (bool && x == y) {
@@ -114,6 +119,7 @@ public class TesterClass {
         checkTree_add_member++;
     }
 
+    // ITEM ADDED
     public static void checkTree_member_union(Bag t, Bag r, int x) throws Exception {
         Boolean bool = t.union(r).member(x);
         if (bool && t.member(x)) {
@@ -259,6 +265,15 @@ public class TesterClass {
         System.out.println("Difference: Bag - bag = empty() | true = " + bag.diff(bag).equal(empty()));
         System.out.println("Difference: Bag (w/o 5) - bag = empty() | true = " + bag.diff(bag.removeN(5, 3)).equal(empty()));
         System.out.println("Difference: Bag - bag(w/o 5) = bag | true = " + bag.removeN(5, 3).diff(bag).equal(empty().addN(5, 3)));
+
+        System.out.println();
+        
+        // Don't work
+//        Bag<String> s1 = new SetBag_NonEmpty(empty(), "aa", 1, empty());
+//        Bag<String> s2 = new SetBag_NonEmpty(empty(), "a", 1, s1);
+//        Bag<String> s3 = new SetBag_NonEmpty(empty(), "aaaa", 1, empty());
+//        Bag<String> s4 = new SetBag_NonEmpty(s3, "aaaaa", 1, empty());
+//        Bag<String> s5 = new SetBag_NonEmpty(s2, "aaa", 1, s4);
 
         System.out.println();
 
