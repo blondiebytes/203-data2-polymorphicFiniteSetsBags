@@ -3,7 +3,7 @@ package polymorphicsetbags;
 import java.util.Random;
 import static polymorphicsetbags.SetBag_NonEmpty.empty;
 
-public class TesterClass {
+public class TesterClass<D> {
 
     // Tests to Think About:
     // When you add a new thing, the cardinality should increase
@@ -12,6 +12,11 @@ public class TesterClass {
     // When you remove something that is duplicated in the list, the cardinality
     // should be one less (it should only remove one of the duplicated things)
     // Count should always be positive
+    
+    // A more precise property for union & cardinality:
+    // (count (union u v) x) = (+ (count u x) (count v x))
+    
+    
     //TESTING MULTI-BAG:
     
     // HOW CAN WE TEST WITH OTHER DATA TYPES?!??!?!?!? -> aka not int
@@ -28,7 +33,7 @@ public class TesterClass {
     static int checkTree_equal_union_inter = 0;
     static int checkTree_inter_empty = 0;
 
-    public static int rndInt(int min, int max) {
+    public static int rndInt(int min,int max) {
         Random rnd = new Random();
         return rnd.nextInt((max - min) + 1) + min;
     }
@@ -39,6 +44,15 @@ public class TesterClass {
         } else {
             return rndBag(count - 1).addN(rndInt(0, 50), rndInt(1, 10));
         }
+    }
+    
+    public static String rndStringX(int min, int max) {
+        int rndInt = rndInt(min, max);
+        StringBuilder stringBuffer = new StringBuilder("");
+        for (int i = 0; i > rndInt; i++) {
+            stringBuffer.append("X");
+        }
+        return stringBuffer.toString();
     }
 
     public static void checkTree_empty_isEmptyHuh(int count) throws Exception {
@@ -300,8 +314,21 @@ public class TesterClass {
             int randomInt = rndInt(0, 1);
             checkTree_empty_isEmptyHuh(randomInt);
         }
-        System.out.println("Testing for Empty() & IsEmptyHuh?: " + checkTree_empty_isEmptyHuh + " times.");
+        System.out.println("Testing (Int) for Empty() & IsEmptyHuh?: " + checkTree_empty_isEmptyHuh + " times.");
 
+        checkTree_empty_isEmptyHuh = 0;
+        
+        
+        // How do I change my tests to accept type D? It errors when I just have
+        // D -> it's not recognizing it. 
+        System.out.println();
+        for (int i = 0; i < 50; i++) {
+            String randomString = rndStringX(0, 1);
+            checkTree_empty_isEmptyHuh(randomString);
+        }
+        System.out.println("Testing (String) for Empty() & IsEmptyHuh?: " + checkTree_empty_isEmptyHuh + " times.");
+        
+        
         
         
         System.out.println();
