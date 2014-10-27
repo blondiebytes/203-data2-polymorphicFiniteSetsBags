@@ -6,8 +6,45 @@ import static polymorphicsetbags.SetBag_NonEmpty.empty;
 
 public class RunTests {
 
+// Notes for Running Tests:
+    // When you add a new thing, the cardinality should increase
+    // When you add something that is already in the list, the cardinality 
+    // should still increase
+    // When you remove something that is duplicated in the list, the cardinality
+    // should be one less (it should only remove one of the duplicated things)
+    // Count should always be positive
+    
+    // A more precise property for union & cardinality:
+    // (count (union u v) x) = (+ (count u x) (count v x))
+    
+    
+    //TESTING MULTI-BAG:
+    // TESTING IF BALANCED
+    //TESITNG SEQUENCE
+    
+    // HOW CAN WE TEST WITH OTHER DATA TYPES?!??!?!?!? -> aka not int
     
     public static void main(String[] args) throws Exception {      
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // Hard-coded tests
         Bag<Integer> bag = new SetBag_NonEmpty(5, 3, new SetBag_NonEmpty(3, 1, empty(), empty()), new SetBag_NonEmpty(7, 2, empty(), empty()));
         System.out.println("Cardinality: We should have 6 things = " + bag.cardinality());
