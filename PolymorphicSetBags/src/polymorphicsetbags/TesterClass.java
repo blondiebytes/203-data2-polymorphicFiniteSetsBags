@@ -3,7 +3,12 @@ package polymorphicsetbags;
 import java.util.Random;
 import static polymorphicsetbags.SetBag_NonEmpty.empty;
 
-public class TesterClass<D> {
+
+//testerInt = new TesterClass<Int>(new IntGen());
+//testerInt.runAll();
+
+public class TesterClass<D extends Comparable> {
+    Generator<D> gen;
 
     // Tests to Think About:
     // When you add a new thing, the cardinality should increase
@@ -38,11 +43,11 @@ public class TesterClass<D> {
         return rnd.nextInt((max - min) + 1) + min;
     }
 
-    public static Bag rndBag(int count) {
+    public Bag<D> rndBag(int count) {
         if (count == 0) {
             return empty();
         } else {
-            return rndBag(count - 1).addN(rndInt(0, 50), rndInt(1, 10));
+            return rndBag(count - 1).addN(gen.nextThing(1, 50), rndInt(1, 10));
         }
     }
     
@@ -58,7 +63,7 @@ public class TesterClass<D> {
         return stringBuffer.toString();
     }
 
-    public static void checkTree_empty_isEmptyHuh(int count) throws Exception {
+    public void checkTree_empty_isEmptyHuh(int count) throws Exception {
         // Creating a empty tree or a random tree
         if (count == 0) {
             Bag t = empty();
@@ -77,7 +82,7 @@ public class TesterClass<D> {
         checkTree_empty_isEmptyHuh++;
     }
 
-    public static void checkTree_isEmptyHuh_cardinality(Bag t) throws Exception {
+    public void checkTree_isEmptyHuh_cardinality(Bag t) throws Exception {
         if (!t.isEmptyHuh() && (t.cardinality() == 0)) {
             throw new Exception("Failure: Nonempty set and had a "
                     + "cardinality equal to zero");
@@ -89,7 +94,7 @@ public class TesterClass<D> {
     }
 
     // ITEM USED:
-    public static void checkTree_cardinality_remove(Bag t, int x) throws Exception {
+    public void checkTree_cardinality_remove(Bag t, D x) throws Exception {
         int nT = t.remove(x).cardinality();
         // Either something was removed -> and it decreased the tree by one
         // Or the thing wasn't there to begin with, and nothing was removed
@@ -102,9 +107,11 @@ public class TesterClass<D> {
         checkTree_cardinality_remove++;
     }
 
-    public static void checkTree_remove_equal_add(Bag t) throws Exception {
-        // Add and remove the same element from a copied tree
-        int rand = rndInt(51, 100);
+    public void checkTree_remove_equal_add(Bag t) throws Exception {
+        // Add and remove the same element from a copied tree that 
+        // does not have the element already
+        // This is more of a test for finite sets (not multi-bag)
+        D rand = gen.nextThing(51, 100);
         Bag nT = t.add(rand);
         nT = nT.remove(rand);
              // If the tree we messed with is the same as the original tree
@@ -116,9 +123,9 @@ public class TesterClass<D> {
     }
 
     // ITEM USED:
-    public static void checkTree_add_member(Bag t, int x, int y) throws Exception {
+    public void checkTree_add_member(Bag t, D x, D y) throws Exception {
         Boolean bool = t.add(x).member(y);
-        if (bool && x == y) {
+        if (bool && x.compareTo(y) == 0) {
             //Success! X = Y and it's in the tree
         } else {
             if (bool && t.member(y)) {
@@ -137,7 +144,7 @@ public class TesterClass<D> {
     }
 
     // ITEM ADDED
-    public static void checkTree_member_union(Bag t, Bag r, int x) throws Exception {
+    public void checkTree_member_union(Bag t, Bag r, D x) throws Exception {
         Boolean bool = t.union(r).member(x);
         if (bool && t.member(x)) {
             //"Success! X is a member of the t tree"
@@ -156,7 +163,7 @@ public class TesterClass<D> {
         checkTree_member_union++;
     }
 
-    public static void checkTree_union_subset(Bag t, Bag r) throws Exception {
+    public void checkTree_union_subset(Bag t, Bag r) throws Exception {
         Bag unionLR = t.union(r);
         if (!(t.subset(unionLR) && r.subset(unionLR))) {
             throw new Exception("Failure!The left and right trees are not subsets"
@@ -166,7 +173,7 @@ public class TesterClass<D> {
     }
 
     // NOT WORKING: 
-    public static void checkTree_subset_diff(Bag t, Bag r) throws Exception {
+    public void checkTree_subset_diff(Bag t, Bag r) throws Exception {
         // If we take R - T = D; then T is either the empty set or it is not
         // a subset of it's difference
         Bag difference = t.diff(r);
@@ -185,7 +192,7 @@ public class TesterClass<D> {
 
     // This test also says something is wrong with diff because all of the other
     // tests -> besides the ones using diff -> work
-    public static void checkTree_diff_inter_empty_equal(Bag t, Bag r) throws Exception {
+    public void checkTree_diff_inter_empty_equal(Bag t, Bag r) throws Exception {
         // t inter r = the empty set iff t - r = t
         if ((t.inter(r)).equal(empty()) && r.diff(t).equal(t)) {
 //            "Success! A inter B = the empty set iff A - B = A"
@@ -198,7 +205,7 @@ public class TesterClass<D> {
     }
 
     //Changed from original in finiteSet b/c union now equals 2 * inter;
-    public static void checkTree_equal_union_inter(Bag t, Bag r) throws Exception {
+    public void checkTree_equal_union_inter(Bag t, Bag r) throws Exception {
         // Two sets are equal iff their union and intersection is the same
         if ((t.union(r).cardinality() == (t.inter(r)).cardinality() * 2) && t.equal(r)) {
 //            "Success! The two trees are equal and 2* inter = union"
@@ -213,7 +220,7 @@ public class TesterClass<D> {
     }
 
     // The Identity Property for Inter
-    public static void checkTree_inter_empty(Bag t) throws Exception {
+    public void checkTree_inter_empty(Bag t) throws Exception {
         Boolean bool = t.inter(empty()).equal(empty());
         // If the intersection of any tree with the empty set
         // equals the empty set...
