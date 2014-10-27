@@ -14,8 +14,8 @@ public interface Bag<D extends Comparable> {
     public Bag union(Bag u);
     public Bag inter(Bag u);
     public Bag diff(Bag u);
-    public Boolean equal (Bag u);
-    public Boolean subset (Bag u);
+    public boolean equal (Bag u);
+    public boolean subset (Bag u);
     
 }
 

@@ -62,7 +62,7 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
         return empty();  
     }
     
-    public Boolean equal (Bag u) {
+    public boolean equal (Bag u) {
         return u.cardinality() == this.cardinality();
     }
     
@@ -70,7 +70,7 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
         return u;
     }
     
-    public Boolean subset (Bag u) {
+    public boolean subset (Bag u) {
         return true; 
     }
     

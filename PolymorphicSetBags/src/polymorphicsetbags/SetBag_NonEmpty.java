@@ -208,11 +208,11 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         return (left.union(right)).diff(removed);
     }
 
-    public Boolean equal(Bag u) {
+    public boolean equal(Bag u) {
         return (this.subset(u) && u.subset(this));
     }
 
-    public Boolean subset(Bag u) {
+    public boolean subset(Bag u) {
         return (u.getCount(root) >= this.getCount(root)) && this.left.subset(u)
                 && this.right.subset(u);
     }

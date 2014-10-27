@@ -26,24 +26,11 @@ public class RunTests {
     
     public static void main(String[] args) throws Exception {      
         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // Random Tests
+        TesterClass<Integer> testerInt = new TesterClass<>(new IntGen());
+        testerInt.runAll();
+        TesterClass<String> testerString = new TesterClass<>(new StringGen());
+        testerString.runAll();
 
         // Hard-coded tests
         Bag<Integer> bag = new SetBag_NonEmpty(5, 3, new SetBag_NonEmpty(3, 1, empty(), empty()), new SetBag_NonEmpty(7, 2, empty(), empty()));

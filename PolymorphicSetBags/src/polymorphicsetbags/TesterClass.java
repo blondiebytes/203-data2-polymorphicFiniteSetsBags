@@ -4,9 +4,6 @@ import java.util.Random;
 import static polymorphicsetbags.SetBag_NonEmpty.empty;
 
 
-//testerInt = new TesterClass<Int>(new IntGen());
-//testerInt.runAll();
-
 public class TesterClass<D extends Comparable> {
     Generator<D> gen;
     
@@ -233,7 +230,7 @@ public class TesterClass<D extends Comparable> {
             int randomInt = rndInt(0, 1);
             checkTree_empty_isEmptyHuh(randomInt);
         }
-        System.out.println("Testing (Int) for Empty() & IsEmptyHuh?: " + checkTree_empty_isEmptyHuh + " times.");
+        System.out.println("Testing for Empty() & IsEmptyHuh?: " + checkTree_empty_isEmptyHuh + " times.");
         
         
         System.out.println();
@@ -372,7 +369,7 @@ public class TesterClass<D extends Comparable> {
             checkTree_inter_empty(l);
         }
         System.out.println("Testing Inter & Empty(): " + checkTree_inter_empty + " times");
-
+        System.out.println("================================");
     }
  
 
