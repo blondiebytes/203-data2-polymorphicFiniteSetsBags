@@ -8,15 +8,16 @@ public class RunTests {
 
 //    // STILL TO FIGURE OUT:
 //    // ----------------------------------------------------------------------
-//    // How to implement bool (with a compareTo func) & a bool generator
     
 //    // How to make rndString go through all the elements of the alphabet and
 //    // not just X
-
+    
+    
+    
     // How to implement a self-balancing tree and how to test that tree.
     
-//   /// How to create sequences
-    
+   /// How to create sequences
+     
 // Notes for Running Tests:
     
     //TESTING MULTI-BAG:
@@ -32,6 +33,8 @@ public class RunTests {
         testerInt.runAll();
         TesterClass<String> testerString = new TesterClass<>(new StringGen());
         testerString.runAll();
+        TesterClass<Hoolean> testerHoolean = new TesterClass<>(new BooleanGenerator());
+        testerHoolean.runAll();
 
         // Hard-coded tests
         Bag<Integer> bag = new SetBag_NonEmpty(5, 3, new SetBag_NonEmpty(3, 1, empty(), empty()), new SetBag_NonEmpty(7, 2, empty(), empty()));

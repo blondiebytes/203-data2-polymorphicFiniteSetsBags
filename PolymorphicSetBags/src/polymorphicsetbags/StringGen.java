@@ -9,11 +9,8 @@ public class StringGen implements Generator<String> {
     public String nextThing(int min, int max) {
         int rndInt = rndInt(min, max);
         StringBuilder stringBuffer = new StringBuilder("");
-        // Random generator for letter?
-//        Random rnd = new Random();
-//        int letter = rnd.nextInt(24);
         for (int i = 0; i > rndInt; i++) {
-            stringBuffer.append("X");
+            stringBuffer.append(Character.toChars(65 + rndInt(0, 26))[0]);
         }
         return stringBuffer.toString();
     }

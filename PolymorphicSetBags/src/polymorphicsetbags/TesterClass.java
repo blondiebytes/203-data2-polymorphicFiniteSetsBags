@@ -18,6 +18,7 @@ public class TesterClass<D extends Comparable> {
     int checkTree_diff_inter_empty_equal = 0;
     int checkTree_equal_union_inter = 0;
     int checkTree_inter_empty = 0;
+    int tests = 0;
 
     public TesterClass(Generator<D> gen) {
         this.gen = gen;
@@ -195,23 +196,25 @@ public class TesterClass<D extends Comparable> {
 
     // NOT WORKING: 
     public void checkTree_subset_diff(Bag t, Bag r) throws Exception {
-        // What is an easy way to iterate like this?
-        // If we take R - T = D; then one of three things occur:
-        // T is the empty set if the count is in R <= T for every object in the tree
-        // T is not a subset of the difference if they are completely disjoint
-        // T is a subset of the difference if the count for one object is R > T
-
-        Bag difference = t.diff(r);
-        if (t.isEmptyHuh()) {
-//            "Success! The tree t is empty leaving the diff "
-//                    + "to be all of r
-        } else if (!t.subset(difference)) {
-//            Success! A tree is not a subset of the "
-//                    + "difference"
-        } else {
-            System.out.println("T cardinality: " + t.cardinality() + " R cardinality: " + r.cardinality());
-            throw new Exception("Failure! Problem with subset or diff!");
+        Bag tDiffR = t.diff(r);
+        Bag rDiffT = r.diff(t);
+        // If T - R = T && If R - T = R
+        // Then, they must be completely disjoint and not be subsets of each other
+        if (tDiffR.equals(t) && rDiffT.equals(r)) {
+            if (r.subset(t) || r.subset(t)) {
+                throw new Exception("Subset & Diff PROBZ");
+            }
         }
+//        if (t.isEmptyHuh()) {
+////            "Success! The tree t is empty leaving the diff "
+////                    + "to be all of r
+//        } else if (!t.subset(difference)) {
+////            Success! A tree is not a subset of the "
+////                    + "difference"
+//        } else {
+//            System.out.println("T cardinality: " + t.cardinality() + " R cardinality: " + r.cardinality());
+//            throw new Exception("Failure! Problem with subset or diff!");
+//        }
         checkTree_subset_diff++;
     }
 

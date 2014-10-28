@@ -4,12 +4,16 @@ package polymorphicsetbags;
 import java.util.Random;
 
 
-public class BooleanGenerator implements Generator<boolean> {
+public class BooleanGenerator implements Generator<Hoolean> {
     
-    public boolean nextThing(int min, int max) {
+    public Hoolean nextThing(int min, int max) {
         Random rnd = new Random();
-        int bool = rnd.nextInt(1);
-        return bool != 0;
+        int bool = rnd.nextInt(1) + 1;
+        if (bool == 1) {
+            return new Hoolean(false);
+        } else {
+            return new Hoolean(true);
+        }
     }
 
 }
