@@ -6,23 +6,24 @@ import static polymorphicsetbags.SetBag_NonEmpty.empty;
 
 public class RunTests {
 
+//    // STILL TO FIGURE OUT:
+//    // ----------------------------------------------------------------------
+//    // How to implement bool (with a compareTo func) & a bool generator
+    
+//    // How to make rndString go through all the elements of the alphabet and
+//    // not just X
+
+    // How to implement a self-balancing tree and how to test that tree.
+    
+//   /// How to create sequences
+    
 // Notes for Running Tests:
-    // When you add a new thing, the cardinality should increase
-    // When you add something that is already in the list, the cardinality 
-    // should still increase
-    // When you remove something that is duplicated in the list, the cardinality
-    // should be one less (it should only remove one of the duplicated things)
-    // Count should always be positive
-    
-    // A more precise property for union & cardinality:
-    // (count (union u v) x) = (+ (count u x) (count v x))
-    
     
     //TESTING MULTI-BAG:
     // TESTING IF BALANCED
     //TESITNG SEQUENCE
     
-    // HOW CAN WE TEST WITH OTHER DATA TYPES?!??!?!?!? -> aka not int
+   
     
     public static void main(String[] args) throws Exception {      
         

@@ -3,27 +3,27 @@ package polymorphicsetbags;
 import java.util.Random;
 import static polymorphicsetbags.SetBag_NonEmpty.empty;
 
-
 public class TesterClass<D extends Comparable> {
+
     Generator<D> gen;
-    
+
     int checkTree_empty_isEmptyHuh = 0;
     int checkTree_isEmptyHuh_cardinality = 0;
-    int checkTree_cardinality_remove = 0;
-    int checkTree_remove_equal_add = 0;
+    int checkTree_cardinality_remove_getCount = 0;
+    int checkTree_remove_equal_add_getCount = 0;
     int checkTree_add_member = 0;
-    int checkTree_member_union = 0;
-    int checkTree_union_subset = 0;  
+    int checkTree_member_union_getCount = 0;
+    int checkTree_union_subset = 0;
     int checkTree_subset_diff = 0;
     int checkTree_diff_inter_empty_equal = 0;
     int checkTree_equal_union_inter = 0;
     int checkTree_inter_empty = 0;
-    
+
     public TesterClass(Generator<D> gen) {
         this.gen = gen;
     }
 
-    public static int rndInt(int min,int max) {
+    public static int rndInt(int min, int max) {
         Random rnd = new Random();
         return rnd.nextInt((max - min) + 1) + min;
     }
@@ -35,7 +35,7 @@ public class TesterClass<D extends Comparable> {
             return rndBag(count - 1).addN(gen.nextThing(1, 50), rndInt(1, 10));
         }
     }
-    
+
     public static String rndStringX(int min, int max) {
         int rndInt = rndInt(min, max);
         StringBuilder stringBuffer = new StringBuilder("");
@@ -48,6 +48,7 @@ public class TesterClass<D extends Comparable> {
         return stringBuffer.toString();
     }
 
+    // Also checks getCount
     public void checkTree_empty_isEmptyHuh(int count) throws Exception {
         // Creating a empty tree or a random tree
         if (count == 0) {
@@ -78,33 +79,41 @@ public class TesterClass<D extends Comparable> {
         checkTree_isEmptyHuh_cardinality++;
     }
 
-    // ITEM USED:
-    public void checkTree_cardinality_remove(Bag t, D x) throws Exception {
+    public void checkTree_cardinality_remove_getCount(Bag t, D x) throws Exception {
         int nT = t.remove(x).cardinality();
         // Either something was removed -> and it decreased the tree by one
         // Or the thing wasn't there to begin with, and nothing was removed
-        if (nT == (t.cardinality() - 1) || nT == t.cardinality()) {
-
-        } else {
-            throw new Exception("Failure - the remove and/or cardinality"
-                    + " function failed :( ");
+        if (t.getCount(x) >= 1 && nT != t.cardinality() - 1) {
+            throw new Exception("Failure - we remove x from nT and there was only"
+                    + "x so the cardinality should decrease by 1");
         }
-        checkTree_cardinality_remove++;
+        if (t.getCount(x) == 0 && nT != t.cardinality()) {
+            throw new Exception("The object wasn't there so there was nothing to remove."
+                    + " Thus, the cardinality should remain the same");
+        } else {
+        }
+        checkTree_cardinality_remove_getCount++;
     }
 
-    public void checkTree_remove_equal_add(Bag t) throws Exception {
-        // Add and remove the same element from a copied tree that 
-        // does not have the element already
+    public void checkTree_remove_equal_add_getCount(Bag t) throws Exception {
+        // Add and remove the same element from a copied tree
         // This is more of a test for finite sets (not multi-bag)
-        D rand = gen.nextThing(51, 100);
+        D rand = gen.nextThing(0, 50);
         Bag nT = t.add(rand);
+        if (nT.getCount(rand) - 1 != t.getCount(rand)) {
+            throw new Exception("Failure: After adding an item, the count for that item"
+                    + " should increase by 1");
+        }
         nT = nT.remove(rand);
-             // If the tree we messed with is the same as the original tree
-        // then we are correct!
+        if (nT.getCount(rand) != t.getCount(rand)) {
+            throw new Exception("Failure: After removing the same item, the count for that item"
+                    + " should be back where it was originally");
+        }
+        // Thus they should be equal
         if (!t.equal(nT)) {
             throw new Exception("Failure: The tree changed after adding and removing same item");
         }
-        checkTree_remove_equal_add++;
+        checkTree_remove_equal_add_getCount++;
     }
 
     // ITEM USED:
@@ -114,7 +123,7 @@ public class TesterClass<D extends Comparable> {
             //Success! X = Y and it's in the tree
         } else {
             if (bool && t.member(y)) {
-           //"Success! Y was a member of y beforehand and "
+                //"Success! Y was a member of y beforehand and "
                 //"it's in the tree"
             } else {
                 if (!bool && (x != y && !t.member(y))) {
@@ -128,24 +137,51 @@ public class TesterClass<D extends Comparable> {
         checkTree_add_member++;
     }
 
-    // ITEM ADDED
-    public void checkTree_member_union(Bag t, Bag r, D x) throws Exception {
+    public void checkTree_member_union_getCount(Bag t, Bag r, D x) throws Exception {
         Boolean bool = t.union(r).member(x);
         if (bool && t.member(x)) {
             //"Success! X is a member of the t tree"
+            if (t.getCount(x) <= 0 ) {
+                throw new Exception("Failure! If it's a member of the tree, the count"
+                        + " shouldn't be zero");
+            }
         } else {
             if (bool && r.member(x)) {
                 //Success! X is a member of the r tree
+                // Here we indirectly test that it must be positive!
+                if (r.getCount(x) <= 0) {
+                    throw new Exception("Failure! If it's a member of the tree, the count"
+                            + " shouldn't be zero");
+                }
             } else {
                 if (!bool && (!r.member(x) && !t.member(x))) {
-            //"Success! X is not a member of the right or left "
+                    //"Success! X is not a member of the right or left "
                     //      + "tree and therefore not a part of the union
+               
+                    // There is no option for a negative number; must be zero!
+                    if (t.getCount(x) != 0 || r.getCount(x) != 0 || t.union(r).getCount(x) != 0) {
+                        throw new Exception("Failure! If it is not a member of the tree, "
+                                + "the count"
+                                + " should be zero");
+                    }
                 } else {
                     throw new Exception("Failure! Problem with member or union!");
                 }
             }
         }
-        checkTree_member_union++;
+        checkTree_member_union_getCount++;
+    }
+    
+      // A more precise property for union & cardinality:
+    // (count (union u v) x) = (+ (count u x) (count v x))
+    // Nice that there is only one case
+    public void checkTree_getCount_union(Bag u, Bag v, D x) throws Exception {
+        if (u.union(v).getCount(x) != ((u.getCount(x)) + (v.getCount(x)))) {
+        throw new Exception("Failure! The union of two trees should have the "
+                + "same count of x as the two trees count of x added together b/c "
+                + " concept of addition");
+    }
+    
     }
 
     public void checkTree_union_subset(Bag t, Bag r) throws Exception {
@@ -159,8 +195,12 @@ public class TesterClass<D extends Comparable> {
 
     // NOT WORKING: 
     public void checkTree_subset_diff(Bag t, Bag r) throws Exception {
-        // If we take R - T = D; then T is either the empty set or it is not
-        // a subset of it's difference
+        // What is an easy way to iterate like this?
+        // If we take R - T = D; then one of three things occur:
+        // T is the empty set if the count is in R <= T for every object in the tree
+        // T is not a subset of the difference if they are completely disjoint
+        // T is a subset of the difference if the count for one object is R > T
+
         Bag difference = t.diff(r);
         if (t.isEmptyHuh()) {
 //            "Success! The tree t is empty leaving the diff "
@@ -220,19 +260,18 @@ public class TesterClass<D extends Comparable> {
             throw new Exception("Failure! Wrong: inter, equal, isEmptyHuh, or "
                     + "empty()");
         }
-      checkTree_inter_empty++;
+        checkTree_inter_empty++;
     }
 
     public void runAll() throws Exception {
-      // "Testing for Empty() & IsEmptyHuh?: "
+        // "Testing for Empty() & IsEmptyHuh?: "
         System.out.println();
         for (int i = 0; i < 50; i++) {
             int randomInt = rndInt(0, 1);
             checkTree_empty_isEmptyHuh(randomInt);
         }
         System.out.println("Testing for Empty() & IsEmptyHuh?: " + checkTree_empty_isEmptyHuh + " times.");
-        
-        
+
         System.out.println();
         // Testing for Cardinality & IsEmptyHuh
         for (int i = 0; i < 50; i++) {
@@ -242,30 +281,26 @@ public class TesterClass<D extends Comparable> {
         }
         System.out.println("Testing: IsEmptyHuh? & Cardinality: " + checkTree_isEmptyHuh_cardinality + " times");
         System.out.println();
-        
-        
+
         // Testing Cardinality & Remove
         for (int i = 0; i < 50; i++) {
             D elt = this.gen.nextThing(0, 10);
             int len = rndInt(0, 10);
             Bag l = rndBag(len);
-            checkTree_cardinality_remove(l, elt);
+            checkTree_cardinality_remove_getCount(l, elt);
         }
-        System.out.println("Testing: Cardinality & Remove: " + checkTree_cardinality_remove + " times");
-           
-        
-        
+        System.out.println("Testing: Cardinality & Remove: " + checkTree_cardinality_remove_getCount + " times");
+
         // Testing: Remove (EQUAL) &  Add"
         System.out.println();
 
         for (int i = 0; i < 50; i++) {
             int len = rndInt(0, 10);
             Bag l = rndBag(len);
-            checkTree_remove_equal_add(l);
+            checkTree_remove_equal_add_getCount(l);
         }
-        System.out.println("Testing: Remove (EQUAL) &  Add: " + checkTree_remove_equal_add + " times");
-    
-    
+        System.out.println("Testing: Remove (EQUAL) &  Add: " + checkTree_remove_equal_add_getCount + " times");
+
         System.out.println();
         // Testing for Add & Member 
         // member (add t x) y = true <-> x = y \/ member t y = true
@@ -277,10 +312,7 @@ public class TesterClass<D extends Comparable> {
             checkTree_add_member(l, elt, elt2);
         }
         System.out.println("Testing: Add & Member: " + checkTree_add_member + " times");
-    
-        
-       
-        
+
         System.out.println();
         // Testing for Union & Member
         // member (union s s') x = true <-> member s x = true \/ member s' x = true
@@ -290,14 +322,11 @@ public class TesterClass<D extends Comparable> {
             int len2 = rndInt(0, 10);
             Bag l = rndBag(len);
             Bag r = rndBag(len2);
-            checkTree_member_union(l, r, elt);
+            checkTree_member_union_getCount(l, r, elt);
         }
-        System.out.println("Testing: Member & Union: " + checkTree_member_union + " times");
+        System.out.println("Testing: Member & Union: " + checkTree_member_union_getCount + " times");
 
-        
-        
-        
-         System.out.println();
+        System.out.println();
         // Testing Union & Subset 
         for (int i = 0; i < 50; i++) {
             int len = rndInt(0, 10);
@@ -308,8 +337,6 @@ public class TesterClass<D extends Comparable> {
         }
         System.out.println("Testing: Union & Subset: " + checkTree_union_subset + " times");
 
-        
-        
         System.out.println();
         // Testing Subset & Diff 
         for (int i = 0; i < 50; i++) {
@@ -319,12 +346,9 @@ public class TesterClass<D extends Comparable> {
             Bag r = rndBag(len2);
             checkTree_subset_diff(l, r);
         }
-       System.out.println("Testing: Subset & Diff: " + checkTree_subset_diff + " times");
-       
-       
-       
-       
-       System.out.println();
+        System.out.println("Testing: Subset & Diff: " + checkTree_subset_diff + " times");
+
+        System.out.println();
         // Testing: Diff (EMPTY & Inter) & Equal
         for (int i = 0; i < 50; i++) {
             int len = rndInt(0, 10);
@@ -340,9 +364,6 @@ public class TesterClass<D extends Comparable> {
         }
         System.out.println("Testing: Diff (EMPTY & INTER) & Equal: " + checkTree_diff_inter_empty_equal + " times");
 
-        
-        
-        
         System.out.println();
         // Testing: Equal (UNION) & Inter
         for (int i = 0; i < 50; i++) {
@@ -359,8 +380,6 @@ public class TesterClass<D extends Comparable> {
         }
         System.out.println("Testing: Equal (UNION) & Inter: " + checkTree_equal_union_inter + " times");
 
-        
-
         System.out.println();
         // Testing Inter & Empty() 
         for (int i = 0; i < 50; i++) {
@@ -371,6 +390,5 @@ public class TesterClass<D extends Comparable> {
         System.out.println("Testing Inter & Empty(): " + checkTree_inter_empty + " times");
         System.out.println("================================");
     }
- 
 
 }
