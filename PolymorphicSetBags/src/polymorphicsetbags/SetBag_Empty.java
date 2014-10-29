@@ -54,6 +54,10 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
         return new SetBag_NonEmpty(elt, n);
     }
     
+    public Bag smartInsertStep1(D key, int value) {
+        return new FakeSetBag_L(key, value);
+    }
+    
     public Bag union(Bag u) {
         return u;
     }

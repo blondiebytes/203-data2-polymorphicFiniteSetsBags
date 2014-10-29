@@ -166,7 +166,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
       }
     }
 
-    // Not Working
+    
     public Bag addN (D elt, int n) {
         if (elt.equals(this.root)) {
             int max = Math.max(0, this.count + n);
@@ -180,12 +180,23 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         }
     }
     
-    // Not Working
+    public FakeBag smartInsertStep1(D key, int value) {
+        if (this.root.compareTo(key) == 0) {
+            return fake2(this.left, this.root, value, this.right);
+        } else if (key.compareTo(this.root) > 0) {
+            return fake2(this.left.smartInsertStep1(D key, int value), 
+            this.root, this.getCount(root), this.right);
+        } else {
+            return fake2(this.left, this.root, this.getCount(root), this.right.smartInsertStep1(D key, int value));
+        }
+    }
+    
+    
     public Bag union(Bag u) {
         return u.union(left.union(right)).addN(root, this.getCount(root));
     }
 
-    // Not Working
+
     public Bag inter(Bag u) {
         if (u.member(this.root)) {
             if (u.getCount(root) > this.getCount(root)) {
@@ -200,7 +211,6 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         }
     }
 
-    // Not Working
     public Bag diff(Bag u) {
         // U - this
         // 6 - 5 --> subtract how many in this
