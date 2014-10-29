@@ -9,18 +9,11 @@ public class RunTests {
 //    // STILL TO FIGURE OUT:
 //    // ----------------------------------------------------------------------
     
-//    // How to make rndString go through all the elements of the alphabet and
-//    // not just X
-    
-    
-    
     // How to implement a self-balancing tree and how to test that tree.
     
    /// How to create sequences
      
 // Notes for Running Tests:
-    
-    //TESTING MULTI-BAG:
     // TESTING IF BALANCED
     //TESITNG SEQUENCE
     

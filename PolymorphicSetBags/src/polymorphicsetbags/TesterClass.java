@@ -18,7 +18,8 @@ public class TesterClass<D extends Comparable> {
     int checkTree_diff_inter_empty_equal = 0;
     int checkTree_equal_union_inter = 0;
     int checkTree_inter_empty = 0;
-    int tests = 0;
+    int checkTree_getCount_union =0;
+    int tests = 1000;
 
     public TesterClass(Generator<D> gen) {
         this.gen = gen;
@@ -182,7 +183,7 @@ public class TesterClass<D extends Comparable> {
                 + "same count of x as the two trees count of x added together b/c "
                 + " concept of addition");
     }
-    
+    checkTree_getCount_union++;
     }
 
     public void checkTree_union_subset(Bag t, Bag r) throws Exception {
@@ -269,7 +270,7 @@ public class TesterClass<D extends Comparable> {
     public void runAll() throws Exception {
         // "Testing for Empty() & IsEmptyHuh?: "
         System.out.println();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < tests; i++) {
             int randomInt = rndInt(0, 1);
             checkTree_empty_isEmptyHuh(randomInt);
         }
@@ -277,7 +278,7 @@ public class TesterClass<D extends Comparable> {
 
         System.out.println();
         // Testing for Cardinality & IsEmptyHuh
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < tests; i++) {
             int len = rndInt(0, 10);
             Bag l = rndBag(len);
             checkTree_isEmptyHuh_cardinality(l);
@@ -286,7 +287,7 @@ public class TesterClass<D extends Comparable> {
         System.out.println();
 
         // Testing Cardinality & Remove
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < tests; i++) {
             D elt = this.gen.nextThing(0, 10);
             int len = rndInt(0, 10);
             Bag l = rndBag(len);
@@ -297,7 +298,7 @@ public class TesterClass<D extends Comparable> {
         // Testing: Remove (EQUAL) &  Add"
         System.out.println();
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < tests; i++) {
             int len = rndInt(0, 10);
             Bag l = rndBag(len);
             checkTree_remove_equal_add_getCount(l);
@@ -307,7 +308,7 @@ public class TesterClass<D extends Comparable> {
         System.out.println();
         // Testing for Add & Member 
         // member (add t x) y = true <-> x = y \/ member t y = true
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < tests; i++) {
             D elt = this.gen.nextThing(0, 10);
             D elt2 = this.gen.nextThing(0, 10);
             int len = rndInt(0, 10);
@@ -319,7 +320,7 @@ public class TesterClass<D extends Comparable> {
         System.out.println();
         // Testing for Union & Member
         // member (union s s') x = true <-> member s x = true \/ member s' x = true
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < tests; i++) {
             D elt = this.gen.nextThing(0, 10);
             int len = rndInt(0, 10);
             int len2 = rndInt(0, 10);
@@ -328,10 +329,22 @@ public class TesterClass<D extends Comparable> {
             checkTree_member_union_getCount(l, r, elt);
         }
         System.out.println("Testing: Member & Union: " + checkTree_member_union_getCount + " times");
+        
+        System.out.println(); 
+        //Check for union & get count
+        for (int i = 0; i <tests; i++) {
+             D elt = this.gen.nextThing(0, 10);
+            int len = rndInt(0, 10);
+            int len2 = rndInt(0, 10);
+            Bag l = rndBag(len);
+            Bag r = rndBag(len2);
+            checkTree_getCount_union(l, r, elt);
+        }
+        System.out.println("Testing: Union & Get Count: " + checkTree_getCount_union + " times");
 
         System.out.println();
         // Testing Union & Subset 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < tests; i++) {
             int len = rndInt(0, 10);
             int len2 = rndInt(0, 10);
             Bag l = rndBag(len);
@@ -342,7 +355,7 @@ public class TesterClass<D extends Comparable> {
 
         System.out.println();
         // Testing Subset & Diff 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < tests; i++) {
             int len = rndInt(0, 10);
             int len2 = rndInt(0, 10);
             Bag l = rndBag(len);
@@ -353,7 +366,7 @@ public class TesterClass<D extends Comparable> {
 
         System.out.println();
         // Testing: Diff (EMPTY & Inter) & Equal
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < tests; i++) {
             int len = rndInt(0, 10);
             int len2 = rndInt(0, 10);
             Bag l = rndBag(len);
@@ -369,7 +382,7 @@ public class TesterClass<D extends Comparable> {
 
         System.out.println();
         // Testing: Equal (UNION) & Inter
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < tests; i++) {
             int len = rndInt(0, 10);
             int len2 = rndInt(0, 10);
             Bag l = rndBag(len);
@@ -385,7 +398,7 @@ public class TesterClass<D extends Comparable> {
 
         System.out.println();
         // Testing Inter & Empty() 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < tests; i++) {
             int len = rndInt(0, 10);
             Bag l = rndBag(len);
             checkTree_inter_empty(l);
