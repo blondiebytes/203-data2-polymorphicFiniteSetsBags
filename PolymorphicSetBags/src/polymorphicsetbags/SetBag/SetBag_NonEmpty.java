@@ -207,6 +207,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
 //      [((fake:L k1 v1) k2 v2 t1)
 //       (fake:3 (T:0) k1 v1 (T:0) k2 v2 t1)]
         if (this.left instanceof FakeSetBag_L) {
+            //Somehow cast this.left as FakeSetBag_L
            return new FakeSetBag_3<D>(empty(), this.left.root,
                    this.left.getCount(root), empty(), 
                    this.root, this.getCount(root), this.right);
@@ -214,9 +215,31 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
 //       [((fake:3 t1 k1 v1 t2 k2 v2 t3) k3 v3 (T:1 t4))
 //       (T:2 (T:2 t1 k1 v1 t2) k2 v2 (T:2 t3 k3 v3 t4))]
         
-        else if (this.left instanceof FakeSetBag_3) {
-           
+        else if ((this.left instanceof FakeSetBag_3) && (this.right instanceof SetBag_1)) {
+             //Somehow cast this.left as FakeSetBag_3
+            // Somehow cast this.right as SetBag_1
+           return new SetBag_NonEmpty(
+                            this.left.keyTwo, 
+                            this.left.valueTwo, 
+                            new SetBag_NonEmpty (this.left.leftTree, 
+                           this.left.keyOne, this.left.valueOne, 
+                           this.left.middleTree),
+                            new SetBag_NonEmpty(this.left.rightTree, 
+                                    this.root, this.getCount(root), 
+                                    this.right.next))
+           );
+       } else 
+ //      [((fake:3 t1 k1 v1 t2 k2 v2 t3) k3 v3 (? T:2? t4))
+//       (fake:3 (T:2 t1 k1 v1 t2) k2 v2 (T:1 t3) k3 v3 t4)]
+            if ((this.left instanceof FakeSetBag_3) && 
+               (this.right instanceof SetBag_NonEmpty)) {
+           return new FakeSetBag_3(new SetBag_NonEmpty(this.left.leftTree, 
+                   this.left.keyOne, this.left.keyTwo, this.left.middleTree), 
+                   this.left.keyTwo, this.left.valueTwo, new SetBag_1(this.rightTree), 
+                   this.root, this.getCount(root), this.right);
        }
+        
+//        
         
         
         
