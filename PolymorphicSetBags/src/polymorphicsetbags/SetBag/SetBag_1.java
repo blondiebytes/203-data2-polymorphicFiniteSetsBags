@@ -7,7 +7,6 @@ package polymorphicsetbags.SetBag;
 
 // fake1 = func
 
-import polymorphicsetbags.SetBag.Bag;
 import polymorphicsetbags.FakeBag.FakeBag;
 import polymorphicsetbags.FakeBag.FakeOrRealBag;
 
@@ -67,12 +66,15 @@ public class SetBag_1<D extends Comparable> implements Bag<D>, FakeOrRealBag<D>{
     }
     // ------------------------
 
-    public FakeOrRealBag smartInsertStep1() {
-        return fake1(this.next.smartInsertStep1());
+    public FakeBag<D> smartInsertStep1(D key, int value) {
+        return fake1(this.next.smartInsertStep1(key, value));
     }
     
-    public Bag fake1(Bag next) {
-        // really should just return t
+    public Bag<D> smartInsertStep2(D key, int value) {
+        return this;
+    }
+    
+    public FakeBag<D> fake1(FakeBag<D> next) {
         return next;
     }
     
@@ -95,11 +97,6 @@ public class SetBag_1<D extends Comparable> implements Bag<D>, FakeOrRealBag<D>{
 
     public boolean subset(Bag u) {
         return next.subset(u); 
-    }
-
-    @Override
-    public FakeBag smartInsertStep1(D key, int value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

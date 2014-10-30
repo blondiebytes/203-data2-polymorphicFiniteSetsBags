@@ -1,8 +1,6 @@
 
 package polymorphicsetbags.SetBag;
 
-import polymorphicsetbags.SetBag.SetBag_NonEmpty;
-import polymorphicsetbags.SetBag.Bag;
 import polymorphicsetbags.FakeBag.FakeBag;
 import polymorphicsetbags.FakeBag.FakeOrRealBag;
 import polymorphicsetbags.FakeBag.FakeSetBag_L;
@@ -12,7 +10,7 @@ import static polymorphicsetbags.SetBag.SetBag_NonEmpty.empty;
 
 
 
-public class SetBag_Empty<D extends Comparable> implements Bag<D>, FakeOrRealBag<D> {
+public class SetBag_Empty<D extends Comparable> implements Bag<D> {
     
     // These method shouldn't change b/c empty doesn't change -> non-empty 
     // changes with the new rules of a set bag. Just have to make it generic
@@ -61,8 +59,12 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D>, FakeOrRealBag
         return new SetBag_NonEmpty(elt, n);
     }
     
-    public FakeOrRealBag smartInsertStep1(D key, int value) {
+    public FakeBag<D> smartInsertStep1(D key, int value) {
         return new FakeSetBag_L(key, value);
+    }
+    
+    public Bag<D> smartInsertStep2(D key, int value) {
+        return this;
     }
     
     public Bag union(Bag u) {
@@ -85,6 +87,5 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D>, FakeOrRealBag
         return true; 
     }
 
-   
     
 }

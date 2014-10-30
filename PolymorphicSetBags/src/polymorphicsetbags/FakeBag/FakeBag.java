@@ -5,9 +5,12 @@
  */
 package polymorphicsetbags.FakeBag;
 
+import polymorphicsetbags.SetBag.Bag;
+
 
 public interface FakeBag<D extends Comparable> {
     
-   // public FakeBag smartInsert(Bag T, D key, int value);
+   public Bag<D> smartInsertStep2(D key, int value);
+   
     
 }

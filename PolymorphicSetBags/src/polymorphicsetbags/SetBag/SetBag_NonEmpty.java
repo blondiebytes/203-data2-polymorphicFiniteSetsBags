@@ -4,8 +4,10 @@ package polymorphicsetbags.SetBag;
 
 import polymorphicsetbags.SetBag.Bag;
 import polymorphicsetbags.FakeBag.FakeBag;
+import polymorphicsetbags.FakeBag.FakeSetBag_3;
+import polymorphicsetbags.FakeBag.FakeSetBag_L;
 import polymorphicsetbags.Sequence.Sequence;
-import polymorphicsetbags.Sequence.Sequence.Sequence_Empty;
+import polymorphicsetbags.Sequence.Sequence_Empty;
 
 
    // A finite bag is also called a mulitset and is like a set, 
@@ -186,7 +188,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         }
     }
     
-    public FakeBag smartInsertStep1(D key, int value) {
+    public FakeBag<D> smartInsertStep1(D key, int value) {
         if (this.root.compareTo(key) == 0) {
             return fake2(this.left, this.root, value, this.right);
         } else if (key.compareTo(this.root) > 0) {
@@ -196,9 +198,32 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
             return fake2(this.left, this.root, this.getCount(root), this.right.smartInsertStep1(key, value));
         }
     }
+    public Bag<D> smartInsertStep2(D key, int value) {
+        return this;
+    }
     
-    public FakeBag fake2(Bag left, D key, int value, Bag right) {
+    public FakeBag<D> fake2(FakeBag<D> left, D key, int value, FakeBag<D> right) {
+//       
+//      [((fake:L k1 v1) k2 v2 t1)
+//       (fake:3 (T:0) k1 v1 (T:0) k2 v2 t1)]
+        if (this.left instanceof FakeSetBag_L) {
+           return new FakeSetBag_3<D>(empty(), this.left.root,
+                   this.left.getCount(root), empty(), 
+                   this.root, this.getCount(root), this.right);
+       } 
+//       [((fake:3 t1 k1 v1 t2 k2 v2 t3) k3 v3 (T:1 t4))
+//       (T:2 (T:2 t1 k1 v1 t2) k2 v2 (T:2 t3 k3 v3 t4))]
         
+        else if (this.left instanceof FakeSetBag_3) {
+           
+       }
+        
+        
+        
+        //    
+//    public FakeBag fake2(D key2, int value2, Bag t1) {
+//        return new FakeSetBag_3(empty(), this.key, this.value, empty(), key2, value2, t1);
+//    }
     }
   
     

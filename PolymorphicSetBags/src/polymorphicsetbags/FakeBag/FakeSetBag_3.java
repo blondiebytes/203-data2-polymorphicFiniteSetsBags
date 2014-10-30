@@ -11,13 +11,13 @@ import polymorphicsetbags.SetBag.SetBag_NonEmpty;
 
 
 public class FakeSetBag_3<D extends Comparable> implements FakeBag<D> {
-    Bag leftTree;
+    Bag<D> leftTree;
     D keyOne;
     int valueOne;
-    Bag middleTree;
+    Bag<D> middleTree;
     D keyTwo;
     int valueTwo;
-    Bag rightTree;
+    Bag<D> rightTree;
     
     public FakeSetBag_3(Bag leftTree, D keyOne, int valueOne, 
             Bag middleTree, D keyTwo, int valueTwo, Bag rightTree) {
@@ -36,24 +36,12 @@ public class FakeSetBag_3<D extends Comparable> implements FakeBag<D> {
         (this.keyOne, this.valueOne, this.leftTree, this.middleTree),
                 new SetBag_1(this.rightTree));
     }
+   
     
-    public Bag<D> fake2() {
-//      [((fake:3 t1 k1 v1 t2 k2 v2 t3) k3 v3 (T:1 t4))
-//       (T:2 (T:2 t1 k1 v1 t2) k2 v2 (T:2 t3 k3 v3 t4))]
-//      [((fake:3 t1 k1 v1 t2 k2 v2 t3) k3 v3 (? T:2? t4))
-//       (fake:3 (T:2 t1 k1 v1 t2) k2 v2 (T:1 t3) k3 v3 t4)]
+    public Bag<D> smartInsertStep2(D key, int value) {
+        return new SetBag_NonEmpty(keyTwo, valueTwo, new SetBag_NonEmpty(keyOne, valueOne, 
+                leftTree, middleTree), new SetBag_1(rightTree));
     }
     
-    // Other Problems:
-    
-//      [(t1 k1 v1 (fake:L k2 v2))
-//       (fake:3 t1 k1 v1 (T:0) k2 v2 (T:0))]
-//      [((T:1 t1) k1 v1 (fake:3 t2 k2 v2 t3 k3 v3 t4))
-//       (T:2 (T:2 t1 k1 v1 t2) k2 v2 (T:2 t3 k3 v3 t4))]
-//      [((? T:2? t1) k1 v1 (fake:3 t2 k2 v2 t3 k3 v3 t4))
-//       (fake:3 t1 k1 v1 (T:1 t2) k2 v2 (T:2 t3 k3 v3 t4))]
-//
-//      [(t1 k1 v1 t2)
-//       (T:2 t1 k1 v1 t2)]))
-            
+
 }
