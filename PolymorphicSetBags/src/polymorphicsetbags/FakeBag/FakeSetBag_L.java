@@ -25,7 +25,7 @@ public class FakeSetBag_L<D extends Comparable> implements FakeBag<D>{
       return new SetBag_NonEmpty(this.key, this.value, empty(), empty());
     }
   
-  public Bag<D> smartInsertStep2(D key, int value) {
+  public Bag<D> smartInsertStep2() {
      return new SetBag_NonEmpty(this.key, this.value, empty(), empty());
   }
   

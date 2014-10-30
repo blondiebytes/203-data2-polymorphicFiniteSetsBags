@@ -53,32 +53,20 @@ public class SetBag_1<D extends Comparable> implements Bag<D>, FakeOrRealBag<D>{
     public Bag removeAll(D elt) {
         return next.removeAll(elt);
     }
-
-    // ~NEED TO IMPLEMENT~
-    @Override
-    public Bag add(D elt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Bag addN(D elt, int n) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    // ------------------------
     
-    public FakeBag<D> smartInsert(D key) {
-        return smartInsertStep2(smartInsertStep1(key, 1));
+    public Bag<D> smartInsert(D key) {
+     return smartInsertN(key, 1);
     }
 
     public Bag<D> smartInsertN(D key, int value) {
-         return smartInsertStep2(smartInsertStep1(key, value));
+        return smartInsertStep1(key, value).smartInsertStep2();
     }
 
     public FakeBag<D> smartInsertStep1(D key, int value) {
         return fake1(this.next.smartInsertStep1(key, value));
     }
     
-    public Bag<D> smartInsertStep2(D key, int value) {
+    public Bag<D> smartInsertStep2() {
         return this;
     }
     

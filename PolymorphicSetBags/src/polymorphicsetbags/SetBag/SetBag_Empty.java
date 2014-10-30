@@ -50,27 +50,27 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
         return this.remove(elt);
     }
 
-    public Bag add(D elt) {
-        return new SetBag_NonEmpty(elt);
-    }
-    
-    public Bag addN(D elt, int n) {
-        return new SetBag_NonEmpty(elt, n);
-    }
-    
-    public FakeBag<D> smartInsert(D key) {
-        return smartInsertStep2(smartInsertStep1(key, 1));
+//    public Bag add(D elt) {
+//        return new SetBag_NonEmpty(elt);
+//    }
+//    
+//    public Bag addN(D elt, int n) {
+//        return new SetBag_NonEmpty(elt, n);
+//    }
+//    
+    public Bag<D> smartInsert(D key) {
+        return smartInsertN(key, 1);
     }
 
     public Bag<D> smartInsertN(D key, int value) {
-         return smartInsertStep2(smartInsertStep1(key, value));
+         return smartInsertStep1(key, value).smartInsertStep2();
     }
     
     public FakeBag<D> smartInsertStep1(D key, int value) {
         return new FakeSetBag_L(key, value);
     }
     
-    public Bag<D> smartInsertStep2(D key, int value) {
+    public Bag<D> smartInsertStep2() {
         return this;
     }
     

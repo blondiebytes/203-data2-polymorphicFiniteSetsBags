@@ -10,7 +10,7 @@ import polymorphicsetbags.SetBag.Bag;
 
 public interface FakeBag<D extends Comparable> {
     
-   public Bag<D> smartInsertStep2(D key, int value);
+   public Bag<D> smartInsertStep2();
    
     
 }
