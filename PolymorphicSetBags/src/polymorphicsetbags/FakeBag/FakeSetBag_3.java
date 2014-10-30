@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package polymorphicsetbags;
+package polymorphicsetbags.FakeBag;
+
+import polymorphicsetbags.SetBag.Bag;
+import polymorphicsetbags.SetBag.SetBag_1;
+import polymorphicsetbags.SetBag.SetBag_NonEmpty;
 
 
 public class FakeSetBag_3<D extends Comparable> implements FakeBag<D> {

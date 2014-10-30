@@ -1,6 +1,7 @@
 
-package polymorphicsetbags;
+package polymorphicsetbags.Tests;
 
+import polymorphicsetbags.Tests.Hoolean;
 import java.util.Random;
 
 

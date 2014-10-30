@@ -1,5 +1,7 @@
 
-package polymorphicsetbags;
+package polymorphicsetbags.SetBag;
+
+import polymorphicsetbags.FakeBag.FakeBag;
 
 public interface Bag<D extends Comparable> {
     public int cardinality();

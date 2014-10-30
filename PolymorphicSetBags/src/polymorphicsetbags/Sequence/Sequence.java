@@ -1,5 +1,5 @@
 
-package polymorphicsetbags;
+package polymorphicsetbags.Sequence;
 
 import java.util.Iterator;
 

@@ -1,7 +1,7 @@
 
-package polymorphicsetbags;
+package polymorphicsetbags.Tests;
 
-import static polymorphicsetbags.TesterClass.rndInt;
+import static polymorphicsetbags.Tests.TesterClass.rndInt;
 
 
 public class StringGen implements Generator<String> {

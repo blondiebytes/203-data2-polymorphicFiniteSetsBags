@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package polymorphicsetbags;
+package polymorphicsetbags.FakeBag;
 
-import static polymorphicsetbags.SetBag_NonEmpty.empty;
+import polymorphicsetbags.SetBag.Bag;
+import polymorphicsetbags.FakeBag.FakeSetBag_3;
+import polymorphicsetbags.SetBag.SetBag_NonEmpty;
+import static polymorphicsetbags.SetBag.SetBag_NonEmpty.empty;
 
 
 public class FakeSetBag_L<D extends Comparable> implements FakeBag<D>{
@@ -13,7 +16,7 @@ public class FakeSetBag_L<D extends Comparable> implements FakeBag<D>{
     D key;
     int value;
     
-    void FakeSetBag_L(D key, int value){
+   public FakeSetBag_L(D key, int value){
     this.key = key;
     this.value = value;
 }

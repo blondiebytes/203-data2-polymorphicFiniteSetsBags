@@ -1,7 +1,8 @@
-package polymorphicsetbags;
+package polymorphicsetbags.Tests;
 
 import java.util.Random;
-import static polymorphicsetbags.SetBag_NonEmpty.empty;
+import polymorphicsetbags.SetBag.Bag;
+import static polymorphicsetbags.SetBag.SetBag_NonEmpty.empty;
 
 public class TesterClass<D extends Comparable> {
 

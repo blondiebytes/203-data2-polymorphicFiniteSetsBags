@@ -1,5 +1,5 @@
 
-package polymorphicsetbags;
+package polymorphicsetbags.Tests;
 
 
 public class Hoolean implements Comparable<Hoolean> {

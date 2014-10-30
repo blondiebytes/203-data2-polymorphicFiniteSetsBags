@@ -3,9 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package polymorphicsetbags;
+package polymorphicsetbags.SetBag;
 
 // fake1 = func
+
+import polymorphicsetbags.SetBag.Bag;
+import polymorphicsetbags.FakeBag.FakeBag;
+
 // fake2 = func
 
 // T1 = class
@@ -62,8 +66,13 @@ public class SetBag_1<D extends Comparable> implements Bag<D>{
     }
     // ------------------------
 
-    public Bag smartInsertStep1(Bag next) {
-        return fake1(step1 next);
+    public FakeBag smartInsertStep1(Bag next) {
+        return fake1(next);
+    }
+    
+    public FakeBag fake1(Bag next) {
+        // really should just return t
+        return next;
     }
     
     

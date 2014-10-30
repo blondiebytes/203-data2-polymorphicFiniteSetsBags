@@ -1,5 +1,5 @@
 
-package polymorphicsetbags;
+package polymorphicsetbags.Tests;
 
 
 public interface Generator<D extends Comparable> {

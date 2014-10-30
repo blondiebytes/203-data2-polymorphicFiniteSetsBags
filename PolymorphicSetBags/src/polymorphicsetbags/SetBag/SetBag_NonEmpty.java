@@ -1,6 +1,12 @@
-package polymorphicsetbags;
+package polymorphicsetbags.SetBag;
 
 // REQUIREMENTS: 
+
+import polymorphicsetbags.SetBag.Bag;
+import polymorphicsetbags.FakeBag.FakeBag;
+import polymorphicsetbags.Sequence.Sequence;
+import polymorphicsetbags.Sequence.Sequence.Sequence_Empty;
+
 
    // A finite bag is also called a mulitset and is like a set, 
 // but each element may occur many times. 
@@ -184,12 +190,17 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         if (this.root.compareTo(key) == 0) {
             return fake2(this.left, this.root, value, this.right);
         } else if (key.compareTo(this.root) > 0) {
-            return fake2(this.left.smartInsertStep1(D key, int value), 
+            return fake2(this.left.smartInsertStep1(key,value), 
             this.root, this.getCount(root), this.right);
         } else {
-            return fake2(this.left, this.root, this.getCount(root), this.right.smartInsertStep1(D key, int value));
+            return fake2(this.left, this.root, this.getCount(root), this.right.smartInsertStep1(key, value));
         }
     }
+    
+    public FakeBag fake2(Bag left, D key, int value, Bag right) {
+        
+    }
+  
     
     
     public Bag union(Bag u) {

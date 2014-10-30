@@ -1,7 +1,11 @@
 
-package polymorphicsetbags;
+package polymorphicsetbags.Tests;
 
-import static polymorphicsetbags.SetBag_NonEmpty.empty;
+import polymorphicsetbags.SetBag.Bag;
+import polymorphicsetbags.SetBag.SetBag_NonEmpty;
+import polymorphicsetbags.Tests.IntGen;
+import polymorphicsetbags.Tests.TesterClass;
+import static polymorphicsetbags.SetBag.SetBag_NonEmpty.empty;
 
 
 public class RunTests {
