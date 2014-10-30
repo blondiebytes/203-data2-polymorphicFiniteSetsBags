@@ -1,8 +1,6 @@
 
 package polymorphicsetbags.SetBag;
 
-import polymorphicsetbags.FakeBag.FakeBag;
-
 public interface Bag<D extends Comparable> {
     public int cardinality();
     public int getCount(D elt);
@@ -13,7 +11,6 @@ public interface Bag<D extends Comparable> {
     public Bag removeAll(D elt);
     public Bag add(D elt);
     public Bag addN(D elt, int n);
-    public FakeBag smartInsertStep1(D key, int value);
     public Bag union(Bag u);
     public Bag inter(Bag u);
     public Bag diff(Bag u);
