@@ -58,6 +58,10 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
 //        return new SetBag_NonEmpty(elt, n);
 //    }
 //    
+   public FakeBag<D> fake1() {
+        return new SetBag_1(this);
+    }
+     
     public Bag<D> smartInsert(D key) {
         return smartInsertN(key, 1);
     }
@@ -92,6 +96,10 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
     
     public boolean subset (Bag u) {
         return true; 
+    }
+    
+     public String toStringBST() {
+        return "[SB:E]";
     }
 
     

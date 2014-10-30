@@ -63,15 +63,15 @@ public class SetBag_1<D extends Comparable> implements Bag<D>, FakeOrRealBag<D>{
     }
 
     public FakeBag<D> smartInsertStep1(D key, int value) {
-        return fake1(this.next.smartInsertStep1(key, value));
+        return this.next.smartInsertStep1(key, value).fake1();
     }
     
     public Bag<D> smartInsertStep2() {
         return this;
     }
     
-    public FakeBag<D> fake1(FakeBag<D> next) {
-        return next;
+    public FakeBag<D> fake1() {
+        return new SetBag_1(this);
     }
     
     
@@ -93,6 +93,10 @@ public class SetBag_1<D extends Comparable> implements Bag<D>, FakeOrRealBag<D>{
 
     public boolean subset(Bag u) {
         return next.subset(u); 
+    }
+    
+    public String toStringBST() {
+       return "[SB:1 next: " + this.next.toStringBST() + "]";
     }
     
     

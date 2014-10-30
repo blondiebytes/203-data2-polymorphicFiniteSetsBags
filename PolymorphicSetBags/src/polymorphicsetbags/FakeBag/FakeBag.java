@@ -11,6 +11,7 @@ import polymorphicsetbags.SetBag.Bag;
 public interface FakeBag<D extends Comparable> {
     
    public Bag<D> smartInsertStep2();
+   public FakeBag<D> fake1();
    
     
 }

@@ -21,6 +21,6 @@ public interface Bag<D extends Comparable> extends FakeBag<D>{
     public FakeBag<D> smartInsertStep1(D key, int value);
     public Bag<D> smartInsert(D key);
    public Bag<D> smartInsertN(D key, int value);
-    
+    public String toStringBST();
 }
 

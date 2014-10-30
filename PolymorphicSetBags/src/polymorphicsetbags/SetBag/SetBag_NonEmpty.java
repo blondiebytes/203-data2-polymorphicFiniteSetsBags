@@ -192,7 +192,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
 
     public FakeBag<D> smartInsertStep1(D key, int value) {
         if (this.root.compareTo(key) == 0) {
-            return fake2(this.left, this.root, value, this.right);
+            return fake2(this.left, this.root, this.getCount(root) + value, this.right);
         } else if (key.compareTo(this.root) > 0) {
             return fake2(this.left.smartInsertStep1(key, value),
                     this.root, this.getCount(root), this.right);
@@ -204,7 +204,11 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
     public Bag<D> smartInsertStep2() {
         return this;
     }
-
+    
+    public FakeBag<D> fake1() {
+        return new SetBag_1(this);
+    }
+    
     public FakeBag<D> fake2(FakeBag<D> left, D key, int value, FakeBag<D> right) {
 //       
 //      [((fake:L k1 v1) k2 v2 t1)
@@ -245,7 +249,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         //      [(t1 k1 v1 (fake:L k2 v2))
         //       (fake:3 t1 k1 v1 (T:0) k2 v2 (T:0))]
         //      Cast this.right as FakeSetBag_L
-        else if (this.right instanceof FakeSetBag_L) {
+        else if (right instanceof FakeSetBag_L) {
             FakeSetBag_L<D> tr = (FakeSetBag_L) right;
             return new FakeSetBag_3((Bag<D>)left, key,
                     value, empty(),
@@ -254,7 +258,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         } 
         //      [((T:1 t1) k1 v1 (fake:3 t2 k2 v2 t3 k3 v3 t4))
         //       (T:2 (T:2 t1 k1 v1 t2) k2 v2 (T:2 t3 k3 v3 t4))]
-        else if ((this.left instanceof SetBag_1) && this.right instanceof FakeSetBag_3) {
+        else if ((left instanceof SetBag_1) && right instanceof FakeSetBag_3) {
                SetBag_1<D> tl = (SetBag_1) left;
                FakeSetBag_3 tr = (FakeSetBag_3) right;
             return new SetBag_NonEmpty( tr.keyOne, tr.valueOne, 
@@ -263,7 +267,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         } 
         //      [((? T:2? t1) k1 v1 (fake:3 t2 k2 v2 t3 k3 v3 t4))
         //       (fake:3 L K V (T:1 t2) k2 v2 (T:2 t3 k3 v3 t4))]
-        else if (this.left instanceof SetBag_NonEmpty && this.right instanceof FakeSetBag_3) {
+        else if (left instanceof SetBag_NonEmpty && right instanceof FakeSetBag_3) {
             SetBag_NonEmpty<D> tl = (SetBag_NonEmpty) left;
             FakeSetBag_3 tr = (FakeSetBag_3) right;
             return new FakeSetBag_3(tl, key, value,
@@ -309,5 +313,10 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
     public boolean subset(Bag u) {
         return (u.getCount(root) >= this.getCount(root)) && this.left.subset(u)
                 && this.right.subset(u);
+    }
+    
+    public String toStringBST() {
+        return "[SB:2 Left: "+ this.left.toStringBST() + " Right: " 
+                + this.right.toStringBST() + "Root: " + this.root + " Value: " + this.getCount(root) + "]";
     }
 }
