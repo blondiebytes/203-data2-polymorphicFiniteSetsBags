@@ -18,7 +18,7 @@ package polymorphicsetbags;
 public class SetBag_1<D extends Comparable> implements Bag<D>{
     Bag<D> next;
 
-   public void SetBag_1(Bag next) {
+   public SetBag_1(Bag next) {
        this.next = next;
    }
     
@@ -63,7 +63,7 @@ public class SetBag_1<D extends Comparable> implements Bag<D>{
     // ------------------------
 
     public Bag smartInsertStep1(Bag next) {
-        return fake1(step 1 next);
+        return fake1(step1 next);
     }
     
     
