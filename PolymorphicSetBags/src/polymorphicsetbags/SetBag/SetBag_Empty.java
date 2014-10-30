@@ -2,7 +2,6 @@
 package polymorphicsetbags.SetBag;
 
 import polymorphicsetbags.FakeBag.FakeBag;
-import polymorphicsetbags.FakeBag.FakeOrRealBag;
 import polymorphicsetbags.FakeBag.FakeSetBag_L;
 import polymorphicsetbags.Sequence.Sequence;
 import polymorphicsetbags.Sequence.Sequence_Empty;
@@ -57,6 +56,14 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
     
     public Bag addN(D elt, int n) {
         return new SetBag_NonEmpty(elt, n);
+    }
+    
+    public FakeBag<D> smartInsert(D key) {
+        return smartInsertStep2(smartInsertStep1(key, 1));
+    }
+
+    public Bag<D> smartInsertN(D key, int value) {
+         return smartInsertStep2(smartInsertStep1(key, value));
     }
     
     public FakeBag<D> smartInsertStep1(D key, int value) {

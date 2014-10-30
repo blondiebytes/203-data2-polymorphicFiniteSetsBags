@@ -13,10 +13,10 @@ import static polymorphicsetbags.SetBag.SetBag_NonEmpty.empty;
 
 public class FakeSetBag_L<D extends Comparable> implements FakeBag<D>{
     
-    D key;
-    int value;
+    public D key;
+    public int value;
     
-   public FakeSetBag_L(D key, int value){
+   public FakeSetBag_L (D key, int value){
     this.key = key;
     this.value = value;
 }

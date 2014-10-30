@@ -11,16 +11,16 @@ import polymorphicsetbags.SetBag.SetBag_NonEmpty;
 
 
 public class FakeSetBag_3<D extends Comparable> implements FakeBag<D> {
-    Bag<D> leftTree;
-    D keyOne;
-    int valueOne;
-    Bag<D> middleTree;
-    D keyTwo;
-    int valueTwo;
-    Bag<D> rightTree;
+   public Bag<D> leftTree;
+   public D keyOne;
+   public int valueOne;
+   public Bag<D> middleTree;
+   public D keyTwo;
+   public int valueTwo;
+   public Bag<D> rightTree;
     
-    public FakeSetBag_3(Bag leftTree, D keyOne, int valueOne, 
-            Bag middleTree, D keyTwo, int valueTwo, Bag rightTree) {
+    public FakeSetBag_3(Bag<D> leftTree, D keyOne, int valueOne, 
+            Bag<D> middleTree, D keyTwo, int valueTwo, Bag<D> rightTree) {
         this.leftTree = leftTree;
         this.keyOne = keyOne;
         this.valueOne = valueOne;
@@ -31,10 +31,13 @@ public class FakeSetBag_3<D extends Comparable> implements FakeBag<D> {
                 
     }
     
+//       [(fake:3 L K1 V1 M K2 V2 R)
+//       (T:2 (T:2 L K1 V1 M) K2 V2 (T:1 R))]
+//    
     public Bag<D> fake1() {
         return new SetBag_NonEmpty(keyTwo, valueTwo, new SetBag_NonEmpty
-        (this.keyOne, this.valueOne, this.leftTree, this.middleTree),
-                new SetBag_1(this.rightTree));
+        (keyOne, valueOne, leftTree, middleTree),
+                new SetBag_1(rightTree));
     }
    
     

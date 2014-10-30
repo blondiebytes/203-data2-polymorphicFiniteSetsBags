@@ -1,7 +1,6 @@
 package polymorphicsetbags.SetBag;
 
 // REQUIREMENTS: 
-
 import polymorphicsetbags.SetBag.Bag;
 import polymorphicsetbags.FakeBag.FakeBag;
 import polymorphicsetbags.FakeBag.FakeSetBag_3;
@@ -9,47 +8,45 @@ import polymorphicsetbags.FakeBag.FakeSetBag_L;
 import polymorphicsetbags.Sequence.Sequence;
 import polymorphicsetbags.Sequence.Sequence_Empty;
 
-
    // A finite bag is also called a mulitset and is like a set, 
 // but each element may occur many times. 
-   // Your bags should be polymorphic, i.e. use generics to allow 
+// Your bags should be polymorphic, i.e. use generics to allow 
 // any kind of contents. 
 // By "pure", we mean that operations on the set return new sets and 
 // do not modify the old set. 
-    // Need to figure out a way to rotate trees
+// Need to figure out a way to rotate trees
 // TO DO: 
 // FIRST CREATE TESTING HMMMMPH. Property-based testing!
 // USE self-balancing binary search tree
 // Design API for bags; need for Iteration
 // Match Up code with tests
 // Write paper
-    // The main methods we are changing are cardinality, member, add, remove
+// The main methods we are changing are cardinality, member, add, remove
 // IMPLEMENT USING ITERATOR! How to create iterators?
-    // Need "Tree Rotation"
+// Need "Tree Rotation"
 // Right rotation
 // Left rotation
-
 public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
 
     int count;
     D root;
-    Bag left;
-    Bag right;
+    Bag<D> left;
+    Bag<D> right;
 
-    public SetBag_NonEmpty(D root, int count, Bag left, Bag right) {
+    public SetBag_NonEmpty(D root, int count, Bag<D> left, Bag<D> right) {
         this.count = count;
         this.root = root;
         this.left = left;
         this.right = right;
     }
 
-    public SetBag_NonEmpty(D root, Bag left, Bag right) {
+    public SetBag_NonEmpty(D root, Bag<D> left, Bag<D> right) {
         this.count = 1;
         this.root = root;
         this.left = left;
         this.right = right;
     }
-    
+
     public SetBag_NonEmpty(D root, int count) {
         // Setting Properties
         this.count = count;
@@ -57,7 +54,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         this.left = empty();
         this.right = empty();
     }
-    
+
     public SetBag_NonEmpty(D root) {
         // Setting Properties
         this.count = 1;
@@ -65,7 +62,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         this.left = empty();
         this.right = empty();
     }
-    
+
     public int getCount(D elt) {
         if (elt.equals(this.root)) {
             return count;
@@ -75,17 +72,16 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
             } else {
                 return this.right.getCount(elt);
             }
-            
-    }
+
+        }
     }
 
     // We need something that puts this in a sequence. 
     public Sequence<D> seq() {
         return new Sequence_Empty();
     }
-    
+
    // IMPLEMENTATION: 
-    
     // NEED TO WRITE TESTS
     public static Bag empty() {
         return new SetBag_Empty();
@@ -97,16 +93,16 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
     }
 
     public boolean isEmptyHuh() {
-      if (this.getCount(root) == 0) {
-         //now check left an right trees
-          if (!left.isEmptyHuh()) {
-              return right.isEmptyHuh();
-          } else {
-              return left.isEmptyHuh();
-          }
-      } else {
-          return false;
-      }
+        if (this.getCount(root) == 0) {
+            //now check left an right trees
+            if (!left.isEmptyHuh()) {
+                return right.isEmptyHuh();
+            } else {
+                return left.isEmptyHuh();
+            }
+        } else {
+            return false;
+        }
     }
 
     public boolean member(D elt) {
@@ -119,7 +115,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         }
     }
 
-        // Check if count is 0 for that element
+    // Check if count is 0 for that element
     // else do what we did before
     public Bag remove(D elt) {
         if (elt.equals(this.root)) {
@@ -132,12 +128,12 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
                     this.right.remove(elt));
         }
     }
-    
+
     // Not working!
     public Bag removeN(D elt, int n) {
         if (elt.equals(this.root)) {
-          int max = Math.max(0, this.count - n);
-          return new SetBag_NonEmpty(this.root, max, this.left, this.right);
+            int max = Math.max(0, this.count - n);
+            return new SetBag_NonEmpty(this.root, max, this.left, this.right);
         } else {
             if (elt.compareTo(this.root) < 0) {
                 return new SetBag_NonEmpty(this.root, this.count, this.left.removeN(elt, n), this.right);
@@ -146,7 +142,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
             }
         }
     }
-    
+
     public Bag removeAll(D elt) {
         if (elt.equals(this.root)) {
             return new SetBag_NonEmpty(this.root, 0,
@@ -159,7 +155,6 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         }
     }
 
-
     public Bag add(D elt) {
         if (elt.equals(this.root)) {
             return new SetBag_NonEmpty(this.root, this.count + 1, this.left, this.right);
@@ -170,12 +165,11 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
             // right tree
             else {
                 return new SetBag_NonEmpty(this.root, this.count, this.left, this.right.add(elt));
+            }
         }
-      }
     }
 
-    
-    public Bag addN (D elt, int n) {
+    public Bag addN(D elt, int n) {
         if (elt.equals(this.root)) {
             int max = Math.max(0, this.count + n);
             return new SetBag_NonEmpty(this.root, max, this.left, this.right);
@@ -187,83 +181,114 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
             }
         }
     }
-    
+
+    public FakeBag<D> smartInsert(D key) {
+        return smartInsertStep2(smartInsertStep1(key, 1));
+    }
+
+    public Bag<D> smartInsertN(D key, int value) {
+         return smartInsertStep2(smartInsertStep1(key, value));
+    }
+
     public FakeBag<D> smartInsertStep1(D key, int value) {
         if (this.root.compareTo(key) == 0) {
             return fake2(this.left, this.root, value, this.right);
         } else if (key.compareTo(this.root) > 0) {
-            return fake2(this.left.smartInsertStep1(key,value), 
-            this.root, this.getCount(root), this.right);
+            return fake2(this.left.smartInsertStep1(key, value),
+                    this.root, this.getCount(root), this.right);
         } else {
             return fake2(this.left, this.root, this.getCount(root), this.right.smartInsertStep1(key, value));
         }
     }
+
     public Bag<D> smartInsertStep2(D key, int value) {
         return this;
     }
-    
+
     public FakeBag<D> fake2(FakeBag<D> left, D key, int value, FakeBag<D> right) {
 //       
 //      [((fake:L k1 v1) k2 v2 t1)
 //       (fake:3 (T:0) k1 v1 (T:0) k2 v2 t1)]
-        if (this.left instanceof FakeSetBag_L) {
+        if (left instanceof FakeSetBag_L) {
+            FakeSetBag_L<D> tl = (FakeSetBag_L) left;
             //Somehow cast this.left as FakeSetBag_L
-           return new FakeSetBag_3<D>(empty(), this.left.root,
-                   this.left.getCount(root), empty(), 
-                   this.root, this.getCount(root), this.right);
-       } 
-//       [((fake:3 t1 k1 v1 t2 k2 v2 t3) k3 v3 (T:1 t4))
-//       (T:2 (T:2 t1 k1 v1 t2) k2 v2 (T:2 t3 k3 v3 t4))]
-        
-        else if ((this.left instanceof FakeSetBag_3) && (this.right instanceof SetBag_1)) {
-             //Somehow cast this.left as FakeSetBag_3
+            return new FakeSetBag_3<D>(empty(), tl.key,
+                    tl.value, empty(),
+                    key, value, (Bag<D>) right);
+        } //       [((fake:3 t1 k1 v1 t2 k2 v2 t3) k3 v3 (T:1 t4))
+        //       (T:2 (T:2 t1 k1 v1 t2) k2 v2 (T:2 t3 k3 v3 t4))]
+        else if ((left instanceof FakeSetBag_3) && (right instanceof SetBag_1)) {
+            FakeSetBag_3<D> tl = (FakeSetBag_3) left;
+            SetBag_1<D> tr = (SetBag_1) right;
             // Somehow cast this.right as SetBag_1
-           return new SetBag_NonEmpty(
-                            this.left.keyTwo, 
-                            this.left.valueTwo, 
-                            new SetBag_NonEmpty (this.left.leftTree, 
-                           this.left.keyOne, this.left.valueOne, 
-                           this.left.middleTree),
-                            new SetBag_NonEmpty(this.left.rightTree, 
-                                    this.root, this.getCount(root), 
-                                    this.right.next))
-           );
-       } else 
- //      [((fake:3 t1 k1 v1 t2 k2 v2 t3) k3 v3 (? T:2? t4))
+            return new SetBag_NonEmpty(
+                    tl.keyTwo,
+                    tl.valueTwo,
+                    new SetBag_NonEmpty(tl.keyOne, tl.valueOne,
+                            tl.leftTree, tl.middleTree),
+                    new SetBag_NonEmpty(
+                            key, value, tl.rightTree,
+                            tr.next)
+            );
+//      [((fake:3 t1 k1 v1 t2 k2 v2 t3) k3 v3 (? T:2? t4))
 //       (fake:3 (T:2 t1 k1 v1 t2) k2 v2 (T:1 t3) k3 v3 t4)]
-            if ((this.left instanceof FakeSetBag_3) && 
-               (this.right instanceof SetBag_NonEmpty)) {
-           return new FakeSetBag_3(new SetBag_NonEmpty(this.left.leftTree, 
-                   this.left.keyOne, this.left.keyTwo, this.left.middleTree), 
-                   this.left.keyTwo, this.left.valueTwo, new SetBag_1(this.rightTree), 
-                   this.root, this.getCount(root), this.right);
-       }
-        
-//        
-        
-        
-        
-        //    
-//    public FakeBag fake2(D key2, int value2, Bag t1) {
-//        return new FakeSetBag_3(empty(), this.key, this.value, empty(), key2, value2, t1);
-//    }
+        } else if ((left instanceof FakeSetBag_3)
+                && (right instanceof SetBag_NonEmpty)) {
+            FakeSetBag_3<D> tl = (FakeSetBag_3) left;
+            SetBag_NonEmpty<D> tr = (SetBag_NonEmpty) right;
+
+            return new FakeSetBag_3(new SetBag_NonEmpty(
+                    tl.keyOne, tl.valueOne, tl.leftTree, tl.middleTree),
+                    tl.keyTwo, tl.valueTwo, new SetBag_1(tl.rightTree),
+                    key, value, tr);
+        }
+        //      [(t1 k1 v1 (fake:L k2 v2))
+        //       (fake:3 t1 k1 v1 (T:0) k2 v2 (T:0))]
+        //      Cast this.right as FakeSetBag_L
+        else if (this.right instanceof FakeSetBag_L) {
+            FakeSetBag_L<D> tr = (FakeSetBag_L) right;
+            return new FakeSetBag_3((Bag<D>)left, key,
+                    value, empty(),
+                    tr.key,
+                    tr.value, empty());
+        } 
+        //      [((T:1 t1) k1 v1 (fake:3 t2 k2 v2 t3 k3 v3 t4))
+        //       (T:2 (T:2 t1 k1 v1 t2) k2 v2 (T:2 t3 k3 v3 t4))]
+        else if ((this.left instanceof SetBag_1) && this.right instanceof FakeSetBag_3) {
+               SetBag_1<D> tl = (SetBag_1) left;
+               FakeSetBag_3 tr = (FakeSetBag_3) right;
+            return new SetBag_NonEmpty( tr.keyOne, tr.valueOne, 
+                    new SetBag_NonEmpty(key, value, tl.next, tr.leftTree), 
+                    new SetBag_NonEmpty(tr.keyTwo, tr.valueTwo, tr.middleTree, tr.rightTree));
+        } 
+        //      [((? T:2? t1) k1 v1 (fake:3 t2 k2 v2 t3 k3 v3 t4))
+        //       (fake:3 L K V (T:1 t2) k2 v2 (T:2 t3 k3 v3 t4))]
+        else if (this.left instanceof SetBag_NonEmpty && this.right instanceof FakeSetBag_3) {
+            SetBag_NonEmpty<D> tl = (SetBag_NonEmpty) left;
+            FakeSetBag_3 tr = (FakeSetBag_3) right;
+            return new FakeSetBag_3(tl, key, value,
+                    new SetBag_1(tr.leftTree), tr.keyOne,
+                    tr.valueOne, new SetBag_NonEmpty(tr.keyTwo, tr.valueTwo,
+                            tr.middleTree, tr.leftTree));
+        } //      [(t1 k1 v1 t2)
+        //       (T:2 t1 k1 v1 t2)]))
+        else {
+            return new SetBag_NonEmpty(key, value, (Bag<D>) left, (Bag<D>)right);
+        }
     }
-  
-    
-    
+
     public Bag union(Bag u) {
         return u.union(left.union(right)).addN(root, this.getCount(root));
     }
 
-
     public Bag inter(Bag u) {
         if (u.member(this.root)) {
             if (u.getCount(root) > this.getCount(root)) {
-                return new SetBag_NonEmpty(this.root, this.getCount(root), 
+                return new SetBag_NonEmpty(this.root, this.getCount(root),
                         this.left.inter(u), this.right.inter(u));
             } else {
-                  return new SetBag_NonEmpty(this.root, u.getCount(root), 
-                          this.left.inter(u),this.right.inter(u));
+                return new SetBag_NonEmpty(this.root, u.getCount(root),
+                        this.left.inter(u), this.right.inter(u));
             }
         } else {
             return this.left.inter(u).union(this.right.inter(u));

@@ -10,7 +10,8 @@ public class StringGen implements Generator<String> {
         int rndInt = rndInt(min, max);
         StringBuilder stringBuffer = new StringBuilder("");
         for (int i = 0; i < rndInt; i++) {
-            stringBuffer.append(Character.toChars(65 + rndInt(0, 26))[0]);
+            stringBuffer.append("A");
+//            stringBuffer.append(Character.toChars(65 + rndInt(0, 26))[0]);
         }
         return stringBuffer.toString();
     }

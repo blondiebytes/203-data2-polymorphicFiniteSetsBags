@@ -22,7 +22,7 @@ import polymorphicsetbags.FakeBag.FakeOrRealBag;
 public class SetBag_1<D extends Comparable> implements Bag<D>, FakeOrRealBag<D>{
     Bag<D> next;
 
-   public SetBag_1(Bag next) {
+   public SetBag_1(Bag<D> next) {
        this.next = next;
    }
     
@@ -65,6 +65,14 @@ public class SetBag_1<D extends Comparable> implements Bag<D>, FakeOrRealBag<D>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     // ------------------------
+    
+    public FakeBag<D> smartInsert(D key) {
+        return smartInsertStep2(smartInsertStep1(key, 1));
+    }
+
+    public Bag<D> smartInsertN(D key, int value) {
+         return smartInsertStep2(smartInsertStep1(key, value));
+    }
 
     public FakeBag<D> smartInsertStep1(D key, int value) {
         return fake1(this.next.smartInsertStep1(key, value));
