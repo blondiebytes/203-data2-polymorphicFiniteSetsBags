@@ -1,7 +1,6 @@
 package polymorphicsetbags.SetBag;
 
 // REQUIREMENTS: 
-import polymorphicsetbags.SetBag.Bag;
 import polymorphicsetbags.FakeBag.FakeBag;
 import polymorphicsetbags.FakeBag.FakeSetBag_3;
 import polymorphicsetbags.FakeBag.FakeSetBag_L;
@@ -273,7 +272,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
             return new FakeSetBag_3(tl, key, value,
                     new SetBag_1(tr.leftTree), tr.keyOne,
                     tr.valueOne, new SetBag_NonEmpty(tr.keyTwo, tr.valueTwo,
-                            tr.middleTree, tr.leftTree));
+                            tr.middleTree, tr.rightTree));
         } //      [(t1 k1 v1 t2)
         //       (T:2 t1 k1 v1 t2)]))
         else {
