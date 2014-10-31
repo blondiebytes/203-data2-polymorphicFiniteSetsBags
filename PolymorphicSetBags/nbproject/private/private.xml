@@ -21,7 +21,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/kathrynhodge/Desktop/stuff/Vassar/CMPU%20203/Assignments/Data2-PolymorphicFiniteSetsBags/PolymorphicSetBags/src/polymorphicsetbags/SetBag/SetBag_NonEmpty.java</file>
+            <file>file:/Users/kathrynhodge/Desktop/stuff/Vassar/CMPU%20203/Assignments/Data2-PolymorphicFiniteSetsBags/PolymorphicSetBags/src/polymorphicsetbags/FakeBag/FakeSetBag_L.java</file>
+            <file>file:/Users/kathrynhodge/Desktop/stuff/Vassar/CMPU%20203/Assignments/Data2-PolymorphicFiniteSetsBags/PolymorphicSetBags/src/polymorphicsetbags/SetBag/SetBag_Empty.java</file>
+            <file>file:/Users/kathrynhodge/Desktop/stuff/Vassar/CMPU%20203/Assignments/Data2-PolymorphicFiniteSetsBags/PolymorphicSetBags/src/polymorphicsetbags/SetBag/SetBag_1.java</file>
+            <file>file:/Users/kathrynhodge/Desktop/stuff/Vassar/CMPU%20203/Assignments/Data2-PolymorphicFiniteSetsBags/PolymorphicSetBags/src/polymorphicsetbags/FakeBag/FakeBag.java</file>
+            <file>file:/Users/kathrynhodge/Desktop/stuff/Vassar/CMPU%20203/Assignments/Data2-PolymorphicFiniteSetsBags/PolymorphicSetBags/src/polymorphicsetbags/Tests/TesterClass.java</file>
+            <file>file:/Users/kathrynhodge/Desktop/stuff/Vassar/CMPU%20203/Assignments/Data2-PolymorphicFiniteSetsBags/PolymorphicSetBags/src/polymorphicsetbags/FakeBag/FakeSetBag_3.java</file>
             <file>file:/Users/kathrynhodge/Desktop/stuff/Vassar/CMPU%20203/Assignments/Data2-PolymorphicFiniteSetsBags/PolymorphicSetBags/src/polymorphicsetbags/Tests/RunTests.java</file>
+            <file>file:/Users/kathrynhodge/Desktop/stuff/Vassar/CMPU%20203/Assignments/Data2-PolymorphicFiniteSetsBags/PolymorphicSetBags/src/polymorphicsetbags/SetBag/Bag.java</file>
         </group>
     </open-files>
 </project-private>

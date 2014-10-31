@@ -50,13 +50,13 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
         return this.remove(elt);
     }
 
-//    public Bag add(D elt) {
-//        return new SetBag_NonEmpty(elt);
-//    }
-//    
-//    public Bag addN(D elt, int n) {
-//        return new SetBag_NonEmpty(elt, n);
-//    }
+    public Bag add(D elt) {
+        return new SetBag_NonEmpty(elt);
+    }
+    
+    public Bag addN(D elt, int n) {
+        return new SetBag_NonEmpty(elt, n);
+    }
 //    
 //      [t
 //       (T:1 t)]))    

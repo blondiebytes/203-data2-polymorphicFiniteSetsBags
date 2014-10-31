@@ -25,25 +25,17 @@ public class RunTests {
     
     public static void main(String[] args) throws Exception {      
         
-        // Random Tests
-        TesterClass<Integer> testerInt = new TesterClass<>(new IntGen());
-        testerInt.runAll();
-        TesterClass<String> testerString = new TesterClass<>(new StringGen());
-        testerString.runAll();
-        TesterClass<Hoolean> testerHoolean = new TesterClass<>(new BooleanGenerator());
-        testerHoolean.runAll();
-
         // Hard-coded tests
         Bag<Integer> bag = new SetBag_NonEmpty(5, 3, new SetBag_NonEmpty(3, 1, empty(), empty()), new SetBag_NonEmpty(7, 2, empty(), empty()));
         System.out.println("Cardinality: We should have 6 things = " + bag.cardinality());
         System.out.println("Cardinality & Remove: We should have 5 things = " + bag.remove(5).cardinality());
-        System.out.println("Cardinality & Add: We should have 7 things = " + bag.smartInsert(5).cardinality());
-        System.out.println("Cardinality & Add: We should have 7 things = " + bag.smartInsert(4).cardinality());
+        System.out.println("Cardinality & Add: We should have 7 things = " + bag.add(5).cardinality());
+        System.out.println("Cardinality & Add: We should have 7 things = " + bag.add(4).cardinality());
         System.out.println("Get Count & Remove: 2 = " + bag.remove(5).getCount(5));
         System.out.println("Get Count: 3 = " + bag.getCount(5));
         System.out.println("MemberNOT = " + bag.member(0));
         System.out.println("MemberYES = " + bag.member(5));
-        System.out.println("Member & Add YES =" + bag.smartInsert(4).member(4));
+        System.out.println("Member & Add YES =" + bag.add(4).member(4));
         System.out.println("Equal = true = " + bag.equal(bag));
         System.out.println("Equal = false = " + bag.equal(bag.remove(5)));
         System.out.println("Subset = true = " + bag.remove(5).subset(bag));
@@ -64,7 +56,7 @@ public class RunTests {
 
         System.out.println("Inter & equal: bag inter bag = bag | true = " + bag.inter(bag).equal(bag));
         System.out.println("Inter & equal: bag(without 5) inter bag = bag(without 5) | true = " + bag.remove(5).inter(bag).equal(bag.remove(5)));
-        System.out.println("AddN & Cardinality 6 + 3 = " + bag.smartInsertN(10, 3).cardinality());
+        System.out.println("AddN & Cardinality 6 + 3 = " + bag.addN(10, 3).cardinality());
         System.out.println("RemoveN & Cardinality 6 - 3 = " + bag.removeN(5, 3).cardinality());
         System.out.println("RemoveN & Cardinality 6 - 2 = " + bag.removeN(5, 2).cardinality());
         System.out.println("RemoveN & Cardinality 6 - 1 = " + bag.removeN(5, 1).cardinality());
@@ -72,15 +64,15 @@ public class RunTests {
         System.out.println("RemoveN & Cardinality 6 - 1 = " + bag.removeN(3, 1).cardinality());
         // Because 8 isn't in the tree
         System.out.println("RemoveN & Cardinality 6 - 0 = " + bag.removeN(8, 2).cardinality());
-        System.out.println("AddN & Cardinality 6 + 3 = " + bag.smartInsertN(5, 3).cardinality());
-        System.out.println("AddN & Cardinality 6 + 2 = " + bag.smartInsertN(5, 2).cardinality());
-        System.out.println("AddN & Cardinality 6 + 1 = " + bag.smartInsertN(5, 1).cardinality());
-        System.out.println("AddN & Cardinality 6 + 2 = " + bag.smartInsertN(8, 2).cardinality());
-        System.out.println("AddN & Cardinality 6 + 1 = " + bag.smartInsertN(3, 1).cardinality());
+        System.out.println("AddN & Cardinality 6 + 3 = " + bag.addN(5, 3).cardinality());
+        System.out.println("AddN & Cardinality 6 + 2 = " + bag.addN(5, 2).cardinality());
+        System.out.println("AddN & Cardinality 6 + 1 = " + bag.addN(5, 1).cardinality());
+        System.out.println("AddN & Cardinality 6 + 2 = " + bag.addN(8, 2).cardinality());
+        System.out.println("AddN & Cardinality 6 + 1 = " + bag.addN(3, 1).cardinality());
         System.out.println("Difference: Bag - bag = bag | false = " + bag.diff(bag).equal(bag));
         System.out.println("Difference: Bag - bag = empty() | true = " + bag.diff(bag).equal(empty()));
         System.out.println("Difference: Bag (w/o 5) - bag = empty() | true = " + bag.diff(bag.removeN(5, 3)).equal(empty()));
-        System.out.println("Difference: Bag - bag(w/o 5) = bag | true = " + bag.removeN(5, 3).diff(bag).equal(empty().smartInsertN(5, 3)));
+        System.out.println("Difference: Bag - bag(w/o 5) = bag | true = " + bag.removeN(5, 3).diff(bag).equal(empty().addN(5, 3)));
 
         System.out.println();
         
@@ -105,6 +97,14 @@ public class RunTests {
         System.out.println(s5.member("a") + " should be " + true);
 
         System.out.println();
+        
+        // Random Tests
+        TesterClass<Integer> testerInt = new TesterClass<>(new IntGen());
+        testerInt.runAll();
+        TesterClass<String> testerString = new TesterClass<>(new StringGen());
+        testerString.runAll();
+        TesterClass<Hoolean> testerHoolean = new TesterClass<>(new BooleanGenerator());
+        testerHoolean.runAll();
         
         }
     

@@ -11,8 +11,8 @@ public interface Bag<D extends Comparable> extends FakeBag<D>{
     public Bag remove (D elt);
     public Bag removeN(D elt, int n);
     public Bag removeAll(D elt);
-//    public Bag add(D elt);
-//    public Bag addN(D elt, int n);
+    public Bag add(D elt);
+    public Bag addN(D elt, int n);
     public Bag union(Bag u);
     public Bag inter(Bag u);
     public Bag diff(Bag u);

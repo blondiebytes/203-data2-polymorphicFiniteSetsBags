@@ -53,6 +53,14 @@ public class SetBag_1<D extends Comparable> implements Bag<D> {
         return next.removeAll(elt);
     }
     
+    public Bag add(D elt) {
+        return next.add(elt);
+    }
+    
+    public Bag addN(D elt, int n) {
+        return next.addN(elt,n);
+    }
+    
     public Bag<D> smartInsert(D key) {
      return smartInsertN(key, 1);
     }

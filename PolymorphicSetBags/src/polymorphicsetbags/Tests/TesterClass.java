@@ -35,7 +35,7 @@ public class TesterClass<D extends Comparable> {
         if (count == 0) {
             return empty();
         } else {
-            return rndBag(count - 1).smartInsertN(gen.nextThing(1, 50), rndInt(1, 10));
+            return rndBag(count - 1).addN(gen.nextThing(1, 50), rndInt(1, 10));
         }
     }
 
@@ -102,7 +102,7 @@ public class TesterClass<D extends Comparable> {
         // Add and remove the same element from a copied tree
         // This is more of a test for finite sets (not multi-bag)
         D rand = gen.nextThing(0, 50);
-        Bag nT = t.smartInsert(rand);
+        Bag nT = t.add(rand);
         if (nT.getCount(rand) - 1 != t.getCount(rand)) {
             throw new Exception("Failure: After adding an item, the count for that item"
                     + " should increase by 1" + nT.getCount(rand) + " = " + t.getCount(rand) + " toString: nT [" + nT.toStringBST() + "] toString: t [" + t.toStringBST() + "]");
@@ -121,7 +121,7 @@ public class TesterClass<D extends Comparable> {
 
     // ITEM USED:
     public void checkTree_add_member(Bag t, D x, D y) throws Exception {
-        Boolean bool = t.smartInsert(x).member(y);
+        Boolean bool = t.add(x).member(y);
         if (bool && x.compareTo(y) == 0) {
             //Success! X = Y and it's in the tree
         } else {
