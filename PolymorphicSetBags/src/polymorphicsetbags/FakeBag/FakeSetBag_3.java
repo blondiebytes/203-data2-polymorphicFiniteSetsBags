@@ -40,7 +40,9 @@ public class FakeSetBag_3<D extends Comparable> implements FakeBag<D> {
                 new SetBag_1(rightTree));
     }
    
-    
+//     [(fake:3 L K1 V1 M K2 V2 R)
+//       (T:2 (T:2 L K1 V1 M) K2 V2 (T:1 R))]
+
     public Bag<D> smartInsertStep2() {
         return new SetBag_NonEmpty(keyTwo, valueTwo, new SetBag_NonEmpty(keyOne, valueOne, 
                 leftTree, middleTree), new SetBag_1(rightTree));

@@ -189,6 +189,16 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
          return smartInsertStep1(key, value).smartInsertStep2();
     }
 
+//    [(T:2 L K V R)
+//       (cond
+//        [(= k K)
+//         (fake:2 L K v R)]
+//        [(< k K)
+//         (fake:2 (step1 L) K V R)]
+//        [else
+//         (fake:2 L K V (step1 R))])]))
+
+    
     public FakeBag<D> smartInsertStep1(D key, int value) {
         if (this.root.compareTo(key) == 0) {
             return fake2(this.left, this.root, this.getCount(root) + value, this.right);
@@ -199,11 +209,15 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
             return fake2(this.left, this.root, this.getCount(root), this.right.smartInsertStep1(key, value));
         }
     }
-
+    
+//  [t
+//       t]))
     public Bag<D> smartInsertStep2() {
         return this;
     }
     
+//     [t
+//       (T:1 t)]))
     public FakeBag<D> fake1() {
         return new SetBag_1(this);
     }
@@ -218,7 +232,8 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
             return new FakeSetBag_3<D>(empty(), tl.key,
                     tl.value, empty(),
                     key, value, (Bag<D>) right);
-        } //       [((fake:3 t1 k1 v1 t2 k2 v2 t3) k3 v3 (T:1 t4))
+        } 
+        //       [((fake:3 t1 k1 v1 t2 k2 v2 t3) k3 v3 (T:1 t4))
         //       (T:2 (T:2 t1 k1 v1 t2) k2 v2 (T:2 t3 k3 v3 t4))]
         else if ((left instanceof FakeSetBag_3) && (right instanceof SetBag_1)) {
             FakeSetBag_3<D> tl = (FakeSetBag_3) left;

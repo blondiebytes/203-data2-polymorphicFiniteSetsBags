@@ -58,6 +58,9 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
 //        return new SetBag_NonEmpty(elt, n);
 //    }
 //    
+//      [t
+//       (T:1 t)]))    
+
    public FakeBag<D> fake1() {
         return new SetBag_1(this);
     }
@@ -69,6 +72,9 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
     public Bag<D> smartInsertN(D key, int value) {
          return smartInsertStep1(key, value).smartInsertStep2();
     }
+    
+//    [(T:0)
+//       (fake:L k v)]
     
     public FakeBag<D> smartInsertStep1(D key, int value) {
         return new FakeSetBag_L(key, value);

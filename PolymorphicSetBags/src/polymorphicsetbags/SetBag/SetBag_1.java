@@ -8,7 +8,6 @@ package polymorphicsetbags.SetBag;
 // fake1 = func
 
 import polymorphicsetbags.FakeBag.FakeBag;
-import polymorphicsetbags.FakeBag.FakeOrRealBag;
 
 // fake2 = func
 
@@ -19,7 +18,7 @@ import polymorphicsetbags.FakeBag.FakeOrRealBag;
 //implement it on the next
 
 
-public class SetBag_1<D extends Comparable> implements Bag<D>, FakeOrRealBag<D>{
+public class SetBag_1<D extends Comparable> implements Bag<D> {
     Bag<D> next;
 
    public SetBag_1(Bag<D> next) {
@@ -62,6 +61,9 @@ public class SetBag_1<D extends Comparable> implements Bag<D>, FakeOrRealBag<D>{
         return smartInsertStep1(key, value).smartInsertStep2();
     }
 
+//    [(T:1 N)
+//       (fake:1 (step1 N))]
+
     public FakeBag<D> smartInsertStep1(D key, int value) {
         return this.next.smartInsertStep1(key, value).fake1();
     }
@@ -70,6 +72,8 @@ public class SetBag_1<D extends Comparable> implements Bag<D>, FakeOrRealBag<D>{
         return this;
     }
     
+//    [t
+//       t]))
     public FakeBag<D> fake1() {
         return new SetBag_1(this);
     }

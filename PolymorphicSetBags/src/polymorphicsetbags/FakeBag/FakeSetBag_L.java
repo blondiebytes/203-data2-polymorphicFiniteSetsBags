@@ -6,7 +6,6 @@
 package polymorphicsetbags.FakeBag;
 
 import polymorphicsetbags.SetBag.Bag;
-import polymorphicsetbags.FakeBag.FakeSetBag_3;
 import polymorphicsetbags.SetBag.SetBag_NonEmpty;
 import static polymorphicsetbags.SetBag.SetBag_NonEmpty.empty;
 
@@ -20,11 +19,17 @@ public class FakeSetBag_L<D extends Comparable> implements FakeBag<D>{
     this.key = key;
     this.value = value;
 }
+   
+//        [(fake:L k v)
+//       (T:2 (T:0) k v (T:0))]
     
   public Bag<D> fake1() {
       return new SetBag_NonEmpty(this.key, this.value, empty(), empty());
     }
   
+//    [(fake:L k v)
+//       (T:2 (T:0) k v (T:0))]
+//  
   public Bag<D> smartInsertStep2() {
      return new SetBag_NonEmpty(this.key, this.value, empty(), empty());
   }
