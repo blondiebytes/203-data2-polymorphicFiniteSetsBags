@@ -6,6 +6,7 @@ import polymorphicsetbags.FakeBag.FakeSetBag_3;
 import polymorphicsetbags.FakeBag.FakeSetBag_L;
 import polymorphicsetbags.Sequence.Sequence;
 import polymorphicsetbags.Sequence.Sequence_Empty;
+import polymorphicsetbags.Sequence.Sequenced;
 
    // A finite bag is also called a mulitset and is like a set, 
 // but each element may occur many times. 
@@ -25,7 +26,7 @@ import polymorphicsetbags.Sequence.Sequence_Empty;
 // Need "Tree Rotation"
 // Right rotation
 // Left rotation
-public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
+public class SetBag_NonEmpty<D extends Comparable> implements Bag<D>, Sequenced<D> {
 
     int count;
     D root;
@@ -181,6 +182,25 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         }
     }
 
+     public Bag rotate(boolean toRight) {
+        if (toRight) {
+            if (!left.isEmptyHuh()) {
+                SetBag_NonEmpty tl = (SetBag_NonEmpty) left;
+                return new SetBag_NonEmpty(tl.root, tl.count, tl.left, new SetBag_NonEmpty(this.root, this.count, right, tl.right));
+            } else {
+                throw new RuntimeException("AVLTree cannot rotate in that direction!");
+            }
+        } else {
+            if (!right.isEmptyHuh()) {
+                SetBag_NonEmpty tr = (SetBag_NonEmpty) right;
+                return new SetBag_NonEmpty(tr.root, tr.count, new SetBag_NonEmpty(root, count,left,tr.left), tr.right);
+            } else {
+                throw new RuntimeException("AVLTree cannot rotate in that direction!");
+            }
+        }
+    }
+    
+    
     public Bag<D> smartInsert(D key) {
         return smartInsertN(key, 1);
     }
@@ -296,7 +316,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
     }
 
     public Bag union(Bag u) {
-        return u.union(left.union(right)).smartInsertN(root, this.getCount(root));
+        return u.union(left.union(right)).addN(root, this.getCount(root));
     }
 
     public Bag inter(Bag u) {
@@ -333,4 +353,43 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D> {
         return "[SB:2 Left: "+ this.left.toStringBST() + " Right: " 
                 + this.right.toStringBST() + "Root: " + this.root + " Value: " + this.getCount(root) + "]";
     }
+    
+      // Another way to balance
+//     public Bag balance(Bag tree) {
+//        if (!tree.isEmptyHuh()) {
+//            SetBag_NonEmpty<D> oldTree = (SetBag_NonEmpty) tree;
+//            SetBag_NonEmpty newSet = new SetBag_NonEmpty(oldTree.root, oldTree.count, balance(oldTree.left), balance(oldTree.right));
+//            if ((newSet.left.cardinality() - newSet.right.cardinality()) > 1) {
+//                //left is overweight
+//                if (newSet.left.left.cardinality() > newSet.left.right.cardinality()) {
+//                    //left left case
+//                    newSet = newSet.rotate(true);
+//                } else {
+//                    //left right case
+//                    newSet = new SetBag_NonEmpty (newSet.root, newSet.count, 
+//                            newSet.left.rotate(false)), newSet.right.rotatenewSet.getRight(),
+//                                         newSet.getLeft().rotate(false),
+//                                         newSet.getData()).rotate(true);
+//                }
+//            } else if (newSet.getLeft().height() - newSet.getRight().height() < -1) {
+//                //right is overweight
+//                if (newSet.getRight().getRight().height() > newSet.getRight().getLeft().height()) {
+//                    //right right case
+//                    newSet = newSet.rotate(false);
+//                } else {
+//                    //right left case
+//                    newSet = new AVLTree(newSet.getRight().rotate(true),
+//                                         newSet.getLeft(),
+//                                         newSet.getData()).rotate(false);
+//                }
+//            }
+//            return newSet;
+//        } else {
+//            return tree;
+//        }
+//    }
+    
+    
+    
+    
 }
