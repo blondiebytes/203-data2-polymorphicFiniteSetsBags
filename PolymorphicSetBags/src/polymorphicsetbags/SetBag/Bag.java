@@ -1,11 +1,10 @@
 
 package polymorphicsetbags.SetBag;
 
-import polymorphicsetbags.FakeBag.FakeBag;
 import polymorphicsetbags.Sequence.Sequence;
 import polymorphicsetbags.Sequence.Sequenced;
 
-public interface Bag<D extends Comparable> extends FakeBag<D>, Sequenced<D>{
+public interface Bag<D extends Comparable> extends Sequenced<D>{
     public int cardinality();
     public int getCount(D elt);
     public  boolean isEmptyHuh();
@@ -20,10 +19,9 @@ public interface Bag<D extends Comparable> extends FakeBag<D>, Sequenced<D>{
     public Bag diff(Bag u);
     public boolean equal (Bag u);
     public boolean subset (Bag u);
-    public FakeBag<D> smartInsertStep1(D key, int value);
-    public Bag<D> smartInsert(D key);
-   public Bag<D> smartInsertN(D key, int value);
     public String toStringBST();
     public Sequence<D> seq();
+    public int sumIt ();
+    public int sumItS(Sequence<D> as);
 }
 

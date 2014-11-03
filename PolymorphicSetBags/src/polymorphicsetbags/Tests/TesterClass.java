@@ -20,6 +20,7 @@ public class TesterClass<D extends Comparable> {
     int checkTree_equal_union_inter = 0;
     int checkTree_inter_empty = 0;
     int checkTree_getCount_union =0;
+    int checkTree_seq_cardinality = 0;
     int tests = 1000;
 
     public TesterClass(Generator<D> gen) {
@@ -80,6 +81,14 @@ public class TesterClass<D extends Comparable> {
             System.out.println("Failure: Empty with not cardinality = 0");
         }
         checkTree_isEmptyHuh_cardinality++;
+    }
+    
+    public void checkTree_seq_cardinality(Bag t) throws Exception {
+        if (t.sumIt() != t.cardinality()) {
+            throw new Exception("The sequence doesn't represent the right number"
+                    + " of elements");
+        }
+        checkTree_seq_cardinality++;
     }
 
     public void checkTree_cardinality_remove_getCount(Bag t, D x) throws Exception {
@@ -286,6 +295,15 @@ public class TesterClass<D extends Comparable> {
         }
         System.out.println("Testing: IsEmptyHuh? & Cardinality: " + checkTree_isEmptyHuh_cardinality + " times");
         System.out.println();
+        
+        System.out.println();
+        // Testing for Seq & Cardinality
+        for (int i = 0; i < tests; i++) {
+            int len = rndInt(0, 10);
+            Bag l = rndBag(len);
+            checkTree_seq_cardinality(l);
+        }
+        System.out.println("Testing: Sequences & Cardinality: " + checkTree_seq_cardinality + "times");
 
         // Testing Cardinality & Remove
         for (int i = 0; i < tests; i++) {
