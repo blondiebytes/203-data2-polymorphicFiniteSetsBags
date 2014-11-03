@@ -8,6 +8,8 @@ package polymorphicsetbags.SetBag;
 // fake1 = func
 
 import polymorphicsetbags.FakeBag.FakeBag;
+import polymorphicsetbags.Sequence.Sequence;
+import polymorphicsetbags.Sequence.Sequence_Empty;
 
 // fake2 = func
 
@@ -23,6 +25,10 @@ public class SetBag_1<D extends Comparable> implements Bag<D> {
 
    public SetBag_1(Bag<D> next) {
        this.next = next;
+   }
+   
+   public Sequence<D> seq() {
+       return new Sequence_Empty();
    }
     
     public int cardinality() {

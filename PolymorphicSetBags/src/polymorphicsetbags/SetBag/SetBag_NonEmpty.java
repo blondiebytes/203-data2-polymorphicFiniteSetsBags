@@ -5,7 +5,9 @@ import polymorphicsetbags.FakeBag.FakeBag;
 import polymorphicsetbags.FakeBag.FakeSetBag_3;
 import polymorphicsetbags.FakeBag.FakeSetBag_L;
 import polymorphicsetbags.Sequence.Sequence;
+import polymorphicsetbags.Sequence.Sequence_Cat;
 import polymorphicsetbags.Sequence.Sequence_Empty;
+import polymorphicsetbags.Sequence.Sequence_NonEmpty;
 import polymorphicsetbags.Sequence.Sequenced;
 
    // A finite bag is also called a mulitset and is like a set, 
@@ -78,7 +80,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D>, Sequenced<
 
     // We need something that puts this in a sequence. 
     public Sequence<D> seq() {
-        return new Sequence_Empty();
+        return new Sequence_NonEmpty(root, count, (new Sequence_Cat(left.seq(),right.seq())));
     }
 
    // IMPLEMENTATION: 

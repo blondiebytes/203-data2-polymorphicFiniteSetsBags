@@ -8,9 +8,9 @@ package polymorphicsetbags.Sequence;
 public class Sequence_NonEmpty<D extends Comparable> implements Sequence<D>, Sequenced<D> {
     D here;
     int count;
-    Sequence_NonEmpty<D> next;
+    Sequence<D> next;
     
-    public Sequence_NonEmpty(D here, int count, Sequence_NonEmpty<D> next) {
+    public Sequence_NonEmpty(D here, int count, Sequence<D> next) {
         this.here = here;
         this.count = count;
         this.next = next;
@@ -25,13 +25,11 @@ public class Sequence_NonEmpty<D extends Comparable> implements Sequence<D>, Seq
     }
     
     public Sequence<D> next() {
-       if (count != 0) {
+       if (count > 1) {
         return new Sequence_NonEmpty(here, count - 1, next);
-            } else if (next.hasNext()) {
-                 return new Sequence_NonEmpty(next.here(), next.count - 1, next.next);
-            } else {
-                return new Sequence_Empty();
-            }
+       } else {
+        return next;   
+         } 
        }
     
     public Sequence<D> seq() {

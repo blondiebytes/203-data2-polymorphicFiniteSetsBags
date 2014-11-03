@@ -2,6 +2,7 @@
 package polymorphicsetbags.Sequence;
 
 
-public interface Action {
-    public int apply (int h);
+public interface Action<D extends Comparable> {
+    
+    public D apply (D h);
 }
