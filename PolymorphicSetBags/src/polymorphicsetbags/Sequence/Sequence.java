@@ -1,10 +1,7 @@
 
 package polymorphicsetbags.Sequence;
 
-import java.util.Iterator;
-
-
-public interface Sequence<D> {
+public interface Sequence<D extends Comparable> {
  
     public D here();
     
