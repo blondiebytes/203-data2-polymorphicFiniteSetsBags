@@ -25,7 +25,15 @@ public class RunTests {
     
     public static void main(String[] args) throws Exception {      
         
-        // Hard-coded tests
+        // Random Tests
+        TesterClass<Integer> testerInt = new TesterClass<>(new IntGen());
+        testerInt.runAll();
+        TesterClass<String> testerString = new TesterClass<>(new StringGen());
+        testerString.runAll();
+        TesterClass<Hoolean> testerHoolean = new TesterClass<>(new BooleanGenerator());
+        testerHoolean.runAll();
+        
+         // Hard-coded tests
         SetBag_NonEmpty<Integer> bag = new SetBag_NonEmpty(5, 3, new SetBag_NonEmpty(3, 1, empty(), empty()), new SetBag_NonEmpty(7, 2, empty(), empty()));
         System.out.println("Cardinality: We should have 6 things = " + bag.cardinality() + " = seq = " + bag.sumIt());
         System.out.println("Sequencing: " + bag.stringIt());
@@ -103,14 +111,6 @@ public class RunTests {
         
         
         
-        
-        // Random Tests
-        TesterClass<Integer> testerInt = new TesterClass<>(new IntGen());
-        testerInt.runAll();
-        TesterClass<String> testerString = new TesterClass<>(new StringGen());
-        testerString.runAll();
-        TesterClass<Hoolean> testerHoolean = new TesterClass<>(new BooleanGenerator());
-        testerHoolean.runAll();
         
         }
     

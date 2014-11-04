@@ -9,7 +9,7 @@ public class BooleanGenerator implements Generator<Hoolean> {
     
     public Hoolean nextThing(int min, int max) {
         Random rnd = new Random();
-        int bool = rnd.nextInt(1) + 1;
+        int bool = rnd.nextInt(2) + 1;
         if (bool == 1) {
             return new Hoolean(false);
         } else {

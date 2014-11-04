@@ -11,7 +11,7 @@ public class StringGen implements Generator<String> {
         StringBuilder stringBuffer = new StringBuilder("");
         for (int i = 0; i < rndInt; i++) {
 //            stringBuffer.append("A");
-            stringBuffer.append(Character.toChars(65 + rndInt(0, 26))[0]);
+            stringBuffer.append(Character.toChars(65 + rndInt(0, 25))[0]);
         }
         return stringBuffer.toString();
     }

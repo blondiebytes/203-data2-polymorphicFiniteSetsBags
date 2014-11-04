@@ -21,7 +21,7 @@ public class Sequence_Empty<D extends Comparable> implements Sequence<D>{
     }
     
     public String toStringSequence() {
-        return " ";
+        return "";
     }
     
     
