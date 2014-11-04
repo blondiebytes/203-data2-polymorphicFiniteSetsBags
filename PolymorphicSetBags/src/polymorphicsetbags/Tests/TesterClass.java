@@ -40,19 +40,7 @@ public class TesterClass<D extends Comparable> {
         }
     }
 
-    public static String rndStringX(int min, int max) {
-        int rndInt = rndInt(min, max);
-        StringBuilder stringBuffer = new StringBuilder("");
-        // Random generator for letter?
-//        Random rnd = new Random();
-//        int letter = rnd.nextInt(24);
-        for (int i = 0; i > rndInt; i++) {
-            stringBuffer.append("X");
-        }
-        return stringBuffer.toString();
-    }
-
-    // Also checks getCount
+    // 
     public void checkTree_empty_isEmptyHuh(int count) throws Exception {
         // Creating a empty tree or a random tree
         if (count == 0) {
@@ -65,7 +53,7 @@ public class TesterClass<D extends Comparable> {
             int len = rndInt(1, 10);
             Bag l = rndBag(len);
             if (l.isEmptyHuh()) {
-                throw new Exception("Failure: A nonempty set is empty!");
+                throw new Exception("Failure: A nonempty set is empty!" + l.stringIt());
             }
 
         }
@@ -92,14 +80,14 @@ public class TesterClass<D extends Comparable> {
     }
 
     public void checkTree_cardinality_remove_getCount(Bag t, D x) throws Exception {
-        int nT = t.remove(x).cardinality();
+        int c = t.remove(x).cardinality();
         // Either something was removed -> and it decreased the tree by one
         // Or the thing wasn't there to begin with, and nothing was removed
-        if (t.getCount(x) >= 1 && nT != t.cardinality() - 1) {
+        if (t.getCount(x) >= 1 && c != t.cardinality() - 1) {
             throw new Exception("Failure - we remove x from nT and there was only"
                     + "x so the cardinality should decrease by 1");
         }
-        if (t.getCount(x) == 0 && nT != t.cardinality()) {
+        if (t.getCount(x) == 0 && c != t.cardinality()) {
             throw new Exception("The object wasn't there so there was nothing to remove."
                     + " Thus, the cardinality should remain the same");
         } else {
@@ -128,7 +116,6 @@ public class TesterClass<D extends Comparable> {
         checkTree_remove_equal_add_getCount++;
     }
 
-    // ITEM USED:
     public void checkTree_add_member(Bag t, D x, D y) throws Exception {
         Boolean bool = t.add(x).member(y);
         if (bool && x.compareTo(y) == 0) {
@@ -138,11 +125,11 @@ public class TesterClass<D extends Comparable> {
                 //"Success! Y was a member of y beforehand and "
                 //"it's in the tree"
             } else {
-                if (!bool && (x != y && !t.member(y))) {
+                if (!bool && ((x.compareTo(y) != 0) && !t.member(y))) {
 //          Success! X != Y and is not a member of the original"
 //                    + " tree and therefore is not a member of this tree"
                 } else {
-                    throw new Exception("Failure! Problem with member or add!");
+                    throw new Exception("Failure! Problem with member or add! X: " + x + " Y: " + y + "bool: " + bool + "mem: "+ !t.member(y));
                 }
             }
         }
@@ -187,8 +174,8 @@ public class TesterClass<D extends Comparable> {
       // A more precise property for union & cardinality:
     // (count (union u v) x) = (+ (count u x) (count v x))
     // Nice that there is only one case
-    public void checkTree_getCount_union(Bag u, Bag v, D x) throws Exception {
-        if (u.union(v).getCount(x) != ((u.getCount(x)) + (v.getCount(x)))) {
+    public void checkTree_getCount_union(Bag t, Bag r, D x) throws Exception {
+        if (t.union(r).getCount(x) != ((t.getCount(x)) + (r.getCount(x)))) {
         throw new Exception("Failure! The union of two trees should have the "
                 + "same count of x as the two trees count of x added together b/c "
                 + " concept of addition");
@@ -205,15 +192,16 @@ public class TesterClass<D extends Comparable> {
         checkTree_union_subset++;
     }
 
-    // NOT WORKING: 
     public void checkTree_subset_diff(Bag t, Bag r) throws Exception {
         Bag tDiffR = t.diff(r);
         Bag rDiffT = r.diff(t);
-        // If T - R = T && If R - T = R
+        // If R - T = R && T - R = T 
         // Then, they must be completely disjoint and not be subsets of each other
-        if (tDiffR.equals(t) && rDiffT.equals(r)) {
-            if (r.subset(t) || r.subset(t)) {
-                throw new Exception("Subset & Diff PROBZ");
+        if (tDiffR.equal(r) && rDiffT.equal(t)) {
+            if (!r.isEmptyHuh() && !t.isEmptyHuh()) {
+                 if (r.subset(t) || t.subset(r)) {
+                      throw new Exception("Subset & Diff PROBZ" + r.stringIt() + " TTTTTT: " + t.stringIt());
+                    }
             }
         }
 //        if (t.isEmptyHuh()) {
@@ -235,7 +223,7 @@ public class TesterClass<D extends Comparable> {
         // t inter r = the empty set iff t - r = t
         if ((t.inter(r)).equal(empty()) && r.diff(t).equal(t)) {
 //            "Success! A inter B = the empty set iff A - B = A"
-        } else if (!(t.inter(r)).equal(empty()) && !r.diff(t).equal(t)) {
+    } else if (!(t.inter(r)).equal(empty()) && !r.diff(t).equal(t)) {
 //            "Success! A inter B != the empty set iff A - B != A"
         } else {
             throw new Exception("Failure! Wrong: diff, inter, empty, or equal");
@@ -245,7 +233,6 @@ public class TesterClass<D extends Comparable> {
 
     //Changed from original in finiteSet b/c union now equals 2 * inter;
     public void checkTree_equal_union_inter(Bag t, Bag r) throws Exception {
-        // Two sets are equal iff their union and intersection is the same
         if ((t.union(r).cardinality() == (t.inter(r)).cardinality() * 2) && t.equal(r)) {
 //            "Success! The two trees are equal and 2* inter = union"
         } else if ((t.union(r).cardinality() != t.inter(r).cardinality() * 2) && !t.equal(r)) {

@@ -14,12 +14,9 @@ public class RunTests {
 //    // STILL TO FIGURE OUT:
 //    // ----------------------------------------------------------------------
     
-    // How to implement a self-balancing tree and how to test that tree.
-
-     
-// Notes for Running Tests:
-    // TESTING IF BALANCED
-    //TESITNG SEQUENCE
+    // SELF-BALANCING TREE
+    // TESTING SELF_BALANCING TREE
+    // TESTING REMOVEALL (with member?)
     
    
     

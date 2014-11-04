@@ -44,7 +44,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D>, Sequenced<
     }
 
     public int getCount(D elt) {
-        if (elt.equals(this.root)) {
+        if (elt.compareTo(this.root)== 0) {
             return count;
         } else {
             if (elt.compareTo(root) < 0) {
@@ -99,26 +99,12 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D>, Sequenced<
     }
 
     public boolean isEmptyHuh() {
-        if (this.getCount(root) == 0) {
-            //now check left an right trees
-            if (!left.isEmptyHuh()) {
-                return right.isEmptyHuh();
-            } else {
-                return left.isEmptyHuh();
-            }
-        } else {
-            return false;
-        }
+        return this.getCount(root) == 0 && left.isEmptyHuh() && right.isEmptyHuh();
+       
     }
 
     public boolean member(D elt) {
-        if (elt.equals(this.root)) {
-            return this.count != 0;
-        } else if (elt.compareTo(this.root) < 0) {
-            return this.left.member(elt);
-        } else {
-            return this.right.member(elt);
-        }
+       return this.getCount(elt) != 0;
     }
 
     public Bag remove(D elt) {
@@ -127,7 +113,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D>, Sequenced<
 
 
     public Bag removeN(D elt, int n) {
-        if (elt.equals(this.root)) {
+        if (elt.compareTo(this.root) == 0) {
             int max = Math.max(0, this.count - n);
             return new SetBag_NonEmpty(this.root, max, this.left, this.right);
         } else {
@@ -140,15 +126,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D>, Sequenced<
     }
 
     public Bag removeAll(D elt) {
-        if (elt.equals(this.root)) {
-            return new SetBag_NonEmpty(this.root, 0,
-                    this.left, this.right);
-        } else if (elt.compareTo(this.root) < 0) {
-            return new SetBag_NonEmpty(this.root, this.left.removeAll(elt), this.right);
-        } else {
-            return new SetBag_NonEmpty(this.root, this.left,
-                    this.right.removeAll(elt));
-        }
+        return removeN(elt, this.getCount(elt));
     }
 
     public Bag add(D elt) {
@@ -156,7 +134,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D>, Sequenced<
     }
 
     public Bag addN(D elt, int n) {
-        if (elt.equals(this.root)) {
+        if (elt.compareTo(this.root) == 0) {
             int max = Math.max(0, this.count + n);
             return new SetBag_NonEmpty(this.root, max, this.left, this.right);
         } else {

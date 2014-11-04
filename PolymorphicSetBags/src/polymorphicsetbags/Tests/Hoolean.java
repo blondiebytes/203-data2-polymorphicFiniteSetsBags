@@ -11,7 +11,7 @@ public class Hoolean implements Comparable<Hoolean> {
     }
     
     public int compareTo(Hoolean bool) {
-        if (this.bool && bool.bool) {
+        if (this.bool == bool.bool) {
             return 0;
         } else if (!this.bool) {
             return -1;
