@@ -15,8 +15,6 @@ public class RunTests {
 //    // ----------------------------------------------------------------------
     
     // SELF-BALANCING TREE
-    // TESTING SELF_BALANCING TREE
-    // TESTING REMOVEALL (with member?)
     
    
     

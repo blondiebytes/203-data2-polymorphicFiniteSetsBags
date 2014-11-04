@@ -19,7 +19,6 @@ public interface Bag<D extends Comparable> extends Sequenced<D>{
     public Bag diff(Bag u);
     public boolean equal (Bag u);
     public boolean subset (Bag u);
-    public String toStringBST();
     public Sequence<D> seq();
     public int sumIt ();
     public int sumItS(Sequence<D> as);

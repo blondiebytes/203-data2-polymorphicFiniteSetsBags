@@ -102,10 +102,7 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
     public boolean subset (Bag u) {
         return true; 
     }
-    
-     public String toStringBST() {
-        return "[SB:E]";
-    }
+
 
     
 }

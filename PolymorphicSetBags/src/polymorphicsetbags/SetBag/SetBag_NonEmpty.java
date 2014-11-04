@@ -181,10 +181,6 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D>, Sequenced<
                 && this.right.subset(u);
     }
     
-    public String toStringBST() {
-        return "[SB:2 Left: "+ this.left.toStringBST() + " Right: " 
-                + this.right.toStringBST() + "Root: " + this.root + " Value: " + this.getCount(root) + "]";
-    }
-    
+   
     
 }
