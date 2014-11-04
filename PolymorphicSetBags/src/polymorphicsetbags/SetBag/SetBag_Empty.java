@@ -29,6 +29,14 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
         return 0;
     }
     
+    public String stringIt() {
+        return stringItS(this.seq());
+    }
+    
+    public String stringItS(Sequence<D> as) {
+        return "";
+    }
+    
     public int getCount(D elt) {
         return 0;
     }

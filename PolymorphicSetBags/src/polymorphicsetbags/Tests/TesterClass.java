@@ -426,6 +426,12 @@ public class TesterClass<D extends Comparable> {
         }
         System.out.println("Testing Inter & Empty(): " + checkTree_inter_empty + " times");
         System.out.println("================================");
+        
+         for ( int i = 0; i < 25; i++) {
+                int len = rndInt(0, 10);
+                Bag l = rndBag(len);
+                 System.out.println("Sequencing: " + l.stringIt());
+            }
     }
 
 }

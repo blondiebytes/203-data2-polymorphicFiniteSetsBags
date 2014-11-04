@@ -37,7 +37,7 @@ public class Sequence_NonEmpty<D extends Comparable> implements Sequence<D>, Seq
     }
     
     public String toStringSequence() {
-        return "[ " + this.here + " ]";
+        return " " + this.here + " ";
     }
     
 }
