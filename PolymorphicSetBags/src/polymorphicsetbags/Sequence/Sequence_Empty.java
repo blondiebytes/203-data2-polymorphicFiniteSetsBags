@@ -2,7 +2,7 @@
 package polymorphicsetbags.Sequence;
 
 
-public class Sequence_Empty<D extends Comparable> implements Sequence<D>{
+public class Sequence_Empty<D extends Comparable> implements Sequence<D>, Sequenced<D>{
 
     public void Sequence_Empty() {
    
@@ -24,6 +24,10 @@ public class Sequence_Empty<D extends Comparable> implements Sequence<D>{
         return "";
     }
     
+     public Sequence<D> seq() {
+        return this;
+    }
+   
     
     
     

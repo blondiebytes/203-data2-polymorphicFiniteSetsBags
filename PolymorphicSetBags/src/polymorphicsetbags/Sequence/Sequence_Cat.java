@@ -2,7 +2,7 @@
 package polymorphicsetbags.Sequence;
 
 
-public class Sequence_Cat<D extends Comparable> implements Sequence<D>{
+public class Sequence_Cat<D extends Comparable> implements Sequence<D>, Sequenced<D>{
     Sequence<D> left;
     Sequence<D> right;
     
@@ -34,5 +34,10 @@ public class Sequence_Cat<D extends Comparable> implements Sequence<D>{
     public String toStringSequence() {
         return this.left.toStringSequence() + " " + this.right.toStringSequence();
     }
+
+    public Sequence<D> seq() {
+        return this;
+    }
+   
     
 }
