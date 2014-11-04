@@ -20,6 +20,10 @@ public class Sequence_Empty<D extends Comparable> implements Sequence<D>{
         return this; 
     }
     
+    public String toStringSequence() {
+        return "[MT]";
+    }
+    
     
     
     

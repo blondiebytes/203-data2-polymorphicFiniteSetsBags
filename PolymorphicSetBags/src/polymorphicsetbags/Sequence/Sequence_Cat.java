@@ -31,5 +31,8 @@ public class Sequence_Cat<D extends Comparable> implements Sequence<D>{
         }
     }
     
+    public String toStringSequence() {
+        return "[ " + this.left.toStringSequence() + " ]" + "[ " + this.right.toStringSequence() + " ]";
+    }
     
 }

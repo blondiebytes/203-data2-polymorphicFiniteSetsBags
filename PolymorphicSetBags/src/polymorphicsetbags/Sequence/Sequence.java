@@ -9,5 +9,6 @@ public interface Sequence<D extends Comparable> {
     
     public Sequence<D> next();
    
+    public String toStringSequence();
     
 }

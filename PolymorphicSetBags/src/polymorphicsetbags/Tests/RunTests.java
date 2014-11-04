@@ -27,6 +27,7 @@ public class RunTests {
         // Hard-coded tests
         SetBag_NonEmpty<Integer> bag = new SetBag_NonEmpty(5, 3, new SetBag_NonEmpty(3, 1, empty(), empty()), new SetBag_NonEmpty(7, 2, empty(), empty()));
         System.out.println("Cardinality: We should have 6 things = " + bag.cardinality() + " = seq = " + bag.sumIt());
+        System.out.println("" + bag.stringIt());
         System.out.println("Cardinality & Remove: We should have 5 things = " + bag.remove(5).cardinality());
         System.out.println("Cardinality & Add: We should have 7 things = " + bag.add(5).cardinality());
         System.out.println("Cardinality & Add: We should have 7 things = " + bag.add(4).cardinality());

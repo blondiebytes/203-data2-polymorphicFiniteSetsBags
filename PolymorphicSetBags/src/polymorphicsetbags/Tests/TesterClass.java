@@ -294,7 +294,6 @@ public class TesterClass<D extends Comparable> {
             checkTree_isEmptyHuh_cardinality(l);
         }
         System.out.println("Testing: IsEmptyHuh? & Cardinality: " + checkTree_isEmptyHuh_cardinality + " times");
-        System.out.println();
         
         System.out.println();
         // Testing for Seq & Cardinality
@@ -303,7 +302,10 @@ public class TesterClass<D extends Comparable> {
             Bag l = rndBag(len);
             checkTree_seq_cardinality(l);
         }
-        System.out.println("Testing: Sequences & Cardinality: " + checkTree_seq_cardinality + "times");
+        System.out.println("Testing: Sequences & Cardinality: " + checkTree_seq_cardinality + " "
+                + "times");
+        
+        System.out.println();
 
         // Testing Cardinality & Remove
         for (int i = 0; i < tests; i++) {

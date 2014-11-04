@@ -101,7 +101,8 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D>, Sequenced<
     public String stringItS(Sequence<D> as) {
         StringBuffer all = new StringBuffer("");
         while (as.hasNext()) {
-           all.append(as.next().toString());
+           all.append(as.next().toStringSequence());
+           all.append("     ");
            as = as.next();
         }
         return all.toString();
