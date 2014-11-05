@@ -72,16 +72,7 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
     public Bag addN(D elt, int n) {
         return new SetBag_NonEmpty(elt, n);
     }
-//    
-//      [t
-//       (T:1 t)]))    
 
-     
-    
-//    [(T:0)
-//       (fake:L k v)]
-    
-   
     
     public Bag union(Bag u) {
         return u;
