@@ -9,13 +9,37 @@ import static polymorphicsetbags.SetBag.SetBag_NonEmpty.empty;
 
 
 public class SetBag_Empty<D extends Comparable> implements Bag<D> {
+    boolean isRed;
     
-    // These method shouldn't change b/c empty doesn't change -> non-empty 
-    // changes with the new rules of a set bag. Just have to make it generic
     
     public void SetBag_Empty() {
-        
+       
     }
+    
+    public void SetBag_Empty(Boolean isRed) {
+        this.isRed = isRed;
+    }
+    
+    
+    //Balance Tree methods
+    
+    public Bag<D> blacken() {
+        return this;
+    }
+    
+    public Bag<D> addInner(D elt, int n) {
+        return new SetBag_Empty();
+    }
+    
+    public Bag<D> rbInsert(D elt, int n) {
+        return this.addInner(elt, n).blacken();
+    }
+    
+    public boolean isRedHuh() {
+        return isRed;
+    }
+           
+    // Sequence Methods
     
     public Sequence<D> seq() {
         return new Sequence_Empty();
@@ -36,6 +60,8 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
     public String stringItS(Sequence<D> as) {
         return "";
     }
+    
+    // Finite Set Bag Methods
     
     public int getCount(D elt) {
         return 0;

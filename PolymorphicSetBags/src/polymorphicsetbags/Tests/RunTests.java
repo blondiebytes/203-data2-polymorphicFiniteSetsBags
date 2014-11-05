@@ -3,10 +3,7 @@ package polymorphicsetbags.Tests;
 
 import polymorphicsetbags.SetBag.Bag;
 import polymorphicsetbags.SetBag.SetBag_NonEmpty;
-import polymorphicsetbags.Tests.IntGen;
-import polymorphicsetbags.Tests.TesterClass;
 import static polymorphicsetbags.SetBag.SetBag_NonEmpty.empty;
-import static polymorphicsetbags.Tests.TesterClass.rndInt;
 
 
 public class RunTests {

@@ -102,7 +102,7 @@ public class TesterClass<D extends Comparable> {
         Bag nT = t.add(rand);
         if (nT.getCount(rand) - 1 != t.getCount(rand)) {
             throw new Exception("Failure: After adding an item, the count for that item"
-                    + " should increase by 1" + nT.getCount(rand) + " = " + t.getCount(rand) + " toString: nT [" + nT.toStringBST() + "] toString: t [" + t.toStringBST() + "]");
+                    + " should increase by 1");
         }
         nT = nT.remove(rand);
         if (nT.getCount(rand) != t.getCount(rand)) {
@@ -111,7 +111,7 @@ public class TesterClass<D extends Comparable> {
         }
         // Thus they should be equal
         if (!t.equal(nT)) {
-            throw new Exception("Failure: The tree changed after adding and removing same item" + nT.getCount(rand) + " " + t.getCount(rand)+ " toString: nT [" + nT.toStringBST() + "] toString: t [" + t.toStringBST() + "]");
+            throw new Exception("Failure: The tree changed after adding and removing same item" + nT.getCount(rand) + " " + t.getCount(rand)+ " toString: nT [");
         }
         checkTree_remove_equal_add_getCount++;
     }
