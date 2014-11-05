@@ -26,7 +26,8 @@ public interface Bag<D extends Comparable> extends Sequenced<D>{
     public String stringItS(Sequence<D> as);
     public Bag<D> blacken();
     public Bag<D> addInner(D elt, int n);
-    public Bag<D> rbInsert(D elt, int n);
+    public Bag<D> rbInsert(D elt);
+    public Bag<D> rbInsertN(D elt, int n);
     public boolean isRedHuh();
 }
 

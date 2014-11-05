@@ -31,7 +31,11 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
         return new SetBag_Empty();
     }
     
-    public Bag<D> rbInsert(D elt, int n) {
+    public Bag<D> rbInsert(D elt) {
+        return this.rbInsertN(elt,1);
+    }
+    
+    public Bag<D> rbInsertN(D elt, int n) {
         return this.addInner(elt, n).blacken();
     }
     
@@ -40,7 +44,6 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
     }
            
     // Sequence Methods
-    
     public Sequence<D> seq() {
         return new Sequence_Empty();
     }

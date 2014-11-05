@@ -284,8 +284,13 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D>, Sequenced<
         }
     }
 
-    public Bag<D> rbInsert(D elt, int n) {
+    public Bag<D> rbInsertN(D elt, int n) {
         return this.addInner(elt, n).blacken();
     }
+    
+     public Bag<D> rbInsert(D elt) {
+        return this.rbInsertN(elt, 1);
+    }
+
 
 }
