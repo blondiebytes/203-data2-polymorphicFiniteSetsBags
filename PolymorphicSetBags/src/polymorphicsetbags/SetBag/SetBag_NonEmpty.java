@@ -27,20 +27,20 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D>, Sequenced<
         this.root = root;
         this.left = left;
         this.right = right;
-        this.isRed = true;
+        this.isRed = false;
     }
 
     public SetBag_NonEmpty(D root, Bag<D> left, Bag<D> right) {
         this.count = 1;
         this.root = root;
         this.left = left;
-        this.isRed = true;
+        this.isRed = false;
         this.right = right;
     }
 
     public SetBag_NonEmpty(D root, int count) {
         // Setting Properties
-        this.isRed = true;
+        this.isRed = false;
         this.count = count;
         this.root = root;
         this.left = empty();
@@ -53,6 +53,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D>, Sequenced<
         this.root = root;
         this.left = empty();
         this.right = empty();
+        this.isRed = false;
     }
 
     public int getCount(D elt) {
@@ -67,15 +68,6 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D>, Sequenced<
 
         }
     }
-    
-    public Bag<D> left() {
-        return left;
-    }
-    
-    public Bag<D> right() {
-        return right;
-    }
-    
 
     // We need something that puts this in a sequence. 
     public Sequence<D> seq() {
@@ -149,30 +141,30 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D>, Sequenced<
         return removeN(elt, this.getCount(elt));
     }
 
+    public Bag add(D elt) {
+        return addN(elt, 1);
+    }
+
+    public Bag addN(D elt, int n) {
+        if (elt.compareTo(this.root) == 0) {
+            int max = Math.max(0, this.count + n);
+            return new SetBag_NonEmpty(this.root, max, this.left, this.right);
+        } else {
+            if (elt.compareTo(this.root) < 0) {
+                return new SetBag_NonEmpty(this.root, this.count, this.left.addN(elt, n), this.right);
+            } else {
+                return new SetBag_NonEmpty(this.root, this.count, this.left, this.right.addN(elt, n));
+            }
+        }
+    }
+//    
 //    public Bag add(D elt) {
-//        return addN(elt, 1);
+//        return this.addN(elt, 1);
 //    }
 //
 //    public Bag addN(D elt, int n) {
-//        if (elt.compareTo(this.root) == 0) {
-//            int max = Math.max(0, this.count + n);
-//            return new SetBag_NonEmpty(this.root, max, this.left, this.right);
-//        } else {
-//            if (elt.compareTo(this.root) < 0) {
-//                return new SetBag_NonEmpty(this.root, this.count, this.left.addN(elt, n), this.right);
-//            } else {
-//                return new SetBag_NonEmpty(this.root, this.count, this.left, this.right.addN(elt, n));
-//            }
-//        }
+//        return this.addInner(elt, n).blacken();
 //    }
-//    
-    public Bag add(D elt) {
-        return this.addN(elt, 1);
-    }
-    
-    public Bag addN(D elt, int n) {
-        return this.addInner(elt, n).blacken();
-    }
 
     public Bag union(Bag u) {
         return u.union(left.union(right)).addN(root, this.getCount(root));
@@ -209,71 +201,114 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D>, Sequenced<
     }
 
     // Balancing Methods
-    public Bag<D> blacken() {
-        return new SetBag_NonEmpty(this.root, this.count, false, this.left, this.right);
-    }
 
     public boolean isRedHuh() {
         return isRed;
     }
- 
-    public SetBag_NonEmpty balance(){
-        if(!this.isRedHuh()){
-        try{   
-            if(this.left.isRedHuh()&&this.left.left().isRedHuh()){
-                SetBag_NonEmpty lef = (SetBag_NonEmpty)this.left;
-                SetBag_NonEmpty lefgrand = (SetBag_NonEmpty)lef.left;
-                return new SetBag_NonEmpty(lef.root,lef.count,true,
-                                    lefgrand.blacken(),
-                                    new SetBag_NonEmpty(this.root,this.count,false,
-                                            lef.right,
-                                            this.right));
-            }
+
+    public SetBag_NonEmpty balance() {
+
+        if (!isRedHuh()
+                && this.left instanceof SetBag_NonEmpty
+                && ((SetBag_NonEmpty) this.left).left instanceof SetBag_NonEmpty
+                && ((SetBag_NonEmpty) this.left).isRed
+                && ((SetBag_NonEmpty) ((SetBag_NonEmpty) this.left).left).isRed) {
+      // left.color is red, left.left.color is red
+
+            SetBag_NonEmpty L1 = ((SetBag_NonEmpty) this.left);
+            SetBag_NonEmpty L2 = ((SetBag_NonEmpty) L1.left);
+
+            //System.out.println("Case 1");
+            return new SetBag_NonEmpty(/*this.left.root*/L1.root,
+                    /*this.left.count*/ L1.count, true,
+                    new SetBag_NonEmpty(/*this.left.left.root*/L2.root,
+                            /*this.left.left.count*/ L2.count,
+                            false,
+                            /*this.left.left.left*/ L2.left,
+                            /*this.left.left.right*/ L2.right),
+                    new SetBag_NonEmpty(this.root,
+                            this.count,
+                            false,
+                            /*this.left.right*/ L1.right,
+                            this.right));
+        } else if (!isRed
+                && this.left instanceof SetBag_NonEmpty
+                && ((SetBag_NonEmpty) this.left).right instanceof SetBag_NonEmpty
+                && ((SetBag_NonEmpty) this.left).isRed
+                && ((SetBag_NonEmpty) ((SetBag_NonEmpty) this.left).right).isRed) { // left.color is red, left.right.color is red
+
+            SetBag_NonEmpty L1 = ((SetBag_NonEmpty) this.left);
+            SetBag_NonEmpty LR = ((SetBag_NonEmpty) L1.right);
+
+      //System.out.println("Case 2");
+            return new SetBag_NonEmpty(/*this.left.right.root*/LR.root,
+                    /*this.left.right.count*/ LR.count,
+                    true,
+                    new SetBag_NonEmpty(
+                            /*this.left.root*/L1.root,
+                            /*this.left.count*/ L1.count,
+                            false,
+                            /*this.left.left*/ L1.left,
+                            /*this.left.right.left*/ LR.left),
+                    new SetBag_NonEmpty(this.root,
+                            this.count,
+                            false,
+                            /*this.left.right.right*/ LR.right,
+                            this.right));
+        } else if (!isRed
+                && this.right instanceof SetBag_NonEmpty
+                && ((SetBag_NonEmpty) this.right).left instanceof SetBag_NonEmpty
+                && ((SetBag_NonEmpty) this.right).isRed
+                && ((SetBag_NonEmpty) ((SetBag_NonEmpty) this.right).left).isRed) {
+
+            SetBag_NonEmpty R1 = ((SetBag_NonEmpty) this.right);
+            SetBag_NonEmpty RL = ((SetBag_NonEmpty) R1.left);
+
+      //System.out.println("Case 3");
+            // right.left.color is red
+            return new SetBag_NonEmpty( /*this.right.left*/RL.root,
+                    /*this.right.left*/ RL.count,
+                    true,
+                    new SetBag_NonEmpty(this.root,
+                            this.count,
+                            false,
+                            this.left,
+                            /*this.right.left*/ RL.left),
+                    new SetBag_NonEmpty(/*this.right*/R1.root,
+                            /*this.right*/ R1.count,
+                            false,
+                            /*this.right.left*/ RL.right,
+                            /*this.right*/ R1.right));
+        } else if (!isRed
+                && this.right instanceof SetBag_NonEmpty
+                && ((SetBag_NonEmpty) this.right).right instanceof SetBag_NonEmpty
+                && ((SetBag_NonEmpty) this.right).isRed
+                && ((SetBag_NonEmpty) ((SetBag_NonEmpty) this.right).right).isRed) {
+
+            SetBag_NonEmpty R1 = ((SetBag_NonEmpty) this.right);
+            SetBag_NonEmpty R2 = ((SetBag_NonEmpty) R1.right);
+
+      //System.out.println("Case 4");
+            // right.right.color is red
+            return new SetBag_NonEmpty(/*this.right*/R1.root,
+                    /*this.right*/ R1.count,
+                    true,
+                    new SetBag_NonEmpty(this.root,
+                            this.count,
+                            false,
+                            this.left,
+                            /*this.right.left*/ R1.left),
+                    new SetBag_NonEmpty( /*this.right.right*/R2.root,
+                            /*this.right.right*/ R2.count,
+                            false,
+                            /*this.right.right*/ R2.left,
+                            /*this.right.right*/ R2.right));
+        } else {
+            //System.out.println("Case 5");
+            return this;
         }
-        catch(Exception e){}
-        try{if(this.right.isRedHuh()&&this.right.right().isRedHuh()){
-                SetBag_NonEmpty rig = (SetBag_NonEmpty)this.right;
-                SetBag_NonEmpty riggrand = (SetBag_NonEmpty)rig.right;
-                return new SetBag_NonEmpty(rig.root,rig.count,true,
-                                    new SetBag_NonEmpty(this.root,this.count,false,
-                                            this.left,
-                                            rig.left),
-                                    riggrand.blacken());
-            }
-        }
-        catch(Exception e){}
-        try{if(this.left.isRedHuh()&&this.left.right().isRedHuh()){
-                SetBag_NonEmpty lef = (SetBag_NonEmpty)this.left;
-                SetBag_NonEmpty riggrand = (SetBag_NonEmpty)lef.right;
-                return new SetBag_NonEmpty(riggrand.root,riggrand.count,true,
-                                    new SetBag_NonEmpty(lef.root,lef.count,false,
-                                            lef.left,
-                                            riggrand.left),
-                                    new SetBag_NonEmpty(this.root,this.count,false,
-                                            riggrand.right,
-                                            this.right));
-            }
-        }
-        catch(Exception e){}
-        try{if(this.right.isRedHuh()&&this.right.left().isRedHuh()){
-                SetBag_NonEmpty rig = (SetBag_NonEmpty)this.right;
-                SetBag_NonEmpty lefgrand = (SetBag_NonEmpty)rig.left;
-                return new SetBag_NonEmpty(lefgrand.root,lefgrand.count,true,
-                                    new SetBag_NonEmpty(this.root,this.count,false,
-                                            this.left,
-                                            lefgrand.left),
-                                    new SetBag_NonEmpty(rig.root,rig.count,false,
-                                            lefgrand.right,
-                                            rig.right));
-            }
-        }
-        catch(Exception e){}
-        
-        return this;
     }
-        return this;
-    }
-   
+
     public Bag<D> addInner(D elt, int n) {
         if (elt.compareTo(this.root) == 0) {
             return new SetBag_NonEmpty(this.root, this.count + n, this.isRed, this.left, this.right);
@@ -283,7 +318,5 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D>, Sequenced<
             return new SetBag_NonEmpty(this.root, this.count, this.isRed, this.left, this.right.addInner(elt, n)).balance();
         }
     }
-
-
 
 }

@@ -20,20 +20,9 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
         this.isRed = isRed;
     }
     
-      public Bag<D> left() throws Exception {
-        throw new Exception();
-    }
-    
-    public Bag<D> right() throws Exception {
-        throw new Exception();
-    }
-    
+   
     
     //Balance Tree methods
-    
-    public Bag<D> blacken() {
-        return this;
-    }
     
     public Bag<D> addInner(D elt, int n) {
         return new SetBag_Empty();
