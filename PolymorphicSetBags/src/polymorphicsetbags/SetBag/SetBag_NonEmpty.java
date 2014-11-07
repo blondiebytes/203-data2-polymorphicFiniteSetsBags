@@ -14,12 +14,12 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D>, Sequenced<
     Bag<D> left;
     Bag<D> right;
 
-    public SetBag_NonEmpty(D root, int count, boolean isRed, Bag<D> left, Bag<D> right) {
+    public SetBag_NonEmpty(D root, int count, boolean isBlack, Bag<D> left, Bag<D> right) {
         this.count = count;
         this.root = root;
         this.left = left;
         this.right = right;
-        this.isBlack = isRed;
+        this.isBlack = isBlack;
     }
 
     public SetBag_NonEmpty(D root, int count, Bag<D> left, Bag<D> right) {
