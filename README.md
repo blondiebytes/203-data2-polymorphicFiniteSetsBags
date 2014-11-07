@@ -1,5 +1,7 @@
-Data2-PolymorphicFiniteSetsBags
+Data 2 : Polymorphic Finite Set Bags
 ===============================
+Fall 2014: CS 203
+
 3.3 Polymorphic Finite Bags
 
 Your challenge is to develop a correct, pure implementation of the finite bag data-structure. A finite bag is also called a mulitset and is like a set, but each element may occur many times. Your bags should be polymorphic, i.e. use generics to allow any kind of contents. By "pure", we mean that operations on the set return new sets and do not modify the old set. I expect your sets to be implemented efficiently. Using basic binary search trees is no longer sufficient, instead use a self-balancing binary tree.
