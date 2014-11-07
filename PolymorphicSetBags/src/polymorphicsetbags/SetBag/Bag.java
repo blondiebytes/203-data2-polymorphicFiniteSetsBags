@@ -24,8 +24,9 @@ public interface Bag<D extends Comparable> extends Sequenced<D>{
     public int sumItS(Sequence<D> as);
     public String stringIt();
     public String stringItS(Sequence<D> as);
-    public Bag<D> addInner(D elt, int n);
-    public boolean isRedHuh();
+    public Bag<D> balance();
+    public boolean isBlackHuh();
+    public Bag<D> blacken();
 
 }
 

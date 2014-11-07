@@ -9,27 +9,31 @@ import static polymorphicsetbags.SetBag.SetBag_NonEmpty.empty;
 
 
 public class SetBag_Empty<D extends Comparable> implements Bag<D> {
-    boolean isRed;
+    boolean isBlack;
     
     
     public void SetBag_Empty() {
-       
+       this.isBlack = true;
     }
     
-    public void SetBag_Empty(Boolean isRed) {
-        this.isRed = isRed;
+    public void SetBag_Empty(Boolean isBlack) {
+        this.isBlack = isBlack;
     }
-    
+  
    
     
     //Balance Tree methods
     
-    public Bag<D> addInner(D elt, int n) {
-        return new SetBag_Empty();
+    public Bag<D> balance() {
+        return this;
     }
     
-    public boolean isRedHuh() {
-        return isRed;
+    public boolean isBlackHuh() {
+        return isBlack;
+    }
+    
+    public Bag<D> blacken() {
+        return new SetBag_Empty();
     }
            
     // Sequence Methods
@@ -84,11 +88,11 @@ public class SetBag_Empty<D extends Comparable> implements Bag<D> {
     }
 
     public Bag add(D elt) {
-        return new SetBag_NonEmpty(elt);
+        return this.addN(elt,1).blacken();
     }
     
     public Bag addN(D elt, int n) {
-        return new SetBag_NonEmpty(elt, n);
+        return new SetBag_NonEmpty(elt, n, false, empty(), empty());
     }
 
     
