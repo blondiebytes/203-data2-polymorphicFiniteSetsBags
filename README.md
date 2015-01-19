@@ -1,6 +1,5 @@
-Data 2 : Polymorphic Finite Set Bags
+Polymorphic Finite Set Bags
 ===============================
-Fall 2014: CS 203
 
 3.3 Polymorphic Finite Bags
 
@@ -12,15 +11,6 @@ You should thoroughly demonstrate the correctness of these operations by appeali
 
 I highly suggest you use these properties to randomly generate large numbers of test cases and search for witnesses of their negation.
 
-3.3.1 Turn-in and Grading
-This project has two pieces to turn in. The first is just like the Finite Sets project:
-
-You should turn in your source code, a console transcript of your test suite’s execution, and an essay which describes your approach to implementing and verifying the system. Your essay should probably make reference to specific lines in your source code and test transcript.
-
-You will be graded on the persuasiveness of your essay.
+You should bring in your source code, a console transcript of your test suite’s execution, and an essay which describes your approach to implementing and verifying the system. Your essay should probably make reference to specific lines in your source code and test transcript.
 
 However, you also need to turn in a manual for your library. The library should document the API, describe its use, explain the properties that hold between API calls, and present performance characteristics. I recommend using a tool like Javadoc to help you make this manual.
-
-You will be graded on the thoroughness of your manual.
-
-These two pieces of the project will be weighted equally.
