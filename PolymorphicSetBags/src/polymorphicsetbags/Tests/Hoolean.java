@@ -10,6 +10,12 @@ public class Hoolean implements Comparable<Hoolean> {
         bool = boolz;
     }
     
+     
+    // LOGIC: 
+    // -1 (this < bool) ; 0 (this == bool) ; 1 (this > bool)
+    //  false < true;       false == false      true > false
+    ///                      true == true
+       
     public int compareTo(Hoolean bool) {
         if (this.bool == bool.bool) {
             return 0;
@@ -18,10 +24,6 @@ public class Hoolean implements Comparable<Hoolean> {
         } else {
             return 1;
         }
-        // -1 (this < bool) ; 0 (this == bool) ; 1 (this > bool)
-        //  false < true;       false == false      true > false
-        ///                      true == true
-       
     }
     
     public String toString() {
