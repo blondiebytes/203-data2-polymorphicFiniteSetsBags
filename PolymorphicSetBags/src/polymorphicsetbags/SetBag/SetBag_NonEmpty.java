@@ -70,7 +70,7 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D>, Sequenced<
         return new Sequence_NonEmpty(root, count, (new Sequence_Cat(left.seq(), right.seq())));
     }
 
-    // IMPLEMENTATION OF SEQUENCES: 
+    // IMPLEMENTATION OF SEQUENCES: -- so we can see what's going on 
     public int sumIt() {
         return sumItS(this.seq());
     }
@@ -98,6 +98,9 @@ public class SetBag_NonEmpty<D extends Comparable> implements Bag<D>, Sequenced<
         return all.toString();
     }
 
+    
+    // BST Methods 
+    
     public static Bag empty() {
         return new SetBag_Empty();
     }

@@ -6,6 +6,9 @@ import static polymorphicsetbags.SetBag.SetBag_NonEmpty.empty;
 
 public class TesterClass<D extends Comparable> {
 
+    // Our tester class is used to test the BST with different
+    // types of data inside of it (hence the Generic-ness)
+    
     Generator<D> gen;
 
     int checkTree_empty_isEmptyHuh = 0;
@@ -204,21 +207,9 @@ public class TesterClass<D extends Comparable> {
                     }
             }
         }
-//        if (t.isEmptyHuh()) {
-////            "Success! The tree t is empty leaving the diff "
-////                    + "to be all of r
-//        } else if (!t.subset(difference)) {
-////            Success! A tree is not a subset of the "
-////                    + "difference"
-//        } else {
-//            System.out.println("T cardinality: " + t.cardinality() + " R cardinality: " + r.cardinality());
-//            throw new Exception("Failure! Problem with subset or diff!");
-//        }
         checkTree_subset_diff++;
     }
 
-    // This test also says something is wrong with diff because all of the other
-    // tests -> besides the ones using diff -> work
     public void checkTree_diff_inter_empty_equal(Bag t, Bag r) throws Exception {
         // t inter r = the empty set iff t - r = t
         if ((t.inter(r)).equal(empty()) && r.diff(t).equal(t)) {
@@ -264,6 +255,7 @@ public class TesterClass<D extends Comparable> {
         checkTree_inter_empty++;
     }
 
+    // This function runs all the tests
     public void runAll() throws Exception {
         // "Testing for Empty() & IsEmptyHuh?: "
         System.out.println();
@@ -414,11 +406,11 @@ public class TesterClass<D extends Comparable> {
         System.out.println("Testing Inter & Empty(): " + checkTree_inter_empty + " times");
         System.out.println("================================");
         
-         for ( int i = 0; i < 25; i++) {
-                int len = rndInt(0, 10);
-                Bag l = rndBag(len);
-                 System.out.println("Sequencing: " + l.stringIt());
-            }
+        // for ( int i = 0; i < 10; i++) {
+        //       int len = rndInt(0, 10);
+        //        Bag l = rndBag(len);
+        //         System.out.println("Sequencing: " + l.cardinality() + " || " + l.stringIt());
+        //    }
     }
 
 }
