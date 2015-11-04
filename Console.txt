@@ -1,0 +1,155 @@
+run:
+
+TESTING INTEGERS
+-----------------------------------------------------
+
+Testing for Empty() & IsEmptyHuh?: 1000 times.
+
+Testing: IsEmptyHuh? & Cardinality: 1000 times
+
+Testing: Sequences & Cardinality: 1000 times
+
+Testing: Cardinality & Remove: 1000 times
+
+Testing: Remove (EQUAL) &  Add: 1000 times
+
+Testing: Add & Member: 1000 times
+
+Testing: Member & Union: 1000 times
+
+Testing: Union & Get Count: 1000 times
+
+Testing: Union & Subset: 1000 times
+
+Testing: Subset & Diff: 1000 times
+
+Testing: Diff (EMPTY & INTER) & Equal: 1199 times
+
+Testing: Equal (UNION) & Inter: 1188 times
+
+Testing Inter & Empty(): 1000 times
+================================
+
+
+TESTING STRINGS
+-----------------------------------------------------
+
+Testing for Empty() & IsEmptyHuh?: 1000 times.
+
+Testing: IsEmptyHuh? & Cardinality: 1000 times
+
+Testing: Sequences & Cardinality: 1000 times
+
+Testing: Cardinality & Remove: 1000 times
+
+Testing: Remove (EQUAL) &  Add: 1000 times
+
+Testing: Add & Member: 1000 times
+
+Testing: Member & Union: 1000 times
+
+Testing: Union & Get Count: 1000 times
+
+Testing: Union & Subset: 1000 times
+
+Testing: Subset & Diff: 1000 times
+
+Testing: Diff (EMPTY & INTER) & Equal: 1179 times
+
+Testing: Equal (UNION) & Inter: 1199 times
+
+Testing Inter & Empty(): 1000 times
+================================
+
+
+TESTING BOOLEANS
+-----------------------------------------------------
+
+Testing for Empty() & IsEmptyHuh?: 1000 times.
+
+Testing: IsEmptyHuh? & Cardinality: 1000 times
+
+Testing: Sequences & Cardinality: 1000 times
+
+Testing: Cardinality & Remove: 1000 times
+
+Testing: Remove (EQUAL) &  Add: 1000 times
+
+Testing: Add & Member: 1000 times
+
+Testing: Member & Union: 1000 times
+
+Testing: Union & Get Count: 1000 times
+
+Testing: Union & Subset: 1000 times
+
+Testing: Subset & Diff: 1000 times
+
+Testing: Diff (EMPTY & INTER) & Equal: 1192 times
+
+Testing: Equal (UNION) & Inter: 1204 times
+
+Testing Inter & Empty(): 1000 times
+================================
+
+
+HARD-CODED TESTS
+-----------------------------------------------------
+Cardinality: We should have 6 things = 6 = seq = 6
+Sequencing: 5 5 3 7   7 7   
+Cardinality & Remove: We should have 5 things = 5
+Cardinality & add: We should have 7 things = 7
+Cardinality & add: We should have 7 things = 7
+Get Count & Remove: 2 = 2
+Get Count: 3 = 3
+MemberNOT = false
+MemberYES = true
+Member & Add YES =true
+Equal = true = true
+Equal = false = false
+Subset = true = true
+Subset = false = false
+Inter & equal: Bag inter empty() = empty() = true  = true
+Inter & equal:  empty() inter empty() = empty() true = true
+Union & equal: empty() U bag = bag | true = true
+Union & equal: bag U empty() = bag | true = true
+Union & equal: bag U empty() -> bag.cardinality 6 = union.cardinality 6
+Union & equal: bag U bag = bag | false = false
+Union & equal: bag U bag = bag | cardinality should be doubled = 2x U:12bag 6
+Union & equal: bag U bag = bag | Should have 6 fives = 6
+Union & equal: bag U bag = bag | Should have 2 threes = 2
+Union & equal: bag U bag = bag | Should have 4 sevens = 4
+Inter & equal: bag inter bag = bag | true = true
+Inter & equal: bag(without 5) inter bag = bag(without 5) | true = true
+AddN & Cardinality 6 + 3 = 9
+RemoveN & Cardinality 6 - 3 = 3
+RemoveN & Cardinality 6 - 2 = 4
+RemoveN & Cardinality 6 - 1 = 5
+RemoveN & Cardinality 6 - 1 = 5
+RemoveN & Cardinality 6 - 1 = 5
+RemoveN & Cardinality 6 - 0 = 6
+AddN & Cardinality 6 + 3 = 9
+AddN & Cardinality 6 + 2 = 8
+AddN & Cardinality 6 + 1 = 7
+AddN & Cardinality 6 + 2 = 8
+AddN & Cardinality 6 + 1 = 7
+Difference: Bag - bag = bag | false = false
+Difference: Bag - bag = empty() | true = true
+Difference: Bag (w/o 5) - bag = empty() | true = true
+Difference: Bag - bag(w/o 5) = bag | true = true
+
+=== Member (String) tests ===
+true should be true
+false should be false
+false should be false
+true should be true
+true should be true
+true should be true
+true should be true
+true should be true
+true should be true
+true should be true
+true should be true
+true should be true
+
+BUILD SUCCESSFUL (total time: 3 seconds)
